@@ -1,102 +1,111 @@
-// FeatureStrips.tsx
-import TextType from "@/components/ui/TextType/TextType";
-import { Box, Flex, Heading, Image, VStack } from "@chakra-ui/react";
-import xdcIcon from "../../assets/images/landing/xdc-big-icon.png";
+import { Box, Flex, VStack } from "@chakra-ui/react";
+import bgPatternLeft from "../../assets/images/landing/bgPatternLeft.png";
 
-const items = [
+const WHY_XDC_FEATURES = [
   {
-    bold: "2-second finality",
-    rest: "ensures instant and reliable execution.",
-    ml: { base: 0, md: 0, lg: 0 },
+    id: 1,
+    title: "Instant Finality",
+    description: "2-Second Finality ensures instant and reliable execution.",
   },
   {
-    bold: "Gas fees < $0.0001",
-    rest: "make user transactions nearly free.",
-    ml: { base: 0, md: "80px", xl: "180px" },
+    id: 2,
+    title: "Near-Zero Gas Fees",
+    description: "Gas fees < $0.0001 make user transactions nearly free.",
   },
   {
-    bold: "Hybrid and Compliance-Ready.",
-    rest: "Architecture",
-    ml: { base: 0, md: "200px", xl: "340px" },
+    id: 3,
+    title: "Global-Scale Performance",
+    description:
+      "Scalable & energy-efficient Layer-1 network with global reach.",
   },
   {
-    bold: "Scalable and energy-efficient",
-    rest: "Layer-1 network with global reach.",
-    ml: { base: 0, md: "300px", xl: "500px" },
+    id: 4,
+    title: "Enterprise-Ready Architecture",
+    description:
+      "Hybrid & compliance-ready architecture suitable for enterprise and institutional adoption.",
   },
 ];
 
-const WhyBuildOnXDC = () => {
+export default function WhyBuildOnXDC() {
   return (
-    <Box as={"section"} mb={{ base: "60px", md: "80px", lg: "100px" }}>
-      <Heading
-        as="h2"
-        fontSize={"32px"}
-        mb={"40px"}
-        fontWeight={700}
-        letterSpacing={"0.5px"}
-        lineHeight={1.2}
-      >
-        Why build on XDC Network?
-      </Heading>
-      <Box w="full" bgGradient="linear(to-br, #ffffff, #f1f1f1)">
-        <VStack align="stretch" gap={"30px"} py={{ base: "20px", md: "30px" }}>
-          {items.map((item, i) => (
+    <Box
+      w="100%"
+      maxW="1280px"
+      mx="auto"
+      px={{ base: "24px", md: "60px", lg: "80px" }}
+      py={{ base: "40px", md: "60px", lg: "80px" }}
+      borderColor="#254459"
+      borderLeftWidth="1px"
+      borderRightWidth="1px"
+      textAlign="left"
+      position="relative"
+      overflow="hidden"
+    >
+      <Box
+        w="100%"
+        h="100%"
+        position="absolute"
+        inset={0}
+        bgImage={`url(${bgPatternLeft})`}
+        bgRepeat="no-repeat"
+        bgSize="cover"
+        opacity={0.6}
+        pointerEvents="none"
+        zIndex={0}
+      />
+      <Box position={"relative"} zIndex={1}>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          align={{ base: "flex-start", md: "first" }}
+          gap={{ base: 10, md: 16 }}
+        >
+          {/* Left: main heading */}
+          <Box flex={{ base: "none", md: "0 0 40%" }}>
             <Box
-              key={item.bold}
-              position="relative"
-              pl={{ base: "35px", md: "35px" }}
-              ml={item.ml}
+              as="h2"
+              fontSize={{ base: "30px", md: "36px", lg: "48px" }}
+              mt={{ base: 4 }}
+              fontWeight={700}
+              color="#FFFFFF"
+              lineHeight="1.15"
             >
-              {/* X icon */}
-              <Flex
-                position="absolute"
-                left="0"
-                top="50%"
-                transform="translateY(-50%)"
-                w="25px"
-                h="25px"
-                align="center"
-                justify="center"
-              >
-                <Image src={xdcIcon} />
-              </Flex>
-
-              {/* pill */}
-              <Flex
-                as="div"
-                align="center"
-                justifyContent={"center"}
-                px={{ base: "15px", md: "20px" }}
-                py={{ base: "15px", md: "21px" }}
-                borderRadius="250px"
-                maxW={"626px"}
-                w={"100%"}
-                background="linear-gradient(90deg, #777777 0%, #FFFFFF 100%)"
-                border="1px solid #000000"
-                boxShadow="0px 3.3px 3.3px 0px #00000040"
-              >
-                <TextType
-                  text={`${item.bold} ${item.rest}`}
-                  typingSpeed={50}
-                  showCursor={false}
-                  startOnVisible={true}
-                  loop={false}
-                  className="text-type-xdc"
-                  style={{
-                    fontSize: "clamp(14px, 4vw, 20px)",
-                    color: "#000",
-                    lineHeight: 1.5,
-                    textAlign: "center",
-                  }}
-                />
-              </Flex>
+              Why Build On
+              <br />
+              XDC Network
             </Box>
-          ))}
-        </VStack>
+          </Box>
+
+          <VStack flex="1" align="stretch" gap={{ base: 4, md: 5 }}>
+            {WHY_XDC_FEATURES.map((item) => (
+              <Box
+                key={item.id}
+                borderRadius="16px"
+                border="1px solid #254459"
+                px={{ base: 5, md: 6 }}
+                py={{ base: 4, md: 8 }}
+              >
+                <Box
+                  as="h3"
+                  fontSize={{ base: "20px", md: "24px", lg: "28px" }} // 28px on lg
+                  fontWeight={700}
+                  color="#FFFFFF"
+                  mb={1}
+                >
+                  {item.title}
+                </Box>
+                <Box
+                  as="p"
+                  fontSize={{ base: "14px", md: "16px", lg: "18px" }} // 18px on lg
+                  lineHeight="1.6"
+                  color="rgba(226, 232, 240, 0.5)"
+                >
+                  {item.description}
+                </Box>
+              </Box>
+            ))}
+          </VStack>
+        </Flex>
       </Box>
     </Box>
   );
-};
-
-export default WhyBuildOnXDC;
+}

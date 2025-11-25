@@ -25,16 +25,22 @@ const LandingHeader = () => {
           onClick={() => scrollToSection("how-creditify-works")}
           className="nav-link"
           cursor="pointer"
+          color="#FFFFFF"
+          borderBottomWidth={"1px"}
+          borderColor="#FFFFFF"
         >
           How it Works
         </Box>
         <Box
           as="button"
-          onClick={() => scrollToSection("market-overview")}
+          onClick={() => scrollToSection("features")}
           className="nav-link"
           cursor="pointer"
+          color="#FFFFFF"
+          borderBottomWidth={"1px"}
+          borderColor="#FFFFFF"
         >
-          Markets
+          Features
         </Box>
         <Button
           className="primary-btn"

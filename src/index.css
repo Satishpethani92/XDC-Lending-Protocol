@@ -354,3 +354,32 @@ tr:last-child > td {
 .icon-dark:hover {
   color: #fff;
 }
+
+.landing-page .hero-section h1 {
+  color: white !important;
+}
+
+.landing-page .hero-section h3 {
+  color: white !important;
+}
+
+.landing-page-new {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.landing-page-new p {
+  font-family: "General Sans, sans-serif";
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: -387.27px;
+  left: 387.16px;
+  width: 691.15px;
+  height: 1171.77px;
+  background: linear-gradient(298.3deg, #48d4ff 7.6%, #000203 55.66%);
+  background-blend-mode: multiply;
+  transform: rotate(47.33deg);
+  opacity: 1; /* you can lower this for subtle effect */
+  pointer-events: none; /* so it doesn’t block clicks */
+}
