@@ -33,29 +33,29 @@ const LandingHeader = () => {
         </Box>
         <Box
           as="button"
-          onClick={() => scrollToSection("features")}
+          // onClick={() => scrollToSection("features")}
           className="nav-link"
           cursor="pointer"
           color="#FFFFFF"
           borderBottomWidth={"1px"}
           borderColor="#FFFFFF"
         >
-          Features
+          Contact us
         </Box>
         <Button
           className="primary-btn"
           onClick={() => navigate(ROUTES.DASHBOARD)}
         >
-          Open App
+          Launch Creditify
         </Button>
-        <Box className="landing-btn">
+        {/*<Box className="landing-btn">
           <ConnectButton
             label="Connect Wallet"
             chainStatus="none"
             showBalance={false}
             accountStatus="address"
           />
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );
