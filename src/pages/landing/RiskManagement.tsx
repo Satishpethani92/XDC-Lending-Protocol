@@ -1,6 +1,6 @@
 import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import trueSignImg from "@/assets/images/landing/trueSignImg.svg";
-import shieldImg from "@/assets/images/landing/shieldImg.svg";
+import shieldImg from "@/assets/images/landing/shieldImg.png";
 
 const RISK_ITEMS = [
   "Mandatory over-collateralization",
@@ -38,7 +38,7 @@ export default function RiskManagement() {
         Risk Management Framework
       </Box>
 
-      {/* Top row: first 3 cards */}
+      {/* Top row */}
       <SimpleGrid
         columns={{ base: 1, md: 3 }}
         gap={{ base: 4, md: 6 }}
@@ -69,16 +69,14 @@ export default function RiskManagement() {
         ))}
       </SimpleGrid>
 
-      {/* Bottom row: two cards + center illustration */}
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        align="center"
-        justify="space-between"
-        gap={{ base: 6, md: 6 }}
+      {/* Bottom row */}
+      <SimpleGrid
+        columns={{ base: 1, md: 3 }}
+        gap={{ base: 4, md: 6 }}
+        alignItems="center"
       >
         {/* Left card */}
         <Box
-          flex={{ base: "unset", md: "1 1 0" }}
           borderRadius="16px"
           border="1px solid #D7EBF4"
           bg="#FFFFFF"
@@ -97,12 +95,7 @@ export default function RiskManagement() {
         </Box>
 
         {/* Center shield illustration */}
-        <Box
-          flex={{ base: "unset", md: "1 1 0" }} // same flex as cards
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Box display="flex" alignItems="center" justifyContent="center">
           <Image
             src={shieldImg}
             alt="Secure illustration"
@@ -113,7 +106,6 @@ export default function RiskManagement() {
 
         {/* Right card */}
         <Box
-          flex={{ base: "unset", md: "1 1 0" }}
           borderRadius="16px"
           border="1px solid #D7EBF4"
           bg="#FFFFFF"
@@ -130,7 +122,7 @@ export default function RiskManagement() {
             {RISK_ITEMS[4]}
           </Box>
         </Box>
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 }
