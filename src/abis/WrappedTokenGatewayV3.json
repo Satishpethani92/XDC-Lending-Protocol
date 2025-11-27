@@ -3,7 +3,7 @@
     "type": "constructor",
     "inputs": [
       {
-        "name": "wxdc",
+        "name": "weth",
         "type": "address",
         "internalType": "address"
       },
@@ -43,7 +43,7 @@
   },
   {
     "type": "function",
-    "name": "WXDC",
+    "name": "WETH",
     "inputs": [],
     "outputs": [
       {

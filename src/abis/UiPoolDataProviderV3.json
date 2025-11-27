@@ -62,6 +62,69 @@
   },
   {
     "type": "function",
+    "name": "getEModes",
+    "inputs": [
+      {
+        "name": "provider",
+        "type": "address",
+        "internalType": "contract IPoolAddressesProvider"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct IUiPoolDataProviderV3.Emode[]",
+        "components": [
+          {
+            "name": "id",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "eMode",
+            "type": "tuple",
+            "internalType": "struct DataTypes.EModeCategory",
+            "components": [
+              {
+                "name": "ltv",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "liquidationThreshold",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "liquidationBonus",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "collateralBitmap",
+                "type": "uint128",
+                "internalType": "uint128"
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "borrowableBitmap",
+                "type": "uint128",
+                "internalType": "uint128"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getReservesData",
     "inputs": [
       {
@@ -222,9 +285,24 @@
             "internalType": "bool"
           },
           {
+            "name": "isSiloedBorrowing",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
             "name": "accruedToTreasury",
             "type": "uint128",
             "internalType": "uint128"
+          },
+          {
+            "name": "isolationModeTotalDebt",
+            "type": "uint128",
+            "internalType": "uint128"
+          },
+          {
+            "name": "flashLoanEnabled",
+            "type": "bool",
+            "internalType": "bool"
           },
           {
             "name": "debtCeiling",
@@ -245,6 +323,11 @@
             "name": "supplyCap",
             "type": "uint256",
             "internalType": "uint256"
+          },
+          {
+            "name": "borrowableInIsolation",
+            "type": "bool",
+            "internalType": "bool"
           },
           {
             "name": "virtualUnderlyingBalance",

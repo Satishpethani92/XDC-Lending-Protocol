@@ -98,22 +98,22 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   // XDC Apothem Testnet (Auto-generated from .env)
   [xdcTestnet.id]: {
     contracts: {
-      pool: "0xC5b9cDefDE1E2010E96b78F98B535CC11617d0E2",
-      poolAddressesProvider: "0x7B0500E53466d200A3c20ec8dA8Fa972E161A6D6",
-      uiPoolDataProvider: "0x3d0F2FFb3A244AD5504c7feC1E30e1625520ba51",
-      protocolDataProvider: "0x391676Cdb256266C912455D6cF9C9F5b54e30Bd1",
-      walletBalanceProvider: "0xdc7Ee3b575406846137524264059956D1Bf5b36b",
-      oracle: "0x11d372a209F63869d43EFAA40af76D44d4C2EE88",
-      wrappedTokenGateway: "0x85279e8A0f0697d458C8D8f6eCa4555A14C95569",
-      uiIncentiveDataProvider: "0xd154519F392d6183a6107389b3BF7e6CC9A10fd1",
+      pool: "0x0d41D65B4b9410917E101fb9eb709E48B8D10523",
+      poolAddressesProvider: "0x299F4b500309fFEAe459af5Baf5e35784dDC8664",
+      uiPoolDataProvider: "0xbab1762770DcC776d0D13143DBdC90F228A4bd63",
+      protocolDataProvider: "0x91620DE48437d7EDDAe04E7ed8DC686586A7FB53",
+      walletBalanceProvider: "0x95A99E0fB0E55CD5290961c4d8070EA945157786",
+      oracle: "0xFc07A4AeabC6D09D59946d2845b9F3603acB41F0",
+      wrappedTokenGateway: "0xA6FDF78aa29A7A34812fa8B26cE692D6b54e2747",
+      uiIncentiveDataProvider: "0x41211e3fA59148EbFFc1bc6E08868CC6DD915320",
     },
     tokens: {
       wrappedNative: {
         address: "0xC2EABDC14A96A48ee56Dec9917d9057AB93439Ab", // WXDC on testnet
         symbol: "WXDC",
         decimals: 18,
-        aToken: "0x27687a39b3a553e7df3eb88d2f78a541f8ac8ca1",
-        variableDebtToken: "0xe82a3BE1d9606ad54cb6c572e4Dc034545D079b0",
+        aToken: "0x02946967ea4E5336F9B4F22D4385C5019D23AA93",
+        variableDebtToken: "0x9cB8a1c49957397dea6C16ba088CE7284523C33C",
       },
       usdc: {
         address: "0xE899E6C96dD269E1ea613F0B95dCB6411A510eca",
