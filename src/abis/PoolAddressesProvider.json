@@ -127,6 +127,19 @@
   },
   {
     "type": "function",
+    "name": "getPriceOracleSentinel",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "owner",
     "inputs": [],
     "outputs": [
@@ -265,6 +278,19 @@
     "inputs": [
       {
         "name": "newPriceOracle",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setPriceOracleSentinel",
+    "inputs": [
+      {
+        "name": "newPriceOracleSentinel",
         "type": "address",
         "internalType": "address"
       }
@@ -458,6 +484,25 @@
   {
     "type": "event",
     "name": "PoolUpdated",
+    "inputs": [
+      {
+        "name": "oldAddress",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newAddress",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "PriceOracleSentinelUpdated",
     "inputs": [
       {
         "name": "oldAddress",
