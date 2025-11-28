@@ -31,17 +31,6 @@ const LandingHeader = () => {
         >
           How it Works
         </Box>
-        <Box
-          as="button"
-          // onClick={() => scrollToSection("features")}
-          className="nav-link"
-          cursor="pointer"
-          color="#FFFFFF"
-          borderBottomWidth={"1px"}
-          borderColor="#FFFFFF"
-        >
-          Contact us
-        </Box>
         <Button
           className="primary-btn"
           onClick={() => navigate(ROUTES.DASHBOARD)}

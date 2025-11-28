@@ -50,13 +50,30 @@ export default function Footer() {
           </Text>
 
           {/* Small footer text */}
-          <Text
-            fontSize={{ base: "12px", md: "14px", lg: "16px" }}
-            color="#FFFFFF"
+          <Box
             mt={{ base: 4, md: 6 }}
+            display="flex"
+            justifyContent={"center"}
+            alignItems={"center"}
+            gap={{ base: 5 }}
           >
-            © Creditify • Built for DeFi • Non-custodial
-          </Text>
+            <Text
+              fontSize={{ base: "12px", md: "14px", lg: "16px" }}
+              color="#FFFFFF"
+            >
+              © Creditify • Built for DeFi • Non-custodial
+            </Text>
+            <Box
+              as="button"
+              className="nav-link"
+              cursor="pointer"
+              color="#FFFFFF"
+              borderBottomWidth={"1px"}
+              borderColor="#FFFFFF"
+            >
+              Contact us
+            </Box>
+          </Box>
         </Flex>
       </Box>
     </Box>
