@@ -1,10 +1,11 @@
+import credibilityHeroImg from "@/assets/images/landing/creditify-1.svg";
 import {
   formatCurrency,
   formatPercentage,
   useMainnetAssetDetails,
 } from "@/hooks/useMainnetAssetDetails";
 import { landingSystem } from "@/landingSystem";
-import { ROUTES } from "@/routes/paths";
+import { ROUTES, buildAssetDetailsRoute } from "@/routes/paths";
 import {
   Box,
   Button,
@@ -14,20 +15,18 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import bgPatternRight from "../../assets/images/landing/bgPatternRight.png";
 import xdcMiniIcon from "../../assets/images/landing/xdc-mini-icon.png";
 import usdcIcon from "../../assets/images/usdc.svg";
-import LandingHeader from "./LandingHeader";
-import credibilityHeroImg from "@/assets/images/landing/creditify-1.svg";
-import WhatCanYouDoOn from "./WhatCanYouDo";
-import HowItWorks from "./HowItWorks";
-import CoreProtocol from "./CoreProtocol";
-import type { TokenDetailsDTO } from "./types/type";
-import WhyBuildOnXDC from "./WhyBuildOnXDC";
-import RiskManagement from "./RiskManagement";
 import BusinessModel from "./BusinessModel";
+import CoreProtocol from "./CoreProtocol";
 import Footer from "./Footer";
-import bgPatternLeft from "../../assets/images/landing/bgPatternLeft.png";
-import bgPatternRight from "../../assets/images/landing/bgPatternRight.png";
+import HowItWorks from "./HowItWorks";
+import LandingHeader from "./LandingHeader";
+import RiskManagement from "./RiskManagement";
+import type { TokenDetailsDTO } from "./types/type";
+import WhatCanYouDoOn from "./WhatCanYouDo";
+import WhyBuildOnXDC from "./WhyBuildOnXDC";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -216,6 +215,10 @@ const LandingPage = () => {
                         fontSize={{ base: "12px", md: "16px" }}
                         fontWeight={600}
                         boxShadow="0 12px 30px rgba(0,0,0,0.4)"
+                        cursor="pointer"
+                        _hover={{ bg: "#ABDEEF4D" }}
+                        transition="background-color 0.2s"
+                        onClick={() => navigate(buildAssetDetailsRoute("usdc"))}
                       >
                         + And Earn Yield On Idle USDC
                       </Box>

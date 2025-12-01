@@ -217,18 +217,20 @@ const Dashboard = () => {
                 )}
               </Flex>
             </Flex>
-            <Button
-              size={"xs"}
-              variant={"plain"}
-              p={"3px 5px"}
-              minH={"auto"}
-              fontSize={"11px"}
-              h={"auto"}
-              className="btn-color-dark-1-hover"
-              onClick={() => navigate("/history")}
-            >
-              VIEW TRANSACTIONS
-            </Button>
+            {isConnected && (
+              <Button
+                size={"xs"}
+                variant={"plain"}
+                p={"3px 5px"}
+                minH={"auto"}
+                fontSize={"11px"}
+                h={"auto"}
+                className="btn-color-dark-1-hover"
+                onClick={() => navigate("/history")}
+              >
+                VIEW TRANSACTIONS
+              </Button>
+            )}
           </Flex>
         </Container>
       </Box>
