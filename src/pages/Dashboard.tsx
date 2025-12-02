@@ -155,12 +155,12 @@ const Dashboard = () => {
           <Flex gap="2" alignItems="center" mb="15px">
             <Image
               src={network.icon}
-              width="100px"
-              height="50px"
+              width={{ base: "60px", md: "100px" }}
+              height={{ base: "30px", md: "50px" }}
               objectFit="contain"
               flexShrink={0}
             />
-            <Heading size="4xl" className="text-white-1">
+            <Heading size={{ base: "2xl", md: "4xl" }} className="text-white-1">
               {network.name.replace(/^XDC\s+/i, "")} Market
             </Heading>
           </Flex>
