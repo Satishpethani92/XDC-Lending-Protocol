@@ -20,6 +20,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { IoWalletOutline } from "react-icons/io5";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAccount } from "wagmi";
+import ConnectYourWalletContent from "../ConnectYourWalletContent";
 import AssetInfo from "./AssetInfo";
 import AssetOverview from "./AssetOverview";
 
@@ -39,7 +40,7 @@ const AssetDetails = () => {
     isLoading,
   } = useAssetDetails(token);
 
-  const { chain } = useAccount();
+  const { chain, isConnected } = useAccount();
 
   const handleOpenExplorer = () => {
     if (!tokenInfo.address || !chain?.blockExplorers?.default?.url) return;
@@ -85,6 +86,162 @@ const AssetDetails = () => {
           <Spinner size="xl" />
         </Container>
       </>
+    );
+  }
+
+  if (!isConnected) {
+    return (
+      <Box display="flex" flexDirection="column" minH="100vh">
+        <Header />
+        <Box pt={"91px"} pb={"94px"} maxH={"290px"} bg={"#2b2d3c"}>
+          <Container
+            maxW={{
+              base: "100%",
+              lg: "container.lg",
+              xl: "container.xl",
+              "2xl": "container.2xl",
+            }}
+            px={{ base: "auto", "2xl": "0" }}
+            h="100%"
+          >
+            <Flex alignItems="center" gap="10px" mb="15px">
+              <Button
+                variant={"plain"}
+                className="btn-color-dark-1-hover"
+                size="sm"
+                onClick={() => navigate(-1)}
+              >
+                <Icon size="md">
+                  <IoMdArrowBack />
+                </Icon>
+                Go Back
+              </Button>
+              <Flex gap="2" alignItems="center">
+                <Image
+                  src={network.icon}
+                  width="50px"
+                  height="20px"
+                  objectFit="contain"
+                  flexShrink={0}
+                />
+                <Heading size="lg" className="text-white-1">
+                  {network.name.replace(/^XDC\s+/i, "")} Market
+                </Heading>
+              </Flex>
+            </Flex>
+
+            <Flex
+              alignItems="center"
+              gap={{ base: "15px", md: "32px" }}
+              flexWrap="wrap"
+            >
+              <Flex gap="3" alignItems="center">
+                <Image
+                  src={tokenInfo.icon}
+                  width="40px"
+                  height="40px"
+                  alt={tokenInfo.symbol}
+                />
+                <Flex direction="column">
+                  <Heading size="md" className="light-text-2">
+                    {tokenInfo.symbol}
+                  </Heading>
+                  <Flex gap="2" alignItems="center">
+                    <Heading
+                      size="xl"
+                      fontWeight="700"
+                      className="text-white-1"
+                    >
+                      {tokenInfo.fullName}
+                    </Heading>
+                  </Flex>
+                </Flex>
+              </Flex>
+
+              <Box
+                as="hr"
+                borderWidth="1px"
+                height="42px"
+                borderColor={"#62677b"}
+                display={{ base: "none", md: "block" }}
+              />
+
+              <Flex gap={{ base: "15px", md: "32px" }} flexWrap="wrap" flex="1">
+                <Flex direction="column">
+                  <Box fontSize="sm" className="light-text-1">
+                    Reserve Size
+                  </Box>
+                  <FormattedCounter
+                    value={reserveSize}
+                    fontSize={21}
+                    textColor="#fff"
+                    prefix="$"
+                    decimalPlaces={2}
+                  />
+                </Flex>
+
+                <Flex direction="column">
+                  <Box fontSize="sm" className="light-text-1">
+                    Available liquidity
+                  </Box>
+                  <FormattedCounter
+                    value={availableLiquidity}
+                    fontSize={21}
+                    textColor="#fff"
+                    prefix="$"
+                    decimalPlaces={2}
+                  />
+                </Flex>
+
+                <Flex direction="column">
+                  <Box fontSize="sm" className="light-text-1">
+                    Utilization Rate
+                  </Box>
+                  <FormattedCounter
+                    value={utilizationRate}
+                    fontSize={21}
+                    textColor="#fff"
+                    suffix="%"
+                    decimalPlaces={2}
+                  />
+                </Flex>
+
+                <Flex direction="column">
+                  <Box fontSize="sm" className="light-text-1">
+                    Oracle price
+                  </Box>
+                  <FormattedCounter
+                    value={oraclePrice}
+                    fontSize={21}
+                    textColor="#fff"
+                    prefix="$"
+                    decimalPlaces={oraclePrice < 10 ? 4 : 2}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
+          </Container>
+        </Box>
+        <Container
+          maxW={{
+            base: "100%",
+            lg: "container.lg",
+            xl: "container.xl",
+            "2xl": "container.2xl",
+          }}
+          px={{ base: "auto", "2xl": "0" }}
+          h="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          minH="60vh"
+        >
+          <ConnectYourWalletContent />
+        </Container>
+        <Box mt="auto">
+          <Footer />
+        </Box>
+      </Box>
     );
   }
 

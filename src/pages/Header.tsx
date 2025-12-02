@@ -51,7 +51,7 @@ const Header = () => {
                 closeOnSelect={false}
                 justifyContent="space-between"
               >
-                <Text>Testnet Mode</Text>
+                <Text>Apothem Network</Text>
                 <Switch.Root
                   size="sm"
                   checked={isTestnet}

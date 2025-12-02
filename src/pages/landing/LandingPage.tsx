@@ -30,7 +30,7 @@ import WhyBuildOnXDC from "./WhyBuildOnXDC";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  // Fetch data for landing page (XDC mainnet by default, or Apothem if VITE_TESTNET=true)
+  // Fetch data for landing page (XDC mainnet by default, or Apothem if VITE_APOTHEM=true)
   const {
     availableLiquidity: wxdcLiquidity,
     utilizationRate: wxdcUtilizationRate,

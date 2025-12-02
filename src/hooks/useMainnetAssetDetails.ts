@@ -13,7 +13,7 @@ import { useReadContract } from "wagmi";
 import { xdc, xdcTestnet } from "wagmi/chains";
 
 // Check environment variable to determine which network to use
-const isTestnet = import.meta.env.VITE_TESTNET === "true";
+const isTestnet = import.meta.env.VITE_APOTHEM === "true";
 const LANDING_CHAIN_ID = isTestnet ? xdcTestnet.id : xdc.id;
 const LANDING_CONFIG = CHAIN_CONFIGS[LANDING_CHAIN_ID];
 
