@@ -1,4 +1,5 @@
 import { landingSystem } from "@/landingSystem";
+import { ROUTES } from "@/routes/paths";
 import {
   Box,
   Button,
@@ -257,7 +258,7 @@ const Terms = () => {
           pt={{ base: 4, lg: 10 }}
           pb={{ base: 2, lg: 6 }}
         >
-          <LandingHeader />
+          <LandingHeader showHowItWorks={false} />
 
           <Box maxW="986px" mx="auto">
             <Flex
@@ -279,7 +280,7 @@ const Terms = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => navigate(-1)}
+                  onClick={() => navigate(ROUTES.DASHBOARD)}
                 >
                   <Icon>
                     <IoMdArrowBack />

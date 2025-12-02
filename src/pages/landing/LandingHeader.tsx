@@ -1,9 +1,12 @@
 import { ROUTES } from "@/routes/paths";
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useNavigate } from "react-router-dom";
 
-const LandingHeader = () => {
+interface LandingHeaderProps {
+  showHowItWorks?: boolean;
+}
+
+const LandingHeader = ({ showHowItWorks = true }: LandingHeaderProps) => {
   const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
@@ -20,18 +23,20 @@ const LandingHeader = () => {
         alignItems={"center"}
         gap={"25px"}
       >
-        <Box
-          as="button"
-          onClick={() => scrollToSection("how-creditify-works")}
-          className="nav-link"
-          cursor="pointer"
-          color="#FFFFFF"
-          borderBottomWidth={"1px"}
-          borderColor="#FFFFFF"
-          fontSize={{ base: "14px", md: "16px" }}
-        >
-          How it Works
-        </Box>
+        {showHowItWorks && (
+          <Box
+            as="button"
+            onClick={() => scrollToSection("how-creditify-works")}
+            className="nav-link"
+            cursor="pointer"
+            color="#FFFFFF"
+            borderBottomWidth={"1px"}
+            borderColor="#FFFFFF"
+            fontSize={{ base: "14px", md: "16px" }}
+          >
+            How it Works
+          </Box>
+        )}
         <Button
           className="primary-btn"
           onClick={() => navigate(ROUTES.DASHBOARD)}

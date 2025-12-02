@@ -4,6 +4,8 @@ import { useAssetDetails } from "@/hooks/useAssetDetails";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useTransactionHistoryPage } from "@/hooks/useTransactionHistoryPage";
 import Header from "@/pages/Header";
+import { ROUTES } from "@/routes/paths";
+
 import {
   Badge,
   Box,
@@ -114,7 +116,7 @@ const TransactionHistory = () => {
             size="sm"
             variant="plain"
             className="btn-color-dark-1-hover"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(ROUTES.DASHBOARD)}
           >
             <Icon>
               <IoMdArrowBack />

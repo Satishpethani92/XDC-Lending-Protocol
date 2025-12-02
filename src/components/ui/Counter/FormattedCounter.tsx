@@ -49,7 +49,7 @@ export default function FormattedCounter({
   // Split into integer and decimal parts
   const absValue = Math.abs(numericValue);
   const integerPart = Math.floor(absValue);
-  const decimalPart = Math.round((absValue % 1) * Math.pow(10, decimalPlaces));
+  const decimalPart = Math.floor((absValue % 1) * Math.pow(10, decimalPlaces));
 
   // Calculate places needed for integer part dynamically
   const integerPlaces = [];

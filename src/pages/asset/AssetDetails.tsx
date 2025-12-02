@@ -3,6 +3,7 @@ import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { useAssetDetails } from "@/hooks/useAssetDetails";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import Header from "@/pages/Header";
+import { ROUTES } from "@/routes/paths";
 import {
   Box,
   Button,
@@ -15,6 +16,7 @@ import {
   Tabs,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoWalletOutline } from "react-icons/io5";
@@ -23,7 +25,6 @@ import { useAccount } from "wagmi";
 import ConnectYourWalletContent from "../ConnectYourWalletContent";
 import AssetInfo from "./AssetInfo";
 import AssetOverview from "./AssetOverview";
-import { useState } from "react";
 
 const AssetDetails = () => {
   const [tab, setTab] = useState("overview");
@@ -111,7 +112,7 @@ const AssetDetails = () => {
                 variant={"plain"}
                 className="btn-color-dark-1-hover"
                 size="sm"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate(ROUTES.DASHBOARD)}
               >
                 <Icon size="md">
                   <IoMdArrowBack />
@@ -266,7 +267,7 @@ const AssetDetails = () => {
               variant={"plain"}
               className="btn-color-dark-1-hover"
               size="sm"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(ROUTES.DASHBOARD)}
             >
               <Icon size="md">
                 <IoMdArrowBack />

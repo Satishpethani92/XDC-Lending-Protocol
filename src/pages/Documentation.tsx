@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import { landingSystem } from "@/landingSystem";
+import { ROUTES } from "@/routes/paths";
 import {
   Box,
+  Button,
+  ChakraProvider,
   Container,
   Flex,
   Heading,
+  HStack,
+  Icon,
   Link,
   Text,
-  Button,
   VStack,
-  HStack,
-  ChakraProvider,
-  Icon,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { landingSystem } from "@/landingSystem";
-import LandingHeader from "./landing/LandingHeader";
-import LandingFooter from "./landing/LandingFooter";
 import { useNavigate } from "react-router-dom";
+import LandingFooter from "./landing/LandingFooter";
+import LandingHeader from "./landing/LandingHeader";
 
 const Documentation = () => {
   const [activeSection, setActiveSection] = useState("getting-started");
@@ -355,7 +356,7 @@ const Documentation = () => {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => navigate(-1)}
+                  onClick={() => navigate(ROUTES.DASHBOARD)}
                   mb={"30px"}
                 >
                   <Icon>

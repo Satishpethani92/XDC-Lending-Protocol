@@ -1,6 +1,5 @@
-import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
 import footerBgImg from "@/assets/images/landing/footerBgImage.png";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 export default function Footer() {
   return (
@@ -62,17 +61,6 @@ export default function Footer() {
             <Text fontSize={{ base: "14px", lg: "16px" }} color="#FFFFFF">
               © Creditify • Built for DeFi • Non-custodial
             </Text>
-            <Box
-              as="button"
-              className="nav-link"
-              fontSize={{ base: "14px", sm: "16px" }}
-              cursor="pointer"
-              color="#FFFFFF"
-              borderBottomWidth={"1px"}
-              borderColor="#FFFFFF"
-            >
-              Contact us
-            </Box>
           </Box>
         </Flex>
       </Box>
