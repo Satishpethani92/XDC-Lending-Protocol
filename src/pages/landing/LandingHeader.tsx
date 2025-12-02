@@ -28,12 +28,14 @@ const LandingHeader = () => {
           color="#FFFFFF"
           borderBottomWidth={"1px"}
           borderColor="#FFFFFF"
+          fontSize={{ base: "14px", md: "16px" }}
         >
           How it Works
         </Box>
         <Button
           className="primary-btn"
           onClick={() => navigate(ROUTES.DASHBOARD)}
+          fontSize={{ base: "14px", md: "16px" }}
         >
           Launch Creditify
         </Button>

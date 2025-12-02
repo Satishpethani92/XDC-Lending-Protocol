@@ -137,7 +137,7 @@ const LandingPage = () => {
     <ChakraProvider value={landingSystem}>
       <Box bg="#FFFFFF" minH="100vh" className="landing-page-new">
         <Container fluid backgroundColor="#010006">
-          <Container maxW="1400px" h="100%">
+          <Container maxW="1400px" h="100%" px={{ base: "0", lg: "inherit" }}>
             {/* LANDING HERO SECTION */}
             <Flex
               as="section"
@@ -180,7 +180,7 @@ const LandingPage = () => {
                     <Box
                       as="h3"
                       fontSize={{ base: "11px", md: "22px" }}
-                      mb={{ base: 30, md: "100px" }}
+                      mb={{ base: "20px", md: "50px", lg: "100px" }}
                       fontWeight={500}
                       letterSpacing="0.16em"
                       color="white"
@@ -268,25 +268,25 @@ const LandingPage = () => {
           </Container>
         </Container>
         <Container fluid>
-          <Container maxW="1400px" h="100%">
+          <Container maxW="1400px" h="100%" px={{ base: "0", lg: "inherit" }}>
             <WhatCanYouDoOn />
             <HowItWorks />
             <CoreProtocol />
           </Container>
         </Container>
         <Container fluid backgroundColor="#010006">
-          <Container maxW="1400px" h="100%">
+          <Container maxW="1400px" h="100%" px={{ base: "0", lg: "inherit" }}>
             <WhyBuildOnXDC />
           </Container>
         </Container>
         <Container fluid>
-          <Container maxW="1400px" h="100%">
+          <Container maxW="1400px" h="100%" px={{ base: "0", lg: "inherit" }}>
             <RiskManagement />
             <BusinessModel />
           </Container>
         </Container>
         <Container fluid backgroundColor="#010006">
-          <Container maxW="1400px" h="100%">
+          <Container maxW="1400px" h="100%" px={{ base: "0", lg: "inherit" }}>
             <Footer />
           </Container>
         </Container>

@@ -601,7 +601,7 @@ const SupplyContent = () => {
   };
 
   return (
-    <Box width={{ base: "100%", lg: "50%" }}>
+    <Box width={{ base: "100%", lg: "calc(50% - 0.5rem)" }}>
       {isSupplyModal && (
         <SupplyModal
           isOpen={isSupplyModal}

@@ -581,7 +581,7 @@ function BorrowContent() {
   };
 
   return (
-    <Box width={{ base: "100%", lg: "50%" }}>
+    <Box width={{ base: "100%", lg: "calc(50% - 0.5rem)" }}>
       {isBorrowModal && (
         <BorrowModal
           isOpen={isBorrowModal}
