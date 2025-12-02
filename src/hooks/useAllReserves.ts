@@ -1,4 +1,5 @@
 import { CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useReadContract } from "wagmi";
 
@@ -43,6 +44,11 @@ export interface UseAllReservesReturn {
 export function useAllReserves(): UseAllReservesReturn {
   const { contracts, network } = useChainConfig();
 
+  // Check if the protocol data provider contract is valid
+  const hasValidContract = isValidContractAddress(
+    contracts.protocolDataProvider
+  );
+
   // Fetch all reserve tokens
   const {
     data: reservesData,
@@ -53,6 +59,9 @@ export function useAllReserves(): UseAllReservesReturn {
     abi: CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI,
     functionName: "getAllReservesTokens",
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract,
+    },
   });
 
   // Fetch all aTokens
@@ -65,17 +74,21 @@ export function useAllReserves(): UseAllReservesReturn {
     abi: CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI,
     functionName: "getAllATokens",
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract,
+    },
   });
 
   const isLoading = reservesLoading || aTokensLoading;
   const error = (reservesError || aTokensError) as Error | null;
 
-  if (error) {
+  // Only log errors if we expected the contract to work
+  if (error && hasValidContract) {
     console.error("useAllReserves error:", error);
   }
 
-  // Return empty arrays if data is not available
-  if (!reservesData || !aTokensData) {
+  // Return empty arrays if data is not available or contract is invalid
+  if (!reservesData || !aTokensData || !hasValidContract) {
     return {
       reserves: [],
       aTokens: [],

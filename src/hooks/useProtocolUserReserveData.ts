@@ -1,4 +1,5 @@
 import { CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useAccount, useReadContract } from "wagmi";
 
@@ -70,6 +71,15 @@ export function useProtocolUserReserveData(
   // Use provided userAddress or fall back to connected address
   const effectiveAddress = userAddress || connectedAddress;
 
+  // Check if the protocol data provider contract is valid
+  // This prevents errors on networks where contracts aren't deployed (mainnet, apothem)
+  const hasValidContract = isValidContractAddress(
+    contracts.protocolDataProvider
+  );
+
+  // Also validate the asset address
+  const hasValidAsset = isValidContractAddress(assetAddress);
+
   const { data, isLoading, error } = useReadContract({
     address: contracts.protocolDataProvider,
     abi: CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI,
@@ -80,19 +90,27 @@ export function useProtocolUserReserveData(
         : undefined,
     chainId: network.chainId,
     query: {
-      enabled: !!effectiveAddress && !!assetAddress,
+      // Only enable the query if we have valid addresses AND a valid contract AND valid asset
+      enabled: !!effectiveAddress && hasValidAsset && hasValidContract,
     },
   });
 
-  if (error) {
+  // Only log unexpected errors - suppress "returned no data" errors which happen
+  // when the contract doesn't exist or asset isn't registered in the protocol
+  const isContractNotFoundError =
+    error?.message?.includes('returned no data ("0x")') ||
+    error?.message?.includes("The contract function") ||
+    error?.name === "ContractFunctionExecutionError";
+
+  if (error && hasValidContract && hasValidAsset && !isContractNotFoundError) {
     console.error(
       `useProtocolUserReserveData error for ${assetAddress}:`,
       error
     );
   }
 
-  // Return default values if user is not connected or data is not available
-  if (!effectiveAddress || !data) {
+  // Return default values if user is not connected, contract is invalid, asset is invalid, or data is not available
+  if (!effectiveAddress || !hasValidContract || !hasValidAsset || !data) {
     return {
       currentATokenBalance: BigInt(0),
       currentVariableDebt: BigInt(0),

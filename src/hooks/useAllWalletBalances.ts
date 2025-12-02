@@ -1,4 +1,5 @@
 import { WALLET_BALANCE_PROVIDER_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
@@ -60,6 +61,11 @@ export function useAllWalletBalances(): UseAllWalletBalancesReturn {
   const { contracts, network, tokens } = useChainConfig();
   const { address } = useAccount();
 
+  // Check if the wallet balance provider contract is valid
+  const hasValidContract = isValidContractAddress(
+    contracts.walletBalanceProvider
+  );
+
   const { data, isLoading, error, refetch } = useReadContract({
     address: contracts.walletBalanceProvider,
     abi: WALLET_BALANCE_PROVIDER_ABI,
@@ -67,16 +73,17 @@ export function useAllWalletBalances(): UseAllWalletBalancesReturn {
     args: address ? [contracts.poolAddressesProvider, address] : undefined,
     chainId: network.chainId,
     query: {
-      enabled: !!address,
+      enabled: !!address && hasValidContract,
     },
   });
 
-  if (error) {
+  // Only log errors if we expected the contract to work
+  if (error && hasValidContract) {
     console.error("useAllWalletBalances error:", error);
   }
 
-  // Return empty object if user is not connected or data is not available
-  if (!address || !data) {
+  // Return empty object if user is not connected, contract is invalid, or data is not available
+  if (!address || !data || !hasValidContract) {
     return {
       balances: {},
       isLoading,

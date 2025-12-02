@@ -52,14 +52,14 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   // XDC Mainnet
   [xdc.id]: {
     contracts: {
-      pool: "0x35d4c4c4ca208F50330edD0Bb1592be7e29bE861",
-      poolAddressesProvider: "0xd0425D719be064a640868F8d4c7d0F8A70510913",
-      uiPoolDataProvider: "0x547593068Df1496C7dE4fcabE64E1B214B26Ab77",
-      protocolDataProvider: "0x4135bA78F54aB5fF80eb9DE7d535293a319C99b7",
-      walletBalanceProvider: "0x55F14A53B0e595d6d8118dE6b14B5A4d92509AaB",
-      oracle: "0x0f659a3e35BC502BF67Bf119778c8936E9A7b84e",
-      wrappedTokenGateway: "0x0000000000000000000000000000000000000000", // TODO: Add mainnet address
-      uiIncentiveDataProvider: "0x69E15dF062F9C79F7eE0d377EBC9C12a34F059b5",
+      pool: "0x0000000000000000000000000000000000000000",
+      poolAddressesProvider: "0x0000000000000000000000000000000000000000",
+      uiPoolDataProvider: "0x0000000000000000000000000000000000000000",
+      protocolDataProvider: "0x0000000000000000000000000000000000000000",
+      walletBalanceProvider: "0x0000000000000000000000000000000000000000",
+      oracle: "0x0000000000000000000000000000000000000000",
+      wrappedTokenGateway: "0x0000000000000000000000000000000000000000",
+      uiIncentiveDataProvider: "0x0000000000000000000000000000000000000000",
     },
     tokens: {
       wrappedNative: {

@@ -1,4 +1,5 @@
 import { ERC20_ABI, POOL_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { formatUnits } from "viem";
 import { useReadContract } from "wagmi";
@@ -13,6 +14,11 @@ export function useReserveLiquidity(
 ) {
   const { contracts, network } = useChainConfig();
 
+  // Check if the pool contract is valid
+  const hasValidContract = isValidContractAddress(contracts.pool);
+  // Also validate the asset address
+  const hasValidAsset = isValidContractAddress(assetAddress);
+
   // First get the aToken address from reserve data
   const { data: reserveData } = useReadContract({
     address: contracts.pool,
@@ -20,6 +26,9 @@ export function useReserveLiquidity(
     functionName: "getReserveData",
     args: [assetAddress as `0x${string}`],
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract && hasValidAsset,
+    },
   });
 
   const reserveDataAny = reserveData as any;

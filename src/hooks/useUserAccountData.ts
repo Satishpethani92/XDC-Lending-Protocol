@@ -1,4 +1,5 @@
 import { POOL_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
@@ -7,6 +8,9 @@ export function useUserAccountData() {
   const { contracts, network } = useChainConfig();
   const { address } = useAccount();
 
+  // Check if the pool contract is valid
+  const hasValidContract = isValidContractAddress(contracts.pool);
+
   const { data, isLoading, error, refetch } = useReadContract({
     address: contracts.pool,
     abi: POOL_ABI,
@@ -14,11 +18,11 @@ export function useUserAccountData() {
     args: address ? [address] : undefined,
     chainId: network.chainId,
     query: {
-      enabled: !!address,
+      enabled: !!address && hasValidContract,
     },
   });
 
-  if (!data) {
+  if (!data || !hasValidContract) {
     return {
       totalCollateral: "0",
       totalDebt: "0",

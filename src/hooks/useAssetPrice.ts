@@ -3,17 +3,27 @@ import {
   POOL_ABI,
   POOL_ADDRESSES_PROVIDER_ABI,
 } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { formatUnits } from "viem";
 import { useReadContract } from "wagmi";
 
 export const useAssetPrice = (assetAddress: string) => {
   const { contracts, network } = useChainConfig();
+
+  // Check if the pool contract is valid
+  const hasValidContract = isValidContractAddress(contracts.pool);
+  // Also validate the asset address
+  const hasValidAsset = isValidContractAddress(assetAddress);
+
   const { data: priceOracleAddress } = useReadContract({
     address: contracts.pool,
     abi: POOL_ABI,
     functionName: "ADDRESSES_PROVIDER",
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract,
+    },
   });
 
   const { data: oracleAddress } = useReadContract({
@@ -33,7 +43,7 @@ export const useAssetPrice = (assetAddress: string) => {
     args: [assetAddress as `0x${string}`],
     chainId: network.chainId,
     query: {
-      enabled: !!oracleAddress && !!assetAddress,
+      enabled: !!oracleAddress && hasValidAsset,
     },
   });
 

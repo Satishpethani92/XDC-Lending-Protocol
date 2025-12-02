@@ -6,6 +6,7 @@ import {
   POOL_ADDRESSES_PROVIDER_ABI,
 } from "@/config/abis";
 import { getTokenLogo } from "@/config/tokenLogos";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { formatUnits } from "viem";
 import { useReadContract } from "wagmi";
 import { useChainConfig } from "./useChainConfig";
@@ -68,6 +69,11 @@ export function useAssetDetails(tokenSymbol: string) {
     TOKEN_METADATA[tokenSymbol?.toLowerCase() as keyof typeof TOKEN_METADATA] ||
     TOKEN_METADATA.wxdc;
 
+  // Check if the pool contract is valid
+  const hasValidContract = isValidContractAddress(contracts.pool);
+  // Also validate the token address
+  const hasValidAsset = isValidContractAddress(token.address);
+
   // Get reserve data from Aave Pool
   const { data: reserveData, isLoading: isLoadingReserve } = useReadContract({
     address: contracts.pool,
@@ -75,6 +81,9 @@ export function useAssetDetails(tokenSymbol: string) {
     functionName: "getReserveData",
     args: [token.address as `0x${string}`],
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract && hasValidAsset,
+    },
   });
 
   const reserveDataAny = reserveData as any;
@@ -130,6 +139,9 @@ export function useAssetDetails(tokenSymbol: string) {
     chainId: network.chainId,
     abi: POOL_ABI,
     functionName: "ADDRESSES_PROVIDER",
+    query: {
+      enabled: hasValidContract,
+    },
   });
 
   const { data: oracleAddress } = useReadContract({

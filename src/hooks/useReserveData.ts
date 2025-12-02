@@ -1,4 +1,5 @@
 import { POOL_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useProtocolReserveData } from "@/hooks/useProtocolReserveData";
 import { useReadContract } from "wagmi";
@@ -20,6 +21,11 @@ export const useReserveData = (
 ) => {
   const { contracts, network } = useChainConfig();
 
+  // Check if the pool contract is valid
+  const hasValidContract = isValidContractAddress(contracts.pool);
+  // Also validate the asset address
+  const hasValidAsset = isValidContractAddress(assetAddress);
+
   // Use Protocol Data Provider by default
   const protocolData = useProtocolReserveData(assetAddress);
 
@@ -35,6 +41,9 @@ export const useReserveData = (
     functionName: "getReserveData",
     args: [assetAddress as `0x${string}`],
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract && hasValidAsset,
+    },
   });
 
   // If using Protocol Data Provider, return transformed data with aTokenAddress from Pool

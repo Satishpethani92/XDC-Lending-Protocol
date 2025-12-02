@@ -1,4 +1,5 @@
 import { CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI } from "@/config/abis";
+import { isValidContractAddress } from "@/helpers/contractValidation";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useReadContract } from "wagmi";
 
@@ -71,20 +72,31 @@ export function useReserveConfiguration(
 ): ReserveConfiguration {
   const { contracts, network } = useChainConfig();
 
+  // Check if the protocol data provider contract is valid
+  const hasValidContract = isValidContractAddress(
+    contracts.protocolDataProvider
+  );
+  // Also validate the asset address
+  const hasValidAsset = isValidContractAddress(assetAddress);
+
   const { data, isLoading, error } = useReadContract({
     address: contracts.protocolDataProvider,
     abi: CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI,
     functionName: "getReserveConfigurationData",
     args: [assetAddress as `0x${string}`],
     chainId: network.chainId,
+    query: {
+      enabled: hasValidContract && hasValidAsset,
+    },
   });
 
-  if (error) {
+  // Only log errors if we expected the contract to work
+  if (error && hasValidContract && hasValidAsset) {
     console.error(`useReserveConfiguration error for ${assetAddress}:`, error);
   }
 
-  // Return default values if data is not available
-  if (!data) {
+  // Return default values if data is not available, contract is invalid, or asset is invalid
+  if (!data || !hasValidContract || !hasValidAsset) {
     return {
       decimals: 18,
       ltv: 0,
