@@ -12,8 +12,8 @@ export default function BusinessModel() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "24px", md: "60px", lg: "80px" }}
-      py={{ base: "40px", md: "60px", lg: "80px" }}
+      px={{ base: "20px", sm: "40px", lg: "80px" }}
+      py={{ base: "40px", lg: "80px" }}
       borderColor="#D8D8D8"
       borderLeftWidth="1px"
       borderRightWidth="1px"
@@ -32,7 +32,8 @@ export default function BusinessModel() {
         <Box flex={{ base: "unset", md: "1 1 0" }} maxW={{ md: "460px" }}>
           <Text
             as="h2"
-            fontSize={{ base: "30px", md: "36px", lg: "48px" }} // main heading 48px on lg
+            fontSize={{ base: "26px", md: "32px", xl: "48px" }}
+            lineHeight={{ base: "34px", md: "38px", xl: "54px" }}
             fontWeight={700}
             color="#111827"
             mb={{ base: 4, md: 6 }}

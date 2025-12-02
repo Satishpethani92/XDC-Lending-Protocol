@@ -8,8 +8,8 @@ export default function Footer() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "24px", md: "60px", lg: "80px" }}
-      py={{ base: "40px", md: "60px", lg: "40px" }}
+      px={{ base: "20px", sm: "40px", lg: "80px" }}
+      py={{ base: "20px", lg: "40px" }}
       borderLeftWidth="1px"
       borderRightWidth="1px"
       borderColor="#254459"
@@ -40,8 +40,8 @@ export default function Footer() {
           {/* Big brand title */}
           <Text
             as="h2"
-            fontSize={{ base: "64px", md: "120px", lg: "165px" }}
-            mt={{ base: 10 }}
+            fontSize={{ base: "45px", sm: "60px", md: "120px", lg: "165px" }}
+            mt={{ base: 5, md: 10 }}
             fontWeight={700}
             lineHeight="0.9"
             color="#002B3D"
@@ -53,19 +53,19 @@ export default function Footer() {
           <Box
             mt={{ base: 4, md: 6 }}
             display="flex"
+            direction={{ base: "column", sm: "row" }}
+            flexWrap={"wrap"}
             justifyContent={"center"}
             alignItems={"center"}
             gap={{ base: 5 }}
           >
-            <Text
-              fontSize={{ base: "12px", md: "14px", lg: "16px" }}
-              color="#FFFFFF"
-            >
+            <Text fontSize={{ base: "14px", lg: "16px" }} color="#FFFFFF">
               © Creditify • Built for DeFi • Non-custodial
             </Text>
             <Box
               as="button"
               className="nav-link"
+              fontSize={{ base: "14px", sm: "16px" }}
               cursor="pointer"
               color="#FFFFFF"
               borderBottomWidth={"1px"}

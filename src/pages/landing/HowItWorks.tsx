@@ -54,15 +54,16 @@ export default function HowItWorks() {
         <Box
           bg="linear-gradient(180deg, #FFFFFF 0%, #EFFAFF 100%)"
           pt={{ base: 6, md: 10 }}
-          px={{ base: "40px", md: "60px", lg: "180px" }}
+          px={{ base: "20px", sm: "40px", md: "60px", lg: "180px" }}
         >
           <Box
             as="h2"
-            fontSize={{ base: "22px", md: "48px" }}
+            fontSize={{ base: "26px", sm: "36px", md: "48px" }}
+            lineHeight={{ base: "34px", sm: "42px", md: "54px" }}
+            mb={{ base: "20px", sm: 12 }}
             py={{ base: 5, md: "8" }}
             fontWeight={700}
             color="#0F172A"
-            mb={{ base: 8, md: 10 }}
           >
             How It Works?
           </Box>
@@ -126,7 +127,7 @@ export default function HowItWorks() {
                       </Box>
                       <Box
                         as="p"
-                        fontSize={{ base: "13px", md: "16px" }}
+                        fontSize={{ base: "14px", md: "16px" }}
                         color="rgba(241,245,249,0.9)"
                       >
                         {step.text}
@@ -156,8 +157,8 @@ export default function HowItWorks() {
         <Box
           bg="linear-gradient(180deg, #D9E7F5 0%, #FFFFFF 100%)"
           pt={{ base: 1 }}
-          pb={{ base: 6, md: "32" }}
-          px={{ base: "40px", md: "60px", lg: "180px" }}
+          pb={{ base: 10, sm: 16, md: 32 }}
+          px={{ base: "20px", sm: "40px", md: "60px", lg: "180px" }}
         >
           <Box
             bg="#040209"
@@ -220,7 +221,7 @@ export default function HowItWorks() {
                       </Box>
                       <Box
                         as="p"
-                        fontSize={{ base: "13px", md: "16px" }}
+                        fontSize={{ base: "14px", md: "16px" }}
                         color="rgba(241,245,249,0.9)"
                       >
                         {step.text}

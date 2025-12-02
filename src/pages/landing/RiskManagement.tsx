@@ -16,8 +16,8 @@ export default function RiskManagement() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "24px", md: "60px", lg: "80px" }}
-      py={{ base: "40px", md: "60px", lg: "80px" }}
+      px={{ base: "20px", sm: "40px", lg: "80px" }}
+      py={{ base: "40px", lg: "80px" }}
       borderColor="#D8D8D8"
       borderLeftWidth="1px"
       borderRightWidth="1px"
@@ -30,7 +30,8 @@ export default function RiskManagement() {
       <Box
         as="h2"
         textAlign="center"
-        fontSize={{ base: "30px", md: "36px", lg: "48px" }} // main heading 48px
+        fontSize={{ base: "26px", sm: "36px", md: "48px" }}
+        lineHeight={{ base: "34px", sm: "42px", md: "54px" }}
         fontWeight={700}
         color="#0F172A"
         mb={{ base: 8, md: 10 }}
@@ -59,7 +60,7 @@ export default function RiskManagement() {
             <Image src={trueSignImg} alt="check" w="24px" h="24px" mb={4} />
             <Box
               as="p"
-              fontSize={{ base: "18px", md: "24px" }} // card text 24px
+              fontSize={{ base: "20px", md: "24px" }}
               fontWeight={600}
               color="#0F172A"
             >
@@ -86,7 +87,7 @@ export default function RiskManagement() {
           <Image src={trueSignImg} alt="check" w="24px" h="24px" mb={4} />
           <Box
             as="p"
-            fontSize={{ base: "18px", md: "24px" }}
+            fontSize={{ base: "20px", md: "24px" }}
             fontWeight={600}
             color="#0F172A"
           >

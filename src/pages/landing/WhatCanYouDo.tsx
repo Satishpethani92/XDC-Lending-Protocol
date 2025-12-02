@@ -37,8 +37,8 @@ export default function WhatCanYouDo() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "40px", md: "60px", lg: "120px" }}
-      py={{ base: "40px", md: "60px", lg: "70px" }}
+      px={{ base: "20px", sm: "40px", lg: "80px", xl: "120px" }}
+      py={{ base: "40px", lg: "70px" }}
       bgGradient="linear(to-br, #020617, #020617)"
       borderColor="#D7EBF4"
       borderTopWidth="1px"
@@ -52,15 +52,16 @@ export default function WhatCanYouDo() {
       <Box
         as="h2"
         textAlign="center"
-        fontSize={{ base: "22px", md: "48px" }}
+        fontSize={{ base: "26px", sm: "36px", md: "48px" }}
+        lineHeight={{ base: "34px", sm: "42px", md: "54px" }}
+        mb={{ base: "20px", sm: 12 }}
         fontWeight={600}
-        mb={{ base: 10, md: 12 }}
         color="#0F172A"
       >
         What Can You Do On Creditify?
       </Box>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 6, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, lg: 3 }} gap={{ base: 6, md: 8 }}>
         {featureCards.map((card) => (
           <Box
             key={card.key}
@@ -86,7 +87,7 @@ export default function WhatCanYouDo() {
 
             <Box
               as="h3"
-              fontSize={{ base: "16px", md: "24px" }}
+              fontSize={{ base: "20px", md: "24px" }}
               fontWeight={700}
               mb={3}
               color="#0F172A"
@@ -97,7 +98,7 @@ export default function WhatCanYouDo() {
 
             <Box
               as="p"
-              fontSize={{ base: "13px", md: "18px" }}
+              fontSize={{ base: "16px", md: "18px" }}
               lineHeight="1.7"
               color="#4B5563"
               textAlign="left"

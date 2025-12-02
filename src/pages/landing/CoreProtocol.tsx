@@ -39,8 +39,8 @@ export default function CoreProtocol() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "40px", md: "60px", lg: "120px" }}
-      py={{ base: "40px", md: "60px", lg: "60px" }}
+      px={{ base: "20px", sm: "40px", lg: "120px" }}
+      py={{ base: "40px", lg: "60px" }}
       bgGradient="linear(to-br, #020617, #020617)"
       borderColor="#EBE7FF"
       borderTopWidth="1px"
@@ -55,18 +55,18 @@ export default function CoreProtocol() {
       <Box
         bg="#FFFFFF"
         borderRadius="24px"
-        px={{ base: 6, md: 10 }}
-        py={{ base: 10, md: 14 }}
+        px={{ base: 0, md: 10 }}
+        py={{ base: 0, md: 14 }}
         textAlign="left"
       >
         {/* Section heading */}
         <Box
           as="h2"
-          fontSize={{ base: "28px", md: "36px", lg: "48px" }} // 48px on desktop
+          fontSize={{ base: "26px", sm: "36px", md: "48px" }}
+          lineHeight={{ base: "34px", sm: "42px", md: "54px" }}
           fontWeight={700}
           mb={{ base: 8, md: 10 }}
           color="#0F172A"
-          lineHeight="1.1"
         >
           Core Protocol
           <br />
@@ -100,7 +100,7 @@ export default function CoreProtocol() {
               </Box>
               <Box
                 as="p"
-                fontSize={{ base: "14px", md: "18px" }} // card description 18px
+                fontSize={{ base: "16px", md: "18px" }} // card description 18px
                 lineHeight="1.6"
                 color="#4B5563"
               >

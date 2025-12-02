@@ -32,7 +32,7 @@ export default function WhyBuildOnXDC() {
       w="100%"
       maxW="1280px"
       mx="auto"
-      px={{ base: "24px", md: "60px", lg: "80px" }}
+      px={{ base: "20px", md: "60px", lg: "80px" }}
       py={{ base: "40px", md: "60px", lg: "80px" }}
       borderColor="#254459"
       borderLeftWidth="1px"
@@ -63,11 +63,11 @@ export default function WhyBuildOnXDC() {
           <Box flex={{ base: "none", md: "0 0 40%" }}>
             <Box
               as="h2"
-              fontSize={{ base: "30px", md: "36px", lg: "48px" }}
+              fontSize={{ base: "26px", sm: "36px", md: "48px" }}
+              lineHeight={{ base: "34px", sm: "42px", md: "54px" }}
               mt={{ base: 4 }}
               fontWeight={700}
               color="#FFFFFF"
-              lineHeight="1.15"
             >
               Why Build On
               <br />
@@ -86,7 +86,7 @@ export default function WhyBuildOnXDC() {
               >
                 <Box
                   as="h3"
-                  fontSize={{ base: "20px", md: "24px", lg: "28px" }} // 28px on lg
+                  fontSize={{ base: "18px", md: "24px", lg: "28px" }} // 28px on lg
                   fontWeight={700}
                   color="#FFFFFF"
                   mb={1}
@@ -95,7 +95,7 @@ export default function WhyBuildOnXDC() {
                 </Box>
                 <Box
                   as="p"
-                  fontSize={{ base: "14px", md: "16px", lg: "18px" }} // 18px on lg
+                  fontSize={{ base: "16px", lg: "18px" }} // 18px on lg
                   lineHeight="1.6"
                   color="rgba(226, 232, 240, 0.5)"
                 >
