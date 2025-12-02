@@ -23,8 +23,10 @@ import { useAccount } from "wagmi";
 import ConnectYourWalletContent from "../ConnectYourWalletContent";
 import AssetInfo from "./AssetInfo";
 import AssetOverview from "./AssetOverview";
+import { useState } from "react";
 
 const AssetDetails = () => {
+  const [tab, setTab] = useState("overview");
   const { network } = useChainConfig();
   const isTabLayout = useBreakpointValue({ base: true, xl: false });
   const [searchParams] = useSearchParams();
@@ -413,14 +415,34 @@ const AssetDetails = () => {
         px={{ base: "auto", "2xl": "0" }}
         h="100%"
       >
-        <Box mt={"-50px"}>
+        <Box mt={{ base: "-25px", xl: "-50px" }}>
           {isTabLayout ? (
-            <Tabs.Root defaultValue="overview" variant="plain" w="100%">
-              <Tabs.List bg="bg.inverted" w="50%" rounded="l3" p="1" mb="15px">
-                <Tabs.Trigger value="overview" w="100%" justifyContent="center">
+            <Tabs.Root
+              value={tab}
+              onValueChange={(val) => setTab(val.value)}
+              variant="plain"
+              w="100%"
+            >
+              <Tabs.List
+                rounded="l2"
+                w={{ base: "100%", md: "50%" }}
+                p="2px"
+                className="btn-color-dark-1-hover no-hover"
+              >
+                <Tabs.Trigger
+                  value="overview"
+                  w="100%"
+                  justifyContent="center"
+                  className={`info-tab ${tab === "overview" ? "active" : ""}`}
+                >
                   Overview
                 </Tabs.Trigger>
-                <Tabs.Trigger value="info" w="100%" justifyContent="center">
+                <Tabs.Trigger
+                  value="info"
+                  w="100%"
+                  justifyContent="center"
+                  className={`info-tab ${tab === "info" ? "active" : ""}`}
+                >
                   Your Info
                 </Tabs.Trigger>
                 <Tabs.Indicator rounded="l2" />
