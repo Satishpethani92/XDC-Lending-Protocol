@@ -1,4 +1,8 @@
-import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  getDefaultConfig,
+  lightTheme,
+} from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { http } from "viem";
@@ -36,10 +40,18 @@ const queryClient = new QueryClient({
 });
 
 export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
+  const theme = lightTheme({
+    accentColor: "#ABDFEF",
+    accentColorForeground: "#0B1120",
+    borderRadius: "medium",
+    fontStack: "system",
+    overlayBlur: "small",
+  });
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider initialChain={xdcTestnet}>
+        <RainbowKitProvider initialChain={xdcTestnet} theme={theme}>
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>

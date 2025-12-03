@@ -1,7 +1,11 @@
 import footerBgImg from "@/assets/images/landing/footerBgImage.png";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import ContactUsModal from "./ContactUsModal";
 
 export default function Footer() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Box
       w="100%"
@@ -61,9 +65,25 @@ export default function Footer() {
             <Text fontSize={{ base: "14px", lg: "16px" }} color="#FFFFFF">
               © Creditify • Built for DeFi • Non-custodial
             </Text>
+            <Button
+              variant="plain"
+              fontSize={{ base: "14px", lg: "16px" }}
+              color="#ABDFEF"
+              cursor="pointer"
+              _hover={{ textDecoration: "underline" }}
+              onClick={() => {
+                console.log("Contact Us clicked");
+                setIsOpen(true);
+              }}
+              p="0"
+              h="auto"
+            >
+              Contact Us
+            </Button>
           </Box>
         </Flex>
       </Box>
+      <ContactUsModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Box>
   );
 }

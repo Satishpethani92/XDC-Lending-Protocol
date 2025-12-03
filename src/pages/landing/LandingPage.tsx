@@ -227,10 +227,11 @@ const LandingPage = () => {
                     {/* description text */}
                     <Box
                       as="p"
-                      maxW="560px"
+                      maxW={{ base: "100%", md: "560px" }}
                       mx="auto"
-                      fontSize={{ base: "12px", md: "14px" }}
-                      lineHeight="1.6"
+                      px={{ base: 4, md: 0 }}
+                      fontSize={{ base: "13px", md: "14px" }}
+                      lineHeight={{ base: "1.5", md: "1.6" }}
                       color="rgba(255,255,255,0.7)"
                       mb={{ base: 6, md: 8 }}
                     >
@@ -239,7 +240,7 @@ const LandingPage = () => {
                       low-cost, and secure access to digital credit.
                     </Box>
 
-                    <Box>
+                    <Box mb={{ base: 8, md: 12 }}>
                       <Button
                         bg="#ABDFEF"
                         color="#0B1120"

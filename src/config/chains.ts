@@ -12,6 +12,8 @@ export interface ChainConfig {
     wrappedTokenGateway: `0x${string}`;
     uiIncentiveDataProvider?: `0x${string}`;
   };
+  // Block number when the Pool contract was deployed (for fetching all historical txs)
+  poolDeploymentBlock?: bigint;
   tokens: {
     // Wrapped native token (WXDC)
     wrappedNative: {
@@ -61,6 +63,7 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
       wrappedTokenGateway: "0x0000000000000000000000000000000000000000",
       uiIncentiveDataProvider: "0x0000000000000000000000000000000000000000",
     },
+    poolDeploymentBlock: 0n, // TODO: Set when mainnet is deployed
     tokens: {
       wrappedNative: {
         address: "0x951857744785E80e2De051c32EE7b25f9c458C42", // WXDC on mainnet
@@ -107,6 +110,8 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
       wrappedTokenGateway: "0xA6FDF78aa29A7A34812fa8B26cE692D6b54e2747",
       uiIncentiveDataProvider: "0x41211e3fA59148EbFFc1bc6E08868CC6DD915320",
     },
+    // Pool contract deployment block on Apothem testnet (first event at 76425660)
+    poolDeploymentBlock: 76420000n,
     tokens: {
       wrappedNative: {
         address: "0xC2EABDC14A96A48ee56Dec9917d9057AB93439Ab", // WXDC on testnet

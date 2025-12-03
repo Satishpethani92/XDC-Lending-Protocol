@@ -347,7 +347,7 @@ const SupplyModal: React.FC<Props> = ({
                                 : walletBalance; // If no cap, use wallet balance
 
                             // Take minimum of wallet balance and remaining capacity
-                            let maxAmount = Math.min(
+                            const maxAmount = Math.min(
                               walletBalance,
                               remainingCapacity
                             );

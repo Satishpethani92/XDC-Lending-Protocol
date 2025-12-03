@@ -16,7 +16,6 @@ import {
   Flex,
   Heading,
   Icon,
-  Image,
   Portal,
   Select,
   Skeleton,
@@ -38,7 +37,6 @@ const TransactionHistory = () => {
 
   useAssetDetails(token);
 
-  // Use the all-in-one transaction history hook
   const {
     currentPageTransactions,
     isLoading: isLoadingTxs,
@@ -56,10 +54,7 @@ const TransactionHistory = () => {
     getTypeColor,
     filteredTransactions: filteredTxData,
     transactions: txData,
-    fetchOlderTransactions,
-    currentBlockRange,
   } = useTransactionHistoryPage({
-    blockRange: 50000n,
     itemsPerPage: 10,
   });
 
@@ -94,19 +89,16 @@ const TransactionHistory = () => {
           </Box>
           <Flex alignItems="center" gap="10px" mb="15px">
             <Flex gap="2" alignItems="center">
-              <Image
-                src={network.icon}
-                width={{ base: "60px", md: "100px" }}
-                height={{ base: "30px", md: "50px" }}
-                objectFit="contain"
-                flexShrink={0}
+              <img
+                src="/src/assets/images/xdc-icon.webp"
+                alt="XDC"
+                style={{ height: "32px", width: "32px" }}
               />
-
               <Heading
                 size={{ base: "2xl", sm: "3xl", md: "4xl" }}
                 className="text-white-1"
               >
-                {network.name.replace(/^XDC\s+/i, "")} Market
+                XDC {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>
@@ -148,25 +140,9 @@ const TransactionHistory = () => {
               flexWrap="wrap"
               gap="3"
             >
-              <Box>
-                <Heading size="xl" className="title-text-1">
-                  Recent Transactions
-                </Heading>
-                <ChakraText fontSize="sm" color="#62677b" mt="1">
-                  Showing transactions from the last ~
-                  {currentBlockRange.toLocaleString()} blocks
-                </ChakraText>
-              </Box>
-              <Button
-                size="sm"
-                variant="outline"
-                colorPalette="blue"
-                onClick={fetchOlderTransactions}
-                disabled={isLoadingTxs}
-                loading={isLoadingTxs}
-              >
-                Load Older Transactions
-              </Button>
+              <Heading size="xl" className="title-text-1">
+                Recent Transactions
+              </Heading>
             </Flex>
             <Select.Root
               multiple

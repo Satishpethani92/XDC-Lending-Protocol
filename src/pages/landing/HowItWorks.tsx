@@ -188,7 +188,7 @@ export default function HowItWorks() {
                 fontSize={{ base: "18px", md: "39px" }}
                 fontWeight={700}
                 mb={{ base: 5, md: 6 }}
-                textAlign={"right"}
+                textAlign={"left"}
               >
                 Borrow USDC
               </Box>
