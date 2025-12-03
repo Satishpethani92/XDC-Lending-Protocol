@@ -32,7 +32,7 @@ interface UseTransactionHistoryReturn {
   isLoading: boolean;
   error: Error | null;
   refetch: () => Promise<void>;
-  fetchOlderTransactions: () => void;
+  fetchOlderTransactions: (customBlockCount?: bigint) => void;
   currentBlockRange: bigint;
 }
 
@@ -244,13 +244,25 @@ export function useTransactionHistory({
     chain?.id,
   ]);
 
-  const fetchOlderTransactions = useCallback(() => {
-    const newRange = currentBlockRange + 50000n;
-    setCurrentBlockRange(newRange);
-    if (onBlockRangeChange) {
-      onBlockRangeChange(newRange);
-    }
-  }, [currentBlockRange, onBlockRangeChange]);
+  const fetchOlderTransactions = useCallback(
+    (customBlockCount?: bigint) => {
+      if (customBlockCount !== undefined) {
+        // If custom block count provided, use it as the new range
+        setCurrentBlockRange(customBlockCount);
+        if (onBlockRangeChange) {
+          onBlockRangeChange(customBlockCount);
+        }
+      } else {
+        // Otherwise, add 50000 to current range
+        const newRange = currentBlockRange + 50000n;
+        setCurrentBlockRange(newRange);
+        if (onBlockRangeChange) {
+          onBlockRangeChange(newRange);
+        }
+      }
+    },
+    [currentBlockRange, onBlockRangeChange]
+  );
 
   useEffect(() => {
     fetchTransactions();

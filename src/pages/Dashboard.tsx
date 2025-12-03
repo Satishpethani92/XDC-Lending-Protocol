@@ -14,7 +14,6 @@ import {
   Container,
   Flex,
   Heading,
-  Image,
   Skeleton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -152,86 +151,86 @@ const Dashboard = () => {
           px={{ base: "auto", "2xl": "0" }}
           h="100%"
         >
-          <Flex gap="2" alignItems="center" mb="15px">
-            <Image
-              src={network.icon}
-              width={{ base: "60px", md: "100px" }}
-              height={{ base: "30px", md: "50px" }}
-              objectFit="contain"
-              flexShrink={0}
-            />
-            <Heading size={{ base: "2xl", md: "4xl" }} className="text-white-1">
-              {network.name.replace(/^XDC\s+/i, "")} Market
-            </Heading>
-          </Flex>
-          <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Flex gap="6" alignItems="center" flexWrap="wrap">
-              <Flex direction="column">
-                <Box className="light-text-1">Net worth</Box>
-                {accountData.isLoading ? (
-                  <Skeleton height="40px" width="150px" />
-                ) : (
-                  <FormattedCounter
-                    prefixColor="#a5a8b6"
-                    value={netWorth}
-                    fontSize={21}
-                    textColor="#fff"
-                    prefix="$"
-                    decimalPlaces={2}
-                  />
+          {isConnected && (
+            <>
+              <Flex gap="2" alignItems="center" mb="15px">
+                <Heading
+                  size={{ base: "2xl", md: "4xl" }}
+                  className="text-white-1"
+                >
+                  XDC {network.name.replace(/^XDC\s+/i, "")} Market
+                </Heading>
+              </Flex>
+              <Flex justifyContent={"space-between"} alignItems={"center"}>
+                <Flex gap="6" alignItems="center" flexWrap="wrap">
+                  <Flex direction="column">
+                    <Box className="light-text-1">Net worth</Box>
+                    {accountData.isLoading ? (
+                      <Skeleton height="40px" width="150px" />
+                    ) : (
+                      <FormattedCounter
+                        prefixColor="#a5a8b6"
+                        value={netWorth}
+                        fontSize={21}
+                        textColor="#fff"
+                        prefix="$"
+                        decimalPlaces={2}
+                      />
+                    )}
+                  </Flex>
+                  <Flex direction="column">
+                    <Box className="light-text-1">Net APY</Box>
+                    {accountData.isLoading ||
+                    wxdcReserveData.isLoading ||
+                    usdcReserveData.isLoading ||
+                    cgoReserveData.isLoading ? (
+                      <Skeleton height="40px" width="100px" />
+                    ) : (
+                      <FormattedCounter
+                        suffixColor="#a5a8b6"
+                        value={parseFloat(netApy)}
+                        fontSize={21}
+                        textColor={parseFloat(netApy) < 0 ? "#ef4444" : "#fff"}
+                        suffix="%"
+                        decimalPlaces={2}
+                      />
+                    )}
+                  </Flex>
+                  <Flex direction="column">
+                    <Box className="light-text-1">Health factor</Box>
+                    {accountData.isLoading ? (
+                      <Skeleton height="40px" width="80px" />
+                    ) : healthFactorValue > 1000 ? (
+                      <Heading size="2xl" color={healthFactorColor}>
+                        ∞
+                      </Heading>
+                    ) : (
+                      <FormattedCounter
+                        value={healthFactorValue}
+                        fontSize={21}
+                        textColor={healthFactorColor}
+                        decimalPlaces={2}
+                      />
+                    )}
+                  </Flex>
+                </Flex>
+                {isConnected && (
+                  <Button
+                    size={"xs"}
+                    variant={"plain"}
+                    p={"3px 5px"}
+                    minH={"auto"}
+                    fontSize={"11px"}
+                    h={"auto"}
+                    className="btn-color-dark-1-hover"
+                    onClick={() => navigate("/history")}
+                  >
+                    VIEW TRANSACTIONS
+                  </Button>
                 )}
               </Flex>
-              <Flex direction="column">
-                <Box className="light-text-1">Net APY</Box>
-                {accountData.isLoading ||
-                wxdcReserveData.isLoading ||
-                usdcReserveData.isLoading ||
-                cgoReserveData.isLoading ? (
-                  <Skeleton height="40px" width="100px" />
-                ) : (
-                  <FormattedCounter
-                    suffixColor="#a5a8b6"
-                    value={parseFloat(netApy)}
-                    fontSize={21}
-                    textColor={parseFloat(netApy) < 0 ? "#ef4444" : "#fff"}
-                    suffix="%"
-                    decimalPlaces={2}
-                  />
-                )}
-              </Flex>
-              <Flex direction="column">
-                <Box className="light-text-1">Health factor</Box>
-                {accountData.isLoading ? (
-                  <Skeleton height="40px" width="80px" />
-                ) : healthFactorValue > 1000 ? (
-                  <Heading size="2xl" color={healthFactorColor}>
-                    ∞
-                  </Heading>
-                ) : (
-                  <FormattedCounter
-                    value={healthFactorValue}
-                    fontSize={21}
-                    textColor={healthFactorColor}
-                    decimalPlaces={2}
-                  />
-                )}
-              </Flex>
-            </Flex>
-            {isConnected && (
-              <Button
-                size={"xs"}
-                variant={"plain"}
-                p={"3px 5px"}
-                minH={"auto"}
-                fontSize={"11px"}
-                h={"auto"}
-                className="btn-color-dark-1-hover"
-                onClick={() => navigate("/history")}
-              >
-                VIEW TRANSACTIONS
-              </Button>
-            )}
-          </Flex>
+            </>
+          )}
         </Container>
       </Box>
       <Container

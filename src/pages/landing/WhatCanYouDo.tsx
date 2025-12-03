@@ -1,18 +1,9 @@
-import React from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import arrowUp from "@/assets/images/landing/arrowUp.svg";
 import arrowDown from "@/assets/images/landing/arrowDown.svg";
 import arrowSwap from "@/assets/images/landing/arrowSwap.svg";
+import arrowUp from "@/assets/images/landing/arrowUp.svg";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 
 const featureCards = [
-  {
-    key: "lend",
-    title: "Lend USDC",
-    description:
-      "Deposit USDC into Creditify’s lending pools and earn yield generated from borrower demand. Withdraw anytime with minimal gas fees.",
-    icon: arrowUp,
-    alt: "arrow up",
-  },
   {
     key: "borrow",
     title: "Borrow USDC",
@@ -21,6 +12,16 @@ const featureCards = [
     icon: arrowDown,
     alt: "arrow down",
   },
+
+  {
+    key: "lend",
+    title: "Lend USDC",
+    description:
+      "Deposit USDC into Creditify’s lending pools and earn yield generated from borrower demand. Withdraw anytime with minimal gas fees.",
+    icon: arrowUp,
+    alt: "arrow up",
+  },
+
   {
     key: "swap",
     title: "SWAP",

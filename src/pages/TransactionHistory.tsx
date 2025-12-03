@@ -13,16 +13,24 @@ import {
   Text as ChakraText,
   Container,
   createListCollection,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
   Flex,
   Heading,
   Icon,
-  Image,
+  Input,
   Portal,
   Select,
   Skeleton,
   Spinner,
   Table,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiExternalLink } from "react-icons/fi";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -35,6 +43,8 @@ const TransactionHistory = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token") || "xdc";
+  const [isCustomBlocksOpen, setIsCustomBlocksOpen] = useState(false);
+  const [customBlocksInput, setCustomBlocksInput] = useState("");
 
   useAssetDetails(token);
 
@@ -56,12 +66,24 @@ const TransactionHistory = () => {
     getTypeColor,
     filteredTransactions: filteredTxData,
     transactions: txData,
-    fetchOlderTransactions,
+    fetchOlderTransactions: fetchOlderTxs,
     currentBlockRange,
   } = useTransactionHistoryPage({
     blockRange: 50000n,
     itemsPerPage: 10,
   });
+
+  const handleFetchOlderTransactions = (customBlocks?: bigint) => {
+    (fetchOlderTxs as (customBlockCount?: bigint) => void)(customBlocks);
+  };
+
+  const handleCustomBlocksInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, "");
+    if (value === "" || /^\d+$/.test(value)) {
+      const formatted = value ? parseInt(value).toLocaleString() : "";
+      setCustomBlocksInput(formatted);
+    }
+  };
 
   const transactions = createListCollection({
     items: [
@@ -94,21 +116,13 @@ const TransactionHistory = () => {
           </Box>
           <Flex alignItems="center" gap="10px" mb="15px">
             <Flex gap="2" alignItems="center">
-              <Image
-                src={network.icon}
-                width="100px"
-                height="50px"
-                objectFit="contain"
-                flexShrink={0}
-              />
-
               <Heading
                 size="lg"
                 className="text-white-1"
                 fontSize={"32px"}
                 lineHeight={"32px"}
               >
-                {network.name.replace(/^XDC\s+/i, "")} Market
+                XDC {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>
@@ -159,16 +173,26 @@ const TransactionHistory = () => {
                   {currentBlockRange.toLocaleString()} blocks
                 </ChakraText>
               </Box>
-              <Button
-                size="sm"
-                variant="outline"
-                colorPalette="blue"
-                onClick={fetchOlderTransactions}
-                disabled={isLoadingTxs}
-                loading={isLoadingTxs}
-              >
-                Load Older Transactions
-              </Button>
+              <Flex gap="2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  colorPalette="blue"
+                  onClick={() => handleFetchOlderTransactions()}
+                  disabled={isLoadingTxs}
+                  loading={isLoadingTxs}
+                >
+                  Load Older Transactions
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  colorPalette="gray"
+                  onClick={() => setIsCustomBlocksOpen(true)}
+                >
+                  Custom Blocks
+                </Button>
+              </Flex>
             </Flex>
             <Select.Root
               multiple
@@ -427,6 +451,85 @@ const TransactionHistory = () => {
       <Box mt="auto">
         <Footer />
       </Box>
+
+      <DialogRoot
+        open={isCustomBlocksOpen}
+        onOpenChange={(e) => setIsCustomBlocksOpen(e.open)}
+        placement="center"
+        size="sm"
+      >
+        <Portal>
+          <Box
+            position="fixed"
+            inset="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            pointerEvents="none"
+          >
+            <DialogContent
+              pointerEvents="auto"
+              maxW="400px"
+              mx="4"
+              bg="#fff"
+              borderRadius="8px"
+              boxShadow="0 4px 12px rgba(0, 0, 0, 0.15)"
+            >
+              <DialogHeader>
+                <DialogTitle>Search Custom Block Range</DialogTitle>
+                <DialogCloseTrigger />
+              </DialogHeader>
+              <DialogBody>
+                <Box mb="4">
+                  <ChakraText fontSize="sm" color="#62677b" mb="2">
+                    Enter the number of blocks to search back from the current
+                    block:
+                  </ChakraText>
+                  <Input
+                    placeholder="e.g., 100,000"
+                    value={customBlocksInput}
+                    onChange={handleCustomBlocksInput}
+                    type="text"
+                    inputMode="numeric"
+                  />
+                </Box>
+              </DialogBody>
+              <DialogFooter gap="2">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setIsCustomBlocksOpen(false);
+                    setCustomBlocksInput("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  colorPalette="blue"
+                  onClick={() => {
+                    const cleanValue = (customBlocksInput || "0").replace(
+                      /,/g,
+                      ""
+                    );
+                    const blockCount = BigInt(cleanValue);
+                    if (blockCount > 0n) {
+                      handleFetchOlderTransactions(blockCount);
+                      setIsCustomBlocksOpen(false);
+                      setCustomBlocksInput("");
+                    }
+                  }}
+                  disabled={
+                    !customBlocksInput ||
+                    BigInt((customBlocksInput || "0").replace(/,/g, "")) <= 0n
+                  }
+                >
+                  Load Blocks
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Box>
+        </Portal>
+      </DialogRoot>
     </Box>
   );
 };

@@ -1,6 +1,10 @@
-import { Box, Container, Flex, Link } from "@chakra-ui/react";
+import ContactUsModal from "@/pages/landing/ContactUsModal";
+import { Box, Button, Container, Flex, Link } from "@chakra-ui/react";
+import { useState } from "react";
 
 const Footer = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Box bg="#f7f8fa" py="20px" mt="40px" borderTop="1px solid #eaebef">
       <Container
@@ -36,9 +40,23 @@ const Footer = () => {
             >
               Privacy
             </Link>
+            <Button
+              as="button"
+              fontSize={"13px"}
+              color="#62677b"
+              _hover={{ color: "#000", textDecoration: "underline" }}
+              onClick={() => setIsOpen(true)}
+              variant="unstyled"
+              p="0"
+              h="auto"
+              cursor="pointer"
+            >
+              Contact us
+            </Button>
           </Flex>
         </Flex>
       </Container>
+      <ContactUsModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Box>
   );
 };
