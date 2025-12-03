@@ -14,20 +14,13 @@ export interface Transaction {
 
 interface CachedData {
   transactions: Transaction[];
-  oldestBlock: bigint;
-  newestBlock: bigint;
+  lastFetchedBlock: bigint;
   timestamp: number;
 }
 
 interface UseTransactionHistoryParams {
   userAddress?: string;
-  blockRange?: bigint;
   enabled?: boolean;
-  cacheEnabled?: boolean;
-  cacheDuration?: number;
-  onBlockRangeChange?: (newRange: bigint) => void;
-  /** Fetch all transactions from contract deployment block */
-  fetchAllHistory?: boolean;
 }
 
 interface UseTransactionHistoryReturn {
@@ -35,18 +28,11 @@ interface UseTransactionHistoryReturn {
   isLoading: boolean;
   error: Error | null;
   refetch: () => Promise<void>;
-  fetchOlderTransactions: (customBlockCount?: bigint) => void;
-  fetchAllFromDeployment: () => void;
-  currentBlockRange: bigint;
-  blocksFetched: bigint;
-  blocksRemaining: bigint;
-  /** Progress percentage (0-100) */
-  progress: number;
 }
 
 // IndexedDB helpers for efficient storage
 const DB_NAME = "tx_history_db";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_NAME = "transactions";
 
 const openDB = (): Promise<IDBDatabase> => {
@@ -56,10 +42,11 @@ const openDB = (): Promise<IDBDatabase> => {
     request.onsuccess = () => resolve(request.result);
     request.onupgradeneeded = (event) => {
       const db = (event.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        const store = db.createObjectStore(STORE_NAME, { keyPath: "cacheKey" });
-        store.createIndex("timestamp", "timestamp", { unique: false });
+      if (db.objectStoreNames.contains(STORE_NAME)) {
+        db.deleteObjectStore(STORE_NAME);
       }
+      const store = db.createObjectStore(STORE_NAME, { keyPath: "cacheKey" });
+      store.createIndex("timestamp", "timestamp", { unique: false });
     };
   });
 };
@@ -75,11 +62,9 @@ const getCachedData = async (cacheKey: string): Promise<CachedData | null> => {
       request.onsuccess = () => {
         const result = request.result;
         if (result) {
-          // Deserialize bigints
           resolve({
             ...result,
-            oldestBlock: BigInt(result.oldestBlock),
-            newestBlock: BigInt(result.newestBlock),
+            lastFetchedBlock: BigInt(result.lastFetchedBlock),
             transactions: result.transactions.map((tx: any) => ({
               ...tx,
               blockNumber: BigInt(tx.blockNumber),
@@ -91,8 +76,7 @@ const getCachedData = async (cacheKey: string): Promise<CachedData | null> => {
       };
     });
   } catch {
-    // Fallback to localStorage
-    return getLocalStorageCache(cacheKey);
+    return null;
   }
 };
 
@@ -105,12 +89,10 @@ const setCachedData = async (
     return new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, "readwrite");
       const store = tx.objectStore(STORE_NAME);
-      // Serialize bigints for storage
       const serialized = {
         cacheKey,
         ...data,
-        oldestBlock: data.oldestBlock.toString(),
-        newestBlock: data.newestBlock.toString(),
+        lastFetchedBlock: data.lastFetchedBlock.toString(),
         transactions: data.transactions.map((tx) => ({
           ...tx,
           blockNumber: tx.blockNumber.toString(),
@@ -120,94 +102,38 @@ const setCachedData = async (
       request.onerror = () => reject(request.error);
       request.onsuccess = () => resolve();
     });
-  } catch {
-    // Fallback to localStorage
-    setLocalStorageCache(cacheKey, data);
-  }
-};
-
-// LocalStorage fallback
-const getLocalStorageCache = (cacheKey: string): CachedData | null => {
-  try {
-    const cached = localStorage.getItem(cacheKey);
-    if (!cached) return null;
-    const parsed = JSON.parse(cached);
-    return {
-      ...parsed,
-      oldestBlock: BigInt(parsed.oldestBlock),
-      newestBlock: BigInt(parsed.newestBlock),
-      transactions: parsed.transactions.map((tx: any) => ({
-        ...tx,
-        blockNumber: BigInt(tx.blockNumber),
-      })),
-    };
-  } catch {
-    return null;
-  }
-};
-
-const setLocalStorageCache = (cacheKey: string, data: CachedData): void => {
-  try {
-    const serialized = JSON.stringify({
-      ...data,
-      oldestBlock: data.oldestBlock.toString(),
-      newestBlock: data.newestBlock.toString(),
-      transactions: data.transactions.map((tx) => ({
-        ...tx,
-        blockNumber: tx.blockNumber.toString(),
-      })),
-    });
-    localStorage.setItem(cacheKey, serialized);
   } catch (err) {
-    console.error("Error caching to localStorage:", err);
+    console.error("Error caching transactions:", err);
   }
 };
 
 const getCacheKey = (address: string, chainId: number) =>
-  `tx_history_v2_${address.toLowerCase()}_${chainId}`;
+  `tx_history_v3_${address.toLowerCase()}_${chainId}`;
 
-const DEFAULT_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-const DEFAULT_BLOCK_RANGE = 500000n;
-const CHUNK_SIZE = 100000n; // Smaller chunks for better parallelization
-const MAX_CONCURRENT_REQUESTS = 4; // Limit concurrent RPC calls
+const CHUNK_SIZE = 100000n;
+const MAX_CONCURRENT_REQUESTS = 4;
 
 /**
- * Enhanced hook for fetching transaction history with incremental updates
- * Features:
- * - Incremental fetching (only fetches new blocks)
- * - IndexedDB storage for larger datasets
- * - Request deduplication
- * - Optimized parallel chunk processing
- * - Automatic deduplication of transactions
- * - Fetch all history from contract deployment
+ * Simplified transaction history hook
+ * - First visit: fetches all from poolDeploymentBlock to current
+ * - Subsequent visits: fetches only new blocks since last fetch
+ * - Stores transactions and lastFetchedBlock in IndexedDB
  */
 export function useTransactionHistory({
   userAddress,
-  blockRange = DEFAULT_BLOCK_RANGE,
   enabled = true,
-  cacheEnabled = true,
-  cacheDuration = DEFAULT_CACHE_DURATION,
-  onBlockRangeChange,
-  fetchAllHistory = false,
 }: UseTransactionHistoryParams = {}): UseTransactionHistoryReturn {
   const { contracts, poolDeploymentBlock } = useChainConfig();
   const { address: connectedAddress, chain } = useAccount();
   const publicClient = usePublicClient();
-  const { data: currentBlockNumber } = useBlockNumber({ watch: true });
+  const { data: currentBlockNumber } = useBlockNumber();
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [currentBlockRange, setCurrentBlockRange] =
-    useState<bigint>(blockRange);
-  const [blocksFetched, setBlocksFetched] = useState<bigint>(0n);
-  const [blocksRemaining, setBlocksRemaining] = useState<bigint>(0n);
-  const [fetchAll, setFetchAll] = useState(fetchAllHistory);
 
-  // Request deduplication
   const fetchInProgress = useRef(false);
-  const lastFetchParams = useRef<string>("");
-  const cachedDataRef = useRef<CachedData | null>(null);
+  const hasFetched = useRef(false);
 
   const targetAddress = userAddress || connectedAddress;
   const cacheKey = useMemo(
@@ -216,91 +142,47 @@ export function useTransactionHistory({
     [targetAddress, chain?.id]
   );
 
-  // Load cached data on mount
-  useEffect(() => {
-    if (!cacheEnabled || !cacheKey) return;
-
-    const loadCache = async () => {
-      const cached = await getCachedData(cacheKey);
-      if (cached && Date.now() - cached.timestamp < cacheDuration) {
-        cachedDataRef.current = cached;
-        setTransactions(cached.transactions);
-      }
-    };
-    loadCache();
-  }, [cacheKey, cacheEnabled, cacheDuration]);
-
   const fetchTransactions = useCallback(async () => {
-    if (!targetAddress || !publicClient || !currentBlockNumber || !enabled) {
+    if (
+      !targetAddress ||
+      !publicClient ||
+      !currentBlockNumber ||
+      !enabled ||
+      !cacheKey ||
+      poolDeploymentBlock === undefined
+    ) {
       return;
     }
 
-    // Request deduplication
-    const fetchParams = `${targetAddress}_${currentBlockNumber}_${currentBlockRange}_${fetchAll}`;
-    if (fetchInProgress.current && lastFetchParams.current === fetchParams) {
-      return;
-    }
-
+    if (fetchInProgress.current) return;
     fetchInProgress.current = true;
-    lastFetchParams.current = fetchParams;
     setIsLoading(true);
     setError(null);
 
     try {
-      // Determine the starting block
-      let targetFromBlock: bigint;
-      if (fetchAll && poolDeploymentBlock !== undefined) {
-        // Fetch from contract deployment
-        targetFromBlock = poolDeploymentBlock;
-      } else {
-        targetFromBlock =
-          currentBlockNumber > currentBlockRange
-            ? currentBlockNumber - currentBlockRange
-            : 0n;
-      }
-
-      const cached = cachedDataRef.current;
-      let fromBlock = targetFromBlock;
-      let toBlock = currentBlockNumber;
+      // Load cached data
+      const cached = await getCachedData(cacheKey);
+      let fromBlock: bigint;
       let existingTransactions: Transaction[] = [];
 
-      // Incremental fetch: only fetch blocks we don't have
-      if (cached && cacheEnabled) {
-        if (
-          cached.newestBlock >= currentBlockNumber &&
-          cached.oldestBlock <= targetFromBlock
-        ) {
-          // Cache covers the entire range, no fetch needed
-          setIsLoading(false);
-          fetchInProgress.current = false;
-          return;
-        }
-
-        // Determine what ranges we need to fetch
-        if (cached.newestBlock < currentBlockNumber) {
-          // Need to fetch newer blocks
-          fromBlock = cached.newestBlock + 1n;
-          existingTransactions = cached.transactions.filter(
-            (tx) => tx.blockNumber >= targetFromBlock
-          );
-        }
-        if (cached.oldestBlock > targetFromBlock) {
-          // Need to fetch older blocks (user requested more history)
-          toBlock = cached.oldestBlock - 1n;
-          fromBlock = targetFromBlock;
-          existingTransactions = cached.transactions;
-        }
+      if (cached && cached.lastFetchedBlock > 0n) {
+        // Subsequent visit: fetch from last fetched block + 1
+        fromBlock = cached.lastFetchedBlock + 1n;
+        existingTransactions = cached.transactions;
+      } else {
+        // First visit: fetch from deployment block
+        fromBlock = poolDeploymentBlock;
       }
 
-      const totalBlocksToFetch = toBlock - fromBlock;
-      if (totalBlocksToFetch <= 0n) {
+      // If we're already up to date, just use cached data
+      if (fromBlock >= currentBlockNumber) {
+        setTransactions(existingTransactions);
         setIsLoading(false);
         fetchInProgress.current = false;
         return;
       }
 
-      setBlocksRemaining(totalBlocksToFetch);
-      setBlocksFetched(0n);
+      const toBlock = currentBlockNumber;
 
       // Create chunk ranges
       const chunks: Array<{ from: bigint; to: bigint }> = [];
@@ -312,7 +194,7 @@ export function useTransactionHistory({
         chunkStart = chunkEnd + 1n;
       }
 
-      // Fetch logs with controlled concurrency
+      // Fetch logs helper
       const fetchChunkLogs = async (
         eventName: string,
         args: any,
@@ -334,7 +216,6 @@ export function useTransactionHistory({
 
       // Process chunks with limited concurrency
       const allLogs: any[] = [];
-      let processedBlocks = 0n;
 
       for (let i = 0; i < chunks.length; i += MAX_CONCURRENT_REQUESTS) {
         const chunkBatch = chunks.slice(i, i + MAX_CONCURRENT_REQUESTS);
@@ -349,15 +230,6 @@ export function useTransactionHistory({
         );
 
         allLogs.push(...batchResults.flat());
-
-        // Update progress
-        const blocksInBatch = chunkBatch.reduce(
-          (sum, chunk) => sum + (chunk.to - chunk.from),
-          0n
-        );
-        processedBlocks += blocksInBatch;
-        setBlocksFetched(processedBlocks);
-        setBlocksRemaining(totalBlocksToFetch - processedBlocks);
       }
 
       // Get unique block numbers and batch fetch blocks
@@ -365,7 +237,6 @@ export function useTransactionHistory({
         ...new Set(allLogs.map((log) => log.blockNumber)),
       ];
 
-      // Batch block fetches with concurrency limit
       const blockCache = new Map<bigint, { timestamp: bigint }>();
       for (
         let i = 0;
@@ -400,7 +271,7 @@ export function useTransactionHistory({
         })
         .filter((tx) => tx.timestamp > 0);
 
-      // Merge with existing transactions and deduplicate
+      // Merge and deduplicate
       const txMap = new Map<string, Transaction>();
       [...existingTransactions, ...newTransactions].forEach((tx) => {
         const key = `${tx.hash}_${tx.type}_${tx.blockNumber}`;
@@ -409,23 +280,18 @@ export function useTransactionHistory({
         }
       });
 
-      const mergedTransactions = Array.from(txMap.values())
-        .filter((tx) => tx.blockNumber >= targetFromBlock)
-        .sort((a, b) => b.timestamp - a.timestamp);
+      const mergedTransactions = Array.from(txMap.values()).sort(
+        (a, b) => b.timestamp - a.timestamp
+      );
 
       setTransactions(mergedTransactions);
 
-      // Update cache
-      if (cacheEnabled && cacheKey) {
-        const newCacheData: CachedData = {
-          transactions: mergedTransactions,
-          oldestBlock: targetFromBlock,
-          newestBlock: currentBlockNumber,
-          timestamp: Date.now(),
-        };
-        cachedDataRef.current = newCacheData;
-        await setCachedData(cacheKey, newCacheData);
-      }
+      // Save to cache with current block number
+      await setCachedData(cacheKey, {
+        transactions: mergedTransactions,
+        lastFetchedBlock: currentBlockNumber,
+        timestamp: Date.now(),
+      });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err : new Error("Failed to fetch transactions");
@@ -440,57 +306,23 @@ export function useTransactionHistory({
     publicClient,
     currentBlockNumber,
     enabled,
-    currentBlockRange,
-    contracts.pool,
-    cacheEnabled,
     cacheKey,
-    fetchAll,
+    contracts.pool,
     poolDeploymentBlock,
   ]);
 
-  const fetchOlderTransactions = useCallback(
-    (customBlockCount?: bigint) => {
-      setFetchAll(false);
-      const newRange = customBlockCount ?? currentBlockRange + 500000n;
-      setCurrentBlockRange(newRange);
-      onBlockRangeChange?.(newRange);
-    },
-    [currentBlockRange, onBlockRangeChange]
-  );
-
-  const fetchAllFromDeployment = useCallback(() => {
-    if (poolDeploymentBlock === undefined) {
-      console.warn("Pool deployment block not configured for this chain");
-      return;
-    }
-    // Clear cache to force full refetch
-    cachedDataRef.current = null;
-    // Reset fetch params to allow re-fetch
-    lastFetchParams.current = "";
-    setFetchAll(true);
-  }, [poolDeploymentBlock]);
-
+  // Fetch on mount (only once per session)
   useEffect(() => {
-    fetchTransactions();
-  }, [fetchTransactions]);
-
-  // Calculate progress percentage
-  const progress = useMemo(() => {
-    const total = blocksFetched + blocksRemaining;
-    if (total === 0n) return 0;
-    return Number((blocksFetched * 100n) / total);
-  }, [blocksFetched, blocksRemaining]);
+    if (!hasFetched.current && currentBlockNumber) {
+      hasFetched.current = true;
+      fetchTransactions();
+    }
+  }, [fetchTransactions, currentBlockNumber]);
 
   return {
     transactions,
     isLoading,
     error,
     refetch: fetchTransactions,
-    fetchOlderTransactions,
-    fetchAllFromDeployment,
-    currentBlockRange,
-    blocksFetched,
-    blocksRemaining,
-    progress,
   };
 }
