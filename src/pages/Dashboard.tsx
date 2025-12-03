@@ -162,13 +162,18 @@ const Dashboard = () => {
                   style={{ height: "40px", width: "40px" }}
                 />
                 <Heading
-                  size={{ base: "2xl", md: "4xl" }}
+                  size={{ base: "2xl", sm: "3xl", md: "4xl" }}
                   className="text-white-1"
                 >
                   XDC {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
-              <Flex justifyContent={"space-between"} alignItems={"center"}>
+              <Flex
+                direction={{ base: "column", sm: "row" }}
+                justifyContent={{ sm: "space-between" }}
+                alignItems={{ base: "flex-start", sm: "center" }}
+                gap={"15px"}
+              >
                 <Flex gap="6" alignItems="center" flexWrap="wrap">
                   <Flex direction="column">
                     <Box className="light-text-1">Net worth</Box>
