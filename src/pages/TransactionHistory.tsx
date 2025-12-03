@@ -89,13 +89,18 @@ const TransactionHistory = () => {
           </Box>
           <Flex alignItems="center" gap="10px" mb="15px">
             <Flex gap="2" alignItems="center">
+              <img
+                src="/src/assets/images/xdc coin.svg"
+                alt="XDC"
+                style={{ height: "32px", width: "32px" }}
+              />
               <Heading
                 size="lg"
                 className="text-white-1"
                 fontSize={"32px"}
                 lineHeight={"32px"}
               >
-                XDC {network.name.replace(/^XDC\s+/i, "")} Market
+                {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>

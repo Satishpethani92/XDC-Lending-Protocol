@@ -120,8 +120,13 @@ const AssetDetails = () => {
                 Go Back
               </Button>
               <Flex gap="2" alignItems="center">
+                <img
+                  src="/src/assets/images/xdc coin.svg"
+                  alt="XDC"
+                  style={{ height: "28px", width: "28px" }}
+                />
                 <Heading size="lg" className="text-white-1">
-                  XDC {network.name.replace(/^XDC\s+/i, "")} Market
+                  {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
             </Flex>
@@ -268,8 +273,13 @@ const AssetDetails = () => {
               Go Back
             </Button>
             <Flex gap="2" alignItems="center">
+              <img
+                src="/src/assets/images/xdc coin.svg"
+                alt="XDC"
+                style={{ height: "28px", width: "28px" }}
+              />
               <Heading size="lg" className="text-white-1">
-                XDC {network.name.replace(/^XDC\s+/i, "")} Market
+                {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>

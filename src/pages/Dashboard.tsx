@@ -154,11 +154,16 @@ const Dashboard = () => {
           {isConnected && (
             <>
               <Flex gap="2" alignItems="center" mb="15px">
+                <img
+                  src="/src/assets/images/xdc coin.svg"
+                  alt="XDC"
+                  style={{ height: "40px", width: "40px" }}
+                />
                 <Heading
                   size={{ base: "2xl", md: "4xl" }}
                   className="text-white-1"
                 >
-                  XDC {network.name.replace(/^XDC\s+/i, "")} Market
+                  {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
               <Flex justifyContent={"space-between"} alignItems={"center"}>
