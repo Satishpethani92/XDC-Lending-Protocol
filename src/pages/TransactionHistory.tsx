@@ -89,24 +89,22 @@ const TransactionHistory = () => {
           px={{ base: "auto", "2xl": "0" }}
           h="100%"
         >
-          <Box className="light-text-1" fontSize={"18px"}>
+          <Box className="light-text-1" fontSize={{ base: "16px", md: "18px" }}>
             Transaction history
           </Box>
           <Flex alignItems="center" gap="10px" mb="15px">
             <Flex gap="2" alignItems="center">
               <Image
                 src={network.icon}
-                width="100px"
-                height="50px"
+                width={{ base: "60px", md: "100px" }}
+                height={{ base: "30px", md: "50px" }}
                 objectFit="contain"
                 flexShrink={0}
               />
 
               <Heading
-                size="lg"
+                size={{ base: "2xl", sm: "3xl", md: "4xl" }}
                 className="text-white-1"
-                fontSize={"32px"}
-                lineHeight={"32px"}
               >
                 {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>

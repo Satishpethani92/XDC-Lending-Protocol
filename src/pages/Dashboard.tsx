@@ -15,6 +15,7 @@ import {
   Flex,
   Heading,
   Image,
+  SimpleGrid,
   Skeleton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -160,11 +161,19 @@ const Dashboard = () => {
               objectFit="contain"
               flexShrink={0}
             />
-            <Heading size={{ base: "2xl", md: "4xl" }} className="text-white-1">
+            <Heading
+              size={{ base: "2xl", sm: "3xl", md: "4xl" }}
+              className="text-white-1"
+            >
               {network.name.replace(/^XDC\s+/i, "")} Market
             </Heading>
           </Flex>
-          <Flex justifyContent={"space-between"} alignItems={"center"}>
+          <Flex
+            direction={{ base: "column", sm: "row" }}
+            justifyContent={{ sm: "space-between" }}
+            alignItems={{ base: "flex-start", sm: "center" }}
+            gap={"15px"}
+          >
             <Flex gap="6" alignItems="center" flexWrap="wrap">
               <Flex direction="column">
                 <Box className="light-text-1">Net worth</Box>
@@ -246,12 +255,16 @@ const Dashboard = () => {
       >
         <Box mt={"-50px"}>
           {isConnected ? (
-            <Flex gap="4" direction={{ base: "column", lg: "row" }}>
+            <SimpleGrid
+              columns={{ base: 1, lg: 2 }}
+              gap={4}
+              alignItems="flex-start"
+            >
               {/* LEFT CONTENT - SUPPLY */}
               <SupplyContent />
               {/* RIGHT CONTENT - BORROW */}
               <BorrowContent />
-            </Flex>
+            </SimpleGrid>
           ) : (
             <ConnectYourWalletContent />
           )}

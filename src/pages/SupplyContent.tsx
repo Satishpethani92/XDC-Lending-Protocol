@@ -601,7 +601,7 @@ const SupplyContent = () => {
   };
 
   return (
-    <Box width={{ base: "100%", lg: "calc(50% - 0.5rem)" }}>
+    <Box>
       {isSupplyModal && (
         <SupplyModal
           isOpen={isSupplyModal}
@@ -1005,7 +1005,7 @@ const SupplyContent = () => {
         <Heading size="xl" p="16px 24px" className="title-text-1">
           Assets to supply
         </Heading>
-        <Box p="15px" overflowX="auto">
+        <Box px={"15px"} py={{ base: "0 15px", md: "15px" }} overflowX="auto">
           <Table.Root size="sm">
             <Table.Header>
               <Table.Row>
