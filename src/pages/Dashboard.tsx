@@ -1,3 +1,4 @@
+import xdcIcon from "@/assets/images/xdc-icon.webp";
 import Footer from "@/components/Footer";
 import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { getHealthFactorColor } from "@/helpers/getHealthFactorColor";
@@ -155,7 +156,7 @@ const Dashboard = () => {
             <>
               <Flex gap="2" alignItems="center" mb="15px">
                 <img
-                  src="/src/assets/images/xdc-icon.webp"
+                  src={xdcIcon}
                   alt="XDC"
                   style={{ height: "40px", width: "40px" }}
                 />
