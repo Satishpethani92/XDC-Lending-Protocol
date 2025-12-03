@@ -581,7 +581,7 @@ function BorrowContent() {
   };
 
   return (
-    <Box width={{ base: "100%", lg: "calc(50% - 0.5rem)" }}>
+    <Box>
       {isBorrowModal && (
         <BorrowModal
           isOpen={isBorrowModal}
@@ -945,7 +945,7 @@ function BorrowContent() {
               </Box>
             </Box>
           )}
-        <Box p="15px" overflowX="auto">
+        <Box px={"15px"} py={{ base: "0 15px", md: "15px" }} overflowX="auto">
           <Table.Root size="sm">
             <Table.Header>
               <Table.Row>

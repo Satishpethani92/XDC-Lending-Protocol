@@ -15,6 +15,7 @@ import {
   Container,
   Flex,
   Heading,
+  SimpleGrid,
   Skeleton,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -141,7 +142,7 @@ const Dashboard = () => {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       <Header />
-      <Box pt={"80px"} pb={"94px"} maxH={"290px"} bg={"#2b2d3c"}>
+      <Box pt={"25px"} pb={"90px"} bg={"#2b2d3c"}>
         <Container
           maxW={{
             md: "container.md",
@@ -161,13 +162,18 @@ const Dashboard = () => {
                   style={{ height: "40px", width: "40px" }}
                 />
                 <Heading
-                  size={{ base: "2xl", md: "4xl" }}
+                  size={{ base: "2xl", sm: "3xl", md: "4xl" }}
                   className="text-white-1"
                 >
                   XDC {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
-              <Flex justifyContent={"space-between"} alignItems={"center"}>
+              <Flex
+                direction={{ base: "column", sm: "row" }}
+                justifyContent={{ sm: "space-between" }}
+                alignItems={{ base: "flex-start", sm: "center" }}
+                gap={"15px"}
+              >
                 <Flex gap="6" alignItems="center" flexWrap="wrap">
                   <Flex direction="column">
                     <Box className="light-text-1">Net worth</Box>
@@ -251,12 +257,16 @@ const Dashboard = () => {
       >
         <Box mt={"-50px"}>
           {isConnected ? (
-            <Flex gap="4" direction={{ base: "column", lg: "row" }}>
+            <SimpleGrid
+              columns={{ base: 1, lg: 2 }}
+              gap={4}
+              alignItems="flex-start"
+            >
               {/* LEFT CONTENT - SUPPLY */}
               <SupplyContent />
               {/* RIGHT CONTENT - BORROW */}
               <BorrowContent />
-            </Flex>
+            </SimpleGrid>
           ) : (
             <ConnectYourWalletContent />
           )}

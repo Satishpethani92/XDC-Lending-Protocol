@@ -128,12 +128,12 @@ const AssetOverview: React.FC<Props> = ({ token = "wxdc" }) => {
           Reserve status & configuration
         </Heading>
         <Flex direction="column" gap="35px">
-          <Flex gap="10px">
+          <Flex gap="10px" direction={{ base: "column", md: "row" }}>
             <Heading size="md" minW="170px" className="title-text-1">
               Supply Info
             </Heading>
             <Flex direction="column" gap="30px" w="100%">
-              <Flex gap="15px" alignItems="center">
+              <Flex gap="15px" flexWrap={"wrap"} alignItems="center">
                 {hasSupplyCap ? (
                   <ProgressCircle.Root size="xl" value={supplyCapPercentage}>
                     <ProgressCircle.Circle css={{ "--size": "80px" }}>
@@ -249,12 +249,12 @@ const AssetOverview: React.FC<Props> = ({ token = "wxdc" }) => {
             </Flex>
           </Flex>
           <Box as="hr" borderWidth="100%"></Box>
-          <Flex gap="10px">
+          <Flex gap="10px" direction={{ base: "column", md: "row" }}>
             <Heading size="md" minW="170px" className="title-text-1">
               Borrow Info
             </Heading>
             <Flex direction="column" gap="30px" w="100%">
-              <Flex gap="15px" alignItems="center">
+              <Flex gap="15px" flexWrap={"wrap"} alignItems="center">
                 {hasBorrowCap ? (
                   <ProgressCircle.Root size="xl" value={borrowCapPercentage}>
                     <ProgressCircle.Circle css={{ "--size": "80px" }}>
@@ -372,7 +372,7 @@ const AssetOverview: React.FC<Props> = ({ token = "wxdc" }) => {
             </Flex>
           </Flex>
           <Box as="hr" borderWidth="100%"></Box>
-          <Flex gap="10px">
+          <Flex gap="10px" direction={{ base: "column", md: "row" }}>
             <Heading size="md" minW="170px" className="title-text-1">
               Interest rate model
             </Heading>

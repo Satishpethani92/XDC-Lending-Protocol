@@ -21,7 +21,15 @@ const Header = () => {
 
   return (
     <>
-      <Box position="fixed" top="16px" right="0" left={"0"} zIndex="1000">
+      <Box
+        position="sticky"
+        top="0"
+        py={"15px"}
+        right="0"
+        left={"0"}
+        zIndex="1000"
+        bg={"#2b2d3c"}
+      >
         <Flex
           justifyContent={"space-between"}
           alignItems={"center"}

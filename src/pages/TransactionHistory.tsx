@@ -74,7 +74,7 @@ const TransactionHistory = () => {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       <Header />
-      <Box pt={"60px"} pb={"94px"} bg={"#2b2d3c"}>
+      <Box pt={"25px"} pb={"90px"} bg={"#2b2d3c"}>
         <Container
           maxW={{
             base: "100%",
@@ -85,7 +85,7 @@ const TransactionHistory = () => {
           px={{ base: "auto", "2xl": "0" }}
           h="100%"
         >
-          <Box className="light-text-1" fontSize={"18px"}>
+          <Box className="light-text-1" fontSize={{ base: "16px", md: "18px" }}>
             Transaction history
           </Box>
           <Flex alignItems="center" gap="10px" mb="15px">
@@ -96,10 +96,8 @@ const TransactionHistory = () => {
                 style={{ height: "32px", width: "32px" }}
               />
               <Heading
-                size="lg"
+                size={{ base: "2xl", sm: "3xl", md: "4xl" }}
                 className="text-white-1"
-                fontSize={"32px"}
-                lineHeight={"32px"}
               >
                 XDC {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
