@@ -96,7 +96,7 @@ const AssetDetails = () => {
     return (
       <Box display="flex" flexDirection="column" minH="100vh">
         <Header />
-        <Box pt={"91px"} pb={"94px"} maxH={"290px"} bg={"#2b2d3c"}>
+        <Box pt={"25px"} pb={"80px"} maxH={"245px"} bg={"#2b2d3c"}>
           <Container
             maxW={{
               base: "100%",
@@ -134,9 +134,10 @@ const AssetDetails = () => {
             </Flex>
 
             <Flex
-              alignItems="center"
-              gap={{ base: "15px", md: "32px" }}
+              alignItems={{ base: "flex-start", lg: "center" }}
+              gap={{ base: "15px", lg: "32px" }}
               flexWrap="wrap"
+              flexDirection={{ base: "column", lg: "row" }}
             >
               <Flex gap="3" alignItems="center">
                 <Image
@@ -166,7 +167,7 @@ const AssetDetails = () => {
                 borderWidth="1px"
                 height="42px"
                 borderColor={"#62677b"}
-                display={{ base: "none", md: "block" }}
+                display={{ base: "none", lg: "block" }}
               />
 
               <Flex gap={{ base: "15px", md: "32px" }} flexWrap="wrap" flex="1">
@@ -251,7 +252,7 @@ const AssetDetails = () => {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       <Header />
-      <Box pt={"91px"} pb={"94px"} maxH={"290px"} bg={"#2b2d3c"}>
+      <Box pt={"25px"} pb={{ base: "60px", xl: "100px" }} bg={"#2b2d3c"}>
         <Container
           maxW={{
             base: "100%",
@@ -289,9 +290,10 @@ const AssetDetails = () => {
           </Flex>
 
           <Flex
-            alignItems="center"
-            gap={{ base: "15px", md: "32px" }}
+            alignItems={{ base: "flex-start", lg: "center" }}
+            gap={{ base: "15px", lg: "32px" }}
             flexWrap="wrap"
+            flexDirection={{ base: "column", lg: "row" }}
           >
             <Flex gap="3" alignItems="center">
               <Image
@@ -347,7 +349,7 @@ const AssetDetails = () => {
               borderWidth="1px"
               height="42px"
               borderColor={"#62677b"}
-              display={{ base: "none", md: "block" }}
+              display={{ base: "none", lg: "block" }}
             />
 
             <Flex gap={{ base: "15px", md: "32px" }} flexWrap="wrap" flex="1">

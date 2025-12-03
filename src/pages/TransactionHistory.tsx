@@ -78,7 +78,7 @@ const TransactionHistory = () => {
   return (
     <Box display="flex" flexDirection="column" minH="100vh">
       <Header />
-      <Box pt={"60px"} pb={"94px"} bg={"#2b2d3c"}>
+      <Box pt={"25px"} pb={"90px"} bg={"#2b2d3c"}>
         <Container
           maxW={{
             base: "100%",
