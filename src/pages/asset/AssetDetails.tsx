@@ -121,7 +121,7 @@ const AssetDetails = () => {
               </Button>
               <Flex gap="2" alignItems="center">
                 <img
-                  src="/src/assets/images/xdc coin.svg"
+                  src="/src/assets/images/xdc-icon.webp"
                   alt="XDC"
                   style={{ height: "28px", width: "28px" }}
                 />
@@ -274,7 +274,7 @@ const AssetDetails = () => {
             </Button>
             <Flex gap="2" alignItems="center">
               <img
-                src="/src/assets/images/xdc coin.svg"
+                src="/src/assets/images/xdc-icon.webp"
                 alt="XDC"
                 style={{ height: "28px", width: "28px" }}
               />

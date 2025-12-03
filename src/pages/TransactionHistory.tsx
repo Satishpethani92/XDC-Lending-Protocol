@@ -90,7 +90,7 @@ const TransactionHistory = () => {
           <Flex alignItems="center" gap="10px" mb="15px">
             <Flex gap="2" alignItems="center">
               <img
-                src="/src/assets/images/xdc coin.svg"
+                src="/src/assets/images/xdc-icon.webp"
                 alt="XDC"
                 style={{ height: "32px", width: "32px" }}
               />

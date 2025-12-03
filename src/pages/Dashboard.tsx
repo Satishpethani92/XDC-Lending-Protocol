@@ -155,7 +155,7 @@ const Dashboard = () => {
             <>
               <Flex gap="2" alignItems="center" mb="15px">
                 <img
-                  src="/src/assets/images/xdc coin.svg"
+                  src="/src/assets/images/xdc-icon.webp"
                   alt="XDC"
                   style={{ height: "40px", width: "40px" }}
                 />
