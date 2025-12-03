@@ -126,7 +126,7 @@ const AssetDetails = () => {
                   style={{ height: "28px", width: "28px" }}
                 />
                 <Heading size="lg" className="text-white-1">
-                  {network.name.replace(/^XDC\s+/i, "")} Market
+                  XDC {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
             </Flex>
@@ -279,7 +279,7 @@ const AssetDetails = () => {
                 style={{ height: "28px", width: "28px" }}
               />
               <Heading size="lg" className="text-white-1">
-                {network.name.replace(/^XDC\s+/i, "")} Market
+                XDC {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>

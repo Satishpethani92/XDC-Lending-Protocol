@@ -163,7 +163,7 @@ const Dashboard = () => {
                   size={{ base: "2xl", md: "4xl" }}
                   className="text-white-1"
                 >
-                  {network.name.replace(/^XDC\s+/i, "")} Market
+                  XDC {network.name.replace(/^XDC\s+/i, "")} Market
                 </Heading>
               </Flex>
               <Flex justifyContent={"space-between"} alignItems={"center"}>

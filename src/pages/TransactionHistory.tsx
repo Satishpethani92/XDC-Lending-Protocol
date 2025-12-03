@@ -100,7 +100,7 @@ const TransactionHistory = () => {
                 fontSize={"32px"}
                 lineHeight={"32px"}
               >
-                {network.name.replace(/^XDC\s+/i, "")} Market
+                XDC {network.name.replace(/^XDC\s+/i, "")} Market
               </Heading>
             </Flex>
           </Flex>
