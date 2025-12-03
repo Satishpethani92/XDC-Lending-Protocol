@@ -13,6 +13,8 @@ import {
   Heading,
   Icon,
   Image,
+  Menu,
+  Portal,
   Spinner,
   Tabs,
   useBreakpointValue,
@@ -307,36 +309,150 @@ const AssetDetails = () => {
                   <Heading size="xl" fontWeight="700" className="text-white-1">
                     {tokenInfo.fullName}
                   </Heading>
-                  <Button
-                    width="24px"
-                    height="24px"
-                    minWidth="auto"
-                    p="5px"
-                    variant="plain"
-                    className="btn-color-dark-1-hover"
-                    borderRadius="50%"
-                    onClick={handleOpenExplorer}
-                    title="View on Explorer"
-                  >
-                    <Icon size="sm" className="icon-dark">
-                      <FiExternalLink />
-                    </Icon>
-                  </Button>
-                  <Button
-                    width="24px"
-                    height="24px"
-                    minWidth="auto"
-                    p="5px"
-                    variant="plain"
-                    className="btn-color-dark-1-hover"
-                    borderRadius="50%"
-                    onClick={addToWallet}
-                    title="Add to Wallet"
-                  >
-                    <Icon size="sm" className="icon-dark">
-                      <IoWalletOutline />
-                    </Icon>
-                  </Button>
+                  <Menu.Root>
+                    <Menu.Trigger asChild>
+                      <Button
+                        width="24px"
+                        height="24px"
+                        minWidth="auto"
+                        p="5px"
+                        variant="plain"
+                        className="btn-color-dark-1-hover"
+                        borderRadius="50%"
+                        // onClick={handleOpenExplorer}
+                        title="View on Explorer"
+                      >
+                        <Icon size="sm" className="icon-dark">
+                          <FiExternalLink />
+                        </Icon>
+                      </Button>
+                    </Menu.Trigger>
+                    <Portal>
+                      <Menu.Positioner>
+                        <Menu.Content w={"200px"}>
+                          <Menu.ItemGroup>
+                            <Menu.ItemGroupLabel>
+                              Underlying Token
+                            </Menu.ItemGroupLabel>
+                            <Menu.Item
+                              value={tokenInfo.symbol}
+                              cursor={"pointer"}
+                            >
+                              <Flex gap="2" alignItems="center">
+                                <img
+                                  src={tokenInfo.icon}
+                                  alt={tokenInfo.name}
+                                  style={{ height: "20px", width: "20px" }}
+                                />
+                              </Flex>
+                              {tokenInfo.symbol}
+                            </Menu.Item>
+                          </Menu.ItemGroup>
+                          <Menu.Separator />
+                          <Menu.ItemGroup>
+                            <Menu.ItemGroupLabel>
+                              Creditify aToken
+                            </Menu.ItemGroupLabel>
+                            <Menu.Item
+                              value={`a${tokenInfo.symbol}`}
+                              cursor={"pointer"}
+                            >
+                              <Flex gap="2" alignItems="center">
+                                <img
+                                  src={tokenInfo.icon}
+                                  alt={tokenInfo.name}
+                                  style={{ height: "20px", width: "20px" }}
+                                />
+                              </Flex>
+                              {`a${tokenInfo.symbol}`}
+                            </Menu.Item>
+                          </Menu.ItemGroup>
+                          <Menu.Separator />
+                          <Menu.ItemGroup>
+                            <Menu.ItemGroupLabel>
+                              Creditify debt Token
+                            </Menu.ItemGroupLabel>
+                            <Menu.Item
+                              value={`debt${tokenInfo.symbol}`}
+                              cursor={"pointer"}
+                            >
+                              <Flex gap="2" alignItems="center">
+                                <img
+                                  src={tokenInfo.icon}
+                                  alt={tokenInfo.name}
+                                  style={{ height: "20px", width: "20px" }}
+                                />
+                              </Flex>
+                              Variable debt {tokenInfo.symbol}
+                            </Menu.Item>
+                          </Menu.ItemGroup>
+                        </Menu.Content>
+                      </Menu.Positioner>
+                    </Portal>
+                  </Menu.Root>
+
+                  <Menu.Root>
+                    <Menu.Trigger asChild>
+                      <Button
+                        width="24px"
+                        height="24px"
+                        minWidth="auto"
+                        p="5px"
+                        variant="plain"
+                        className="btn-color-dark-1-hover"
+                        borderRadius="50%"
+                        // onClick={addToWallet}
+                        title="Add to Wallet"
+                      >
+                        <Icon size="sm" className="icon-dark">
+                          <IoWalletOutline />
+                        </Icon>
+                      </Button>
+                    </Menu.Trigger>
+                    <Portal>
+                      <Menu.Positioner>
+                        <Menu.Content w={"200px"}>
+                          <Menu.ItemGroup>
+                            <Menu.ItemGroupLabel>
+                              Underlying Token
+                            </Menu.ItemGroupLabel>
+                            <Menu.Item
+                              value={tokenInfo.symbol}
+                              cursor={"pointer"}
+                            >
+                              <Flex gap="2" alignItems="center">
+                                <img
+                                  src={tokenInfo.icon}
+                                  alt={tokenInfo.name}
+                                  style={{ height: "20px", width: "20px" }}
+                                />
+                              </Flex>
+                              {tokenInfo.symbol}
+                            </Menu.Item>
+                          </Menu.ItemGroup>
+                          <Menu.Separator />
+                          <Menu.ItemGroup>
+                            <Menu.ItemGroupLabel>
+                              Creditify aToken
+                            </Menu.ItemGroupLabel>
+                            <Menu.Item
+                              value={`a${tokenInfo.symbol}`}
+                              cursor={"pointer"}
+                            >
+                              <Flex gap="2" alignItems="center">
+                                <img
+                                  src={tokenInfo.icon}
+                                  alt={tokenInfo.name}
+                                  style={{ height: "20px", width: "20px" }}
+                                />
+                              </Flex>
+                              {`a${tokenInfo.symbol}`}
+                            </Menu.Item>
+                          </Menu.ItemGroup>
+                        </Menu.Content>
+                      </Menu.Positioner>
+                    </Portal>
+                  </Menu.Root>
                 </Flex>
               </Flex>
             </Flex>
