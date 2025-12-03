@@ -66,7 +66,7 @@ export default function Footer() {
               © Creditify • Built for DeFi • Non-custodial
             </Text>
             <Button
-              variant="unstyled"
+              variant="plain"
               fontSize={{ base: "14px", lg: "16px" }}
               color="#ABDFEF"
               cursor="pointer"

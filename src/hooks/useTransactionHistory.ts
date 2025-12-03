@@ -120,37 +120,47 @@ export function useTransactionHistory({
           ? currentBlockNumber - currentBlockRange
           : 0n;
 
-      // Fetch all event types in parallel
+      // Helper function to fetch logs in chunks
+      const fetchLogsInChunks = async (
+        eventName: string,
+        args: any
+      ): Promise<any[]> => {
+        const CHUNK_SIZE = 50000n;
+        const allLogs: any[] = [];
+        let currentFrom = fromBlock;
+
+        while (currentFrom < currentBlockNumber) {
+          const currentTo =
+            currentFrom + CHUNK_SIZE > currentBlockNumber
+              ? currentBlockNumber
+              : currentFrom + CHUNK_SIZE;
+
+          try {
+            const logs = await publicClient.getLogs({
+              address: contracts.pool,
+              event: POOL_ABI.find((e: any) => e.name === eventName) as any,
+              fromBlock: currentFrom,
+              toBlock: currentTo,
+              args,
+            });
+            allLogs.push(...logs);
+          } catch (err) {
+            console.error(`Error fetching ${eventName} logs for chunk`, err);
+          }
+
+          currentFrom = currentTo + 1n;
+        }
+
+        return allLogs;
+      };
+
+      // Fetch all event types in parallel with chunking
       const [supplyLogs, withdrawLogs, borrowLogs, repayLogs] =
         await Promise.all([
-          publicClient.getLogs({
-            address: contracts.pool,
-            event: POOL_ABI.find((e: any) => e.name === "Supply") as any,
-            fromBlock,
-            toBlock: currentBlockNumber,
-            args: { onBehalfOf: targetAddress },
-          }),
-          publicClient.getLogs({
-            address: contracts.pool,
-            event: POOL_ABI.find((e: any) => e.name === "Withdraw") as any,
-            fromBlock,
-            toBlock: currentBlockNumber,
-            args: { user: targetAddress },
-          }),
-          publicClient.getLogs({
-            address: contracts.pool,
-            event: POOL_ABI.find((e: any) => e.name === "Borrow") as any,
-            fromBlock,
-            toBlock: currentBlockNumber,
-            args: { onBehalfOf: targetAddress },
-          }),
-          publicClient.getLogs({
-            address: contracts.pool,
-            event: POOL_ABI.find((e: any) => e.name === "Repay") as any,
-            fromBlock,
-            toBlock: currentBlockNumber,
-            args: { user: targetAddress },
-          }),
+          fetchLogsInChunks("Supply", { onBehalfOf: targetAddress }),
+          fetchLogsInChunks("Withdraw", { user: targetAddress }),
+          fetchLogsInChunks("Borrow", { onBehalfOf: targetAddress }),
+          fetchLogsInChunks("Repay", { user: targetAddress }),
         ]);
 
       // Get unique block numbers for batch fetching

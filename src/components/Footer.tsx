@@ -46,7 +46,7 @@ const Footer = () => {
               color="#62677b"
               _hover={{ color: "#000", textDecoration: "underline" }}
               onClick={() => setIsOpen(true)}
-              variant="unstyled"
+              variant="plain"
               p="0"
               h="auto"
               cursor="pointer"
