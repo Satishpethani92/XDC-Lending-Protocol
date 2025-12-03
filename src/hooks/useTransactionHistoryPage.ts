@@ -39,7 +39,11 @@ export function useTransactionHistoryPage({
     error,
     refetch,
     fetchOlderTransactions,
+    fetchAllFromDeployment,
     currentBlockRange,
+    blocksFetched,
+    blocksRemaining,
+    progress,
   } = useTransactionHistory({
     blockRange,
     cacheEnabled,
@@ -106,6 +110,10 @@ export function useTransactionHistoryPage({
     // Actions
     refetch,
     fetchOlderTransactions,
+    fetchAllFromDeployment,
     currentBlockRange,
+    blocksFetched,
+    blocksRemaining,
+    progress,
   };
 }

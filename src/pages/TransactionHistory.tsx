@@ -67,7 +67,11 @@ const TransactionHistory = () => {
     filteredTransactions: filteredTxData,
     transactions: txData,
     fetchOlderTransactions: fetchOlderTxs,
+    fetchAllFromDeployment,
     currentBlockRange,
+    blocksFetched,
+    blocksRemaining,
+    progress,
   } = useTransactionHistoryPage({
     blockRange: 50000n,
     itemsPerPage: 10,
@@ -172,8 +176,21 @@ const TransactionHistory = () => {
                   Showing transactions from the last ~
                   {currentBlockRange.toLocaleString()} blocks
                 </ChakraText>
+                {isLoadingTxs &&
+                  (blocksFetched > 0n || blocksRemaining > 0n) && (
+                    <ChakraText
+                      fontSize="sm"
+                      color="#0066cc"
+                      mt="2"
+                      fontWeight="500"
+                    >
+                      Fetching blocks: {blocksFetched.toLocaleString()} /{" "}
+                      {(blocksFetched + blocksRemaining).toLocaleString()} (
+                      {progress}%)
+                    </ChakraText>
+                  )}
               </Box>
-              <Flex gap="2">
+              <Flex gap="2" flexWrap="wrap">
                 <Button
                   size="sm"
                   variant="outline"
@@ -183,6 +200,16 @@ const TransactionHistory = () => {
                   loading={isLoadingTxs}
                 >
                   Load Older Transactions
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  colorPalette="green"
+                  onClick={() => fetchAllFromDeployment()}
+                  disabled={isLoadingTxs}
+                  title="Fetch all transactions from contract deployment"
+                >
+                  Fetch All History
                 </Button>
                 <Button
                   size="sm"
