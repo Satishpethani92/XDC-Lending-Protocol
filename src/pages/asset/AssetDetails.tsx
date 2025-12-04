@@ -44,33 +44,72 @@ const AssetDetails = () => {
     utilizationRate,
     oraclePrice,
     isLoading,
+    cTokenAddress,
+    variableDebtTokenAddress,
   } = useAssetDetails(token);
 
   const { chain, isConnected } = useAccount();
 
-  const handleOpenExplorer = () => {
-    if (!tokenInfo.address || !chain?.blockExplorers?.default?.url) return;
-    const explorerUrl = `${chain.blockExplorers.default.url}/address/${tokenInfo.address}`;
+  const handleOpenExplorer = (address: string) => {
+    if (!address || !chain?.blockExplorers?.default?.url) return;
+    const explorerUrl = `${chain.blockExplorers.default.url}/address/${address}`;
     window.open(explorerUrl, "_blank");
   };
 
-  const addToWallet = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        await window.ethereum.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: tokenInfo.address,
-              symbol: tokenInfo.symbol,
-              decimals: tokenInfo.decimals,
-              image: tokenInfo.icon,
-            },
+  const addToWallet = async (
+    address: string,
+    symbol: string,
+    decimals: number
+  ) => {
+    if (!address || address === "") {
+      console.error("Invalid token address");
+      return;
+    }
+
+    if (typeof window.ethereum === "undefined") {
+      console.error("MetaMask not detected");
+      return;
+    }
+
+    try {
+      // Try to add with symbol and image first
+      const result = await window.ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: address as `0x${string}`,
+            symbol: symbol,
+            decimals: decimals,
+            image: tokenInfo.icon,
           },
-        });
-      } catch (error) {
-        console.error("Error adding token to wallet:", error);
+        },
+      });
+      console.log("Add token result:", result);
+    } catch (error: any) {
+      console.error("Failed to add token to wallet:", error);
+
+      // If symbol mismatch, try without symbol (let wallet read from contract)
+      if (error?.code === -32602) {
+        try {
+          const result = await window.ethereum.request({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC20",
+              options: {
+                address: address as `0x${string}`,
+                decimals: decimals,
+              },
+            },
+          });
+          console.log("Add token result (retry):", result);
+        } catch (retryError) {
+          console.error("Retry also failed:", retryError);
+          alert(
+            "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
+              address
+          );
+        }
       }
     }
   };
@@ -337,6 +376,9 @@ const AssetDetails = () => {
                             <Menu.Item
                               value={tokenInfo.symbol}
                               cursor={"pointer"}
+                              onClick={() =>
+                                handleOpenExplorer(tokenInfo.address)
+                              }
                             >
                               <Flex gap="2" alignItems="center">
                                 <img
@@ -351,11 +393,14 @@ const AssetDetails = () => {
                           <Menu.Separator />
                           <Menu.ItemGroup>
                             <Menu.ItemGroupLabel>
-                              Creditify aToken
+                              Creditify cToken
                             </Menu.ItemGroupLabel>
                             <Menu.Item
-                              value={`a${tokenInfo.symbol}`}
+                              value={`c${tokenInfo.symbol}`}
                               cursor={"pointer"}
+                              onClick={() =>
+                                handleOpenExplorer(cTokenAddress || "")
+                              }
                             >
                               <Flex gap="2" alignItems="center">
                                 <img
@@ -364,7 +409,7 @@ const AssetDetails = () => {
                                   style={{ height: "20px", width: "20px" }}
                                 />
                               </Flex>
-                              {`a${tokenInfo.symbol}`}
+                              {`c${tokenInfo.symbol}`}
                             </Menu.Item>
                           </Menu.ItemGroup>
                           <Menu.Separator />
@@ -375,6 +420,11 @@ const AssetDetails = () => {
                             <Menu.Item
                               value={`debt${tokenInfo.symbol}`}
                               cursor={"pointer"}
+                              onClick={() =>
+                                handleOpenExplorer(
+                                  variableDebtTokenAddress || ""
+                                )
+                              }
                             >
                               <Flex gap="2" alignItems="center">
                                 <img
@@ -419,6 +469,13 @@ const AssetDetails = () => {
                             <Menu.Item
                               value={tokenInfo.symbol}
                               cursor={"pointer"}
+                              onClick={() =>
+                                addToWallet(
+                                  tokenInfo.address,
+                                  tokenInfo.symbol,
+                                  tokenInfo.decimals
+                                )
+                              }
                             >
                               <Flex gap="2" alignItems="center">
                                 <img
@@ -433,11 +490,19 @@ const AssetDetails = () => {
                           <Menu.Separator />
                           <Menu.ItemGroup>
                             <Menu.ItemGroupLabel>
-                              Creditify aToken
+                              Creditify cToken
                             </Menu.ItemGroupLabel>
                             <Menu.Item
-                              value={`a${tokenInfo.symbol}`}
+                              value={`c${tokenInfo.symbol}`}
                               cursor={"pointer"}
+                              onClick={() =>
+                                addToWallet(
+                                  cTokenAddress || "",
+                                  `c${tokenInfo.symbol}`,
+                                  tokenInfo.decimals
+                                )
+                              }
+                              disabled={!cTokenAddress}
                             >
                               <Flex gap="2" alignItems="center">
                                 <img
@@ -446,7 +511,7 @@ const AssetDetails = () => {
                                   style={{ height: "20px", width: "20px" }}
                                 />
                               </Flex>
-                              {`a${tokenInfo.symbol}`}
+                              {`c${tokenInfo.symbol}`}
                             </Menu.Item>
                           </Menu.ItemGroup>
                         </Menu.Content>

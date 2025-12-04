@@ -293,7 +293,7 @@ export function useAssetDetails(tokenSymbol: string) {
 
     // Raw reserve data
     reserveData,
-    aTokenAddress: reserveDataAny?.aTokenAddress,
+    cTokenAddress: reserveDataAny?.aTokenAddress,
     stableDebtTokenAddress: reserveDataAny?.stableDebtTokenAddress,
     variableDebtTokenAddress: reserveDataAny?.variableDebtTokenAddress,
 
