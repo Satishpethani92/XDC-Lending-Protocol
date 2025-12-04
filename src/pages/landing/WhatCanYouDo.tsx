@@ -1,7 +1,9 @@
 import arrowDown from "@/assets/images/landing/arrowDown.svg";
 import arrowSwap from "@/assets/images/landing/arrowSwap.svg";
 import arrowUp from "@/assets/images/landing/arrowUp.svg";
+import { ROUTES } from "@/routes/paths";
 import { Box, SimpleGrid } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const featureCards = [
   {
@@ -11,15 +13,17 @@ const featureCards = [
       "Use XDC or tokenized gold (CGO) as collateral and borrow USDC instantly. Smart contracts enforce safe, over-collateralized positions at all times.",
     icon: arrowDown,
     alt: "arrow down",
+    action: "borrow",
   },
 
   {
     key: "lend",
     title: "Lend USDC",
     description:
-      "Deposit USDC into Creditify’s lending pools and earn yield generated from borrower demand. Withdraw anytime with minimal gas fees.",
+      "Deposit USDC into Creditify's lending pools and earn yield generated from borrower demand. Withdraw anytime with minimal gas fees.",
     icon: arrowUp,
     alt: "arrow up",
+    action: "supply",
   },
 
   {
@@ -29,10 +33,21 @@ const featureCards = [
       "SWAP major tokens like BTC, ETH, XRP, USDT, USDC to XDC or USDC on XDC chain.",
     icon: arrowSwap,
     alt: "arrow swap",
+    action: null,
   },
 ];
 
 export default function WhatCanYouDo() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (action: string | null) => {
+    if (action === "borrow") {
+      navigate(`${ROUTES.DASHBOARD}?openBorrowModal=usdc`);
+    } else if (action === "supply") {
+      navigate(`${ROUTES.DASHBOARD}?openSupplyModal=usdc`);
+    }
+  };
+
   return (
     <Box
       w="100%"
@@ -72,6 +87,18 @@ export default function WhatCanYouDo() {
             bg="#FFFFFF"
             px={{ base: 6, md: 7 }}
             py={{ base: 7, md: 8 }}
+            cursor={card.action ? "pointer" : "default"}
+            transition="all 0.3s ease"
+            _hover={
+              card.action
+                ? {
+                    borderColor: "#ABDFEF",
+                    boxShadow: "0 8px 24px rgba(171, 223, 239, 0.2)",
+                    transform: "translateY(-4px)",
+                  }
+                : {}
+            }
+            onClick={() => handleCardClick(card.action)}
           >
             <Box
               w="48px"
@@ -82,6 +109,16 @@ export default function WhatCanYouDo() {
               alignItems="center"
               justifyContent="center"
               mb={5}
+              cursor={card.action ? "pointer" : "default"}
+              transition="all 0.3s ease"
+              _hover={
+                card.action
+                  ? {
+                      bgGradient: "linear(to-b, #ABDFEF, #59afc9)",
+                      transform: "scale(1.1)",
+                    }
+                  : {}
+              }
             >
               <img src={card.icon} alt={card.alt} />
             </Box>

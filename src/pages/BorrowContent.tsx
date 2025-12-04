@@ -26,7 +26,7 @@ import {
   Table,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { formatUnits } from "viem";
@@ -37,7 +37,11 @@ import BorrowModal from "./modal/BorrowModal";
 import RepayDoneModal from "./modal/RepayDoneModal";
 import RepayModal from "./modal/RepayModal";
 
-function BorrowContent() {
+interface BorrowContentProps {
+  initialOpenToken?: "wxdc" | "usdc" | "xdc" | "cgo" | null;
+}
+
+function BorrowContent({ initialOpenToken }: BorrowContentProps) {
   const queryClient = useQueryClient();
   const { tokens, network, contracts } = useChainConfig();
   const [selectedToken, setSelectedToken] = useState<
@@ -81,6 +85,14 @@ function BorrowContent() {
   const borrowHook = useBorrow();
   const repayHook = useRepay();
   const accountData = useUserAccountData();
+
+  // Handle opening borrow modal from landing page
+  useEffect(() => {
+    if (initialOpenToken) {
+      setSelectedToken(initialOpenToken);
+      setIsBorrowModal(true);
+    }
+  }, [initialOpenToken]);
   const { allowance: borrowAllowance, refetch: refetchBorrowAllowance } =
     useBorrowAllowance(address);
 

@@ -5,7 +5,7 @@ import {
   useMainnetAssetDetails,
 } from "@/hooks/useMainnetAssetDetails";
 import { landingSystem } from "@/landingSystem";
-import { ROUTES, buildAssetDetailsRoute } from "@/routes/paths";
+import { ROUTES } from "@/routes/paths";
 import {
   Box,
   Button,
@@ -218,7 +218,9 @@ const LandingPage = () => {
                         cursor="pointer"
                         _hover={{ bg: "#ABDEEF4D" }}
                         transition="background-color 0.2s"
-                        onClick={() => navigate(buildAssetDetailsRoute("usdc"))}
+                        onClick={() =>
+                          navigate(`${ROUTES.DASHBOARD}?openSupplyModal=usdc`)
+                        }
                       >
                         + And Earn Yield On Idle USDC
                       </Box>

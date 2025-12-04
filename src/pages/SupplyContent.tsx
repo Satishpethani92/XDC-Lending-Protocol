@@ -29,7 +29,7 @@ import {
   Table,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaCheck, FaSort, FaSortDown, FaSortUp } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { formatUnits } from "viem";
@@ -41,7 +41,11 @@ import SupplyModal from "./modal/SupplyModal";
 import WithdrawDoneModal from "./modal/WithdrawDoneModal";
 import WithdrawModal from "./modal/WithdrawModal";
 
-const SupplyContent = () => {
+interface SupplyContentProps {
+  initialOpenToken?: "wxdc" | "usdc" | "xdc" | "cgo" | null;
+}
+
+const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
   const queryClient = useQueryClient();
   const { tokens, network, contracts } = useChainConfig();
   const [selectedToken, setSelectedToken] = useState<
@@ -91,6 +95,14 @@ const SupplyContent = () => {
   const collateralHook = useCollateral();
   const { address } = useAccount();
   const accountData = useUserAccountData();
+
+  // Handle opening supply modal from landing page
+  useEffect(() => {
+    if (initialOpenToken) {
+      setSelectedToken(initialOpenToken);
+      setIsSupplyModal(true);
+    }
+  }, [initialOpenToken]);
 
   // Get current token for allowance check
   const currentToken =

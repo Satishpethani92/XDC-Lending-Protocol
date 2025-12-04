@@ -1,5 +1,7 @@
+import { ROUTES } from "@/routes/paths";
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import bgPatternLeft from "../../assets/images/landing/bgPatternLeft.png";
 import bgPatternRight from "../../assets/images/landing/bgPatternRight.png";
 
@@ -34,6 +36,16 @@ const borrowSteps = [
 ];
 
 export default function HowItWorks() {
+  const navigate = useNavigate();
+
+  const handleEarnYieldClick = () => {
+    navigate(`${ROUTES.DASHBOARD}?openSupplyModal=usdc`);
+  };
+
+  const handleBorrowUsdcClick = () => {
+    navigate(`${ROUTES.DASHBOARD}?openBorrowModal=usdc`);
+  };
+
   return (
     <Box
       w="100%"
@@ -76,6 +88,13 @@ export default function HowItWorks() {
             textAlign="left"
             position={"relative"}
             overflow={"hidden"}
+            cursor="pointer"
+            transition="all 0.3s ease"
+            _hover={{
+              boxShadow: "0 12px 40px rgba(171, 223, 239, 0.3)",
+              transform: "translateY(-4px)",
+            }}
+            onClick={handleEarnYieldClick}
           >
             <Box
               w="100%"
@@ -169,6 +188,13 @@ export default function HowItWorks() {
             textAlign="left"
             position={"relative"}
             overflow={"hidden"}
+            cursor="pointer"
+            transition="all 0.3s ease"
+            _hover={{
+              boxShadow: "0 12px 40px rgba(171, 223, 239, 0.3)",
+              transform: "translateY(-4px)",
+            }}
+            onClick={handleBorrowUsdcClick}
           >
             <Box
               w="100%"

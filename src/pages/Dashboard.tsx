@@ -18,7 +18,8 @@ import {
   SimpleGrid,
   Skeleton,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { formatUnits } from "viem";
 import { useAccount } from "wagmi";
 import BorrowContent from "./BorrowContent";
@@ -30,6 +31,43 @@ const Dashboard = () => {
   const { isConnected } = useAccount();
   const { tokens, network } = useChainConfig();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [supplyModalToken, setSupplyModalToken] = useState<
+    "wxdc" | "usdc" | "xdc" | "cgo" | null
+  >(null);
+  const [borrowModalToken, setBorrowModalToken] = useState<
+    "wxdc" | "usdc" | "xdc" | "cgo" | null
+  >(null);
+
+  // Check for openSupplyModal and openBorrowModal query parameters on mount
+  useEffect(() => {
+    const openSupplyModal = searchParams.get("openSupplyModal");
+    const openBorrowModal = searchParams.get("openBorrowModal");
+
+    if (
+      openSupplyModal === "usdc" ||
+      openSupplyModal === "wxdc" ||
+      openSupplyModal === "xdc" ||
+      openSupplyModal === "cgo"
+    ) {
+      setSupplyModalToken(openSupplyModal);
+    }
+
+    if (
+      openBorrowModal === "usdc" ||
+      openBorrowModal === "wxdc" ||
+      openBorrowModal === "xdc" ||
+      openBorrowModal === "cgo"
+    ) {
+      setBorrowModalToken(openBorrowModal);
+    }
+
+    // Clean up the URL
+    if (openSupplyModal || openBorrowModal) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [searchParams]);
+
   // Fetch all reserves and aTokens for mapping token addresses
   const { reserves, aTokens } = useAllReserves();
 
@@ -263,9 +301,9 @@ const Dashboard = () => {
               alignItems="flex-start"
             >
               {/* LEFT CONTENT - SUPPLY */}
-              <SupplyContent />
+              <SupplyContent initialOpenToken={supplyModalToken} />
               {/* RIGHT CONTENT - BORROW */}
-              <BorrowContent />
+              <BorrowContent initialOpenToken={borrowModalToken} />
             </SimpleGrid>
           ) : (
             <ConnectYourWalletContent />
