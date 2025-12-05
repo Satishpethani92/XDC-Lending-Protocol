@@ -16,14 +16,14 @@ import { useUserAccountData } from "@/hooks/useUserAccountData";
 import { useUserReserveData } from "@/hooks/useUserReserveData";
 import { buildAssetDetailsRoute } from "@/routes/paths";
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Skeleton,
-  Table,
+    Box,
+    Button,
+    Flex,
+    Heading,
+    Icon,
+    Image,
+    Skeleton,
+    Table,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -152,17 +152,17 @@ function BorrowContent({ initialOpenToken }: BorrowContentProps) {
 
   const wxdcUserData = useUserReserveData(
     tokens.wrappedNative.address,
-    wxdcReserveData.aTokenAddress
+    wxdcReserveData.cTokenAddress
   );
 
   const usdcUserData = useUserReserveData(
     tokens.usdc.address,
-    usdcReserveData.aTokenAddress
+    usdcReserveData.cTokenAddress
   );
 
   const cgoUserData = useUserReserveData(
     tokens.cgo.address,
-    cgoReserveData.aTokenAddress
+    cgoReserveData.cTokenAddress
   );
 
   const wxdcBorrowed = formatUnits(

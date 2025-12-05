@@ -6,7 +6,7 @@ import { useReadContract } from "wagmi";
 
 /**
  * Hook to get available liquidity in a reserve
- * Available liquidity = underlying token balance in aToken contract
+ * Available liquidity = underlying token balance in cToken contract
  */
 export function useReserveLiquidity(
   assetAddress: string,
@@ -19,7 +19,7 @@ export function useReserveLiquidity(
   // Also validate the asset address
   const hasValidAsset = isValidContractAddress(assetAddress);
 
-  // First get the aToken address from reserve data
+  // First get the cToken address from reserve data
   const { data: reserveData } = useReadContract({
     address: contracts.pool,
     abi: POOL_ABI,
@@ -33,15 +33,15 @@ export function useReserveLiquidity(
 
   const reserveDataAny = reserveData as any;
 
-  // Get underlying token balance of aToken (actual available liquidity)
+  // Get underlying token balance of cToken (actual available liquidity)
   const { data: underlyingBalance, isLoading } = useReadContract({
     address: assetAddress as `0x${string}`,
     abi: ERC20_ABI,
     functionName: "balanceOf",
-    args: [reserveDataAny?.aTokenAddress as `0x${string}`],
+    args: [reserveDataAny?.cTokenAddress as `0x${string}`],
     chainId: network.chainId,
     query: {
-      enabled: !!reserveDataAny?.aTokenAddress,
+      enabled: !!reserveDataAny?.cTokenAddress,
     },
   });
 

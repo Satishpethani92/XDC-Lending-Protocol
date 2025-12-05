@@ -71,7 +71,7 @@ export function useRepay() {
     return repayContract.writeContractAsync({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "repayETH",
+      functionName: "repayXDC",
       args: [contracts.pool, amountInWei, userAddress as `0x${string}`],
       value: amountInWei,
     });

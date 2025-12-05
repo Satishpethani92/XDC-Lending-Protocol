@@ -1,0 +1,15 @@
+[
+  {
+    "type": "function",
+    "name": "delegate",
+    "inputs": [
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  }
+]

@@ -1,0 +1,95 @@
+[
+  {
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      {
+        "name": "pool",
+        "type": "address",
+        "internalType": "contract IPool"
+      },
+      {
+        "name": "underlyingAsset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "cTokenDecimals",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "cTokenName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "cTokenSymbol",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "params",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "underlyingAsset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "pool",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "treasury",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "incentivesController",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "cTokenDecimals",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      },
+      {
+        "name": "cTokenName",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "cTokenSymbol",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "params",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  }
+]

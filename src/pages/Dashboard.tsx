@@ -10,13 +10,13 @@ import { useProtocolReserveData } from "@/hooks/useProtocolReserveData";
 import { useProtocolUserReserveData } from "@/hooks/useProtocolUserReserveData";
 import { useUserAccountData } from "@/hooks/useUserAccountData";
 import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  SimpleGrid,
-  Skeleton,
+    Box,
+    Button,
+    Container,
+    Flex,
+    Heading,
+    SimpleGrid,
+    Skeleton,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -68,8 +68,8 @@ const Dashboard = () => {
     }
   }, [searchParams]);
 
-  // Fetch all reserves and aTokens for mapping token addresses
-  const { reserves, aTokens } = useAllReserves();
+  // Fetch all reserves and cTokens for mapping token addresses
+  const { reserves, cTokens } = useAllReserves();
 
   // Fetch all wallet balances in a single call (reduces RPC calls)
   const { balances } = useAllWalletBalances();

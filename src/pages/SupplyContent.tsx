@@ -2,7 +2,7 @@ import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { getTokenLogo } from "@/config/tokenLogos";
 import { formatUsdValue, formatValue } from "@/helpers/formatValue";
 import { useAssetPrice } from "@/hooks/useAssetPrice";
-import { useATokenAllowance } from "@/hooks/useATokenAllowance";
+import { useCTokenAllowance } from "@/hooks/useCTokenAllowance";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useCollateral } from "@/hooks/useCollateral";
 import { useReserveCaps } from "@/hooks/useReserveCaps";
@@ -119,10 +119,10 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
 
   const wxdcReserveData = useReserveData(tokens.wrappedNative.address);
 
-  // Check aToken allowance for gateway (needed for withdrawETH)
+  // Check cToken allowance for gateway (needed for withdrawXDC)
   const { allowance: gatewayAllowance, refetch: refetchGatewayAllowance } =
-    useATokenAllowance(
-      wxdcReserveData.aTokenAddress,
+    useCTokenAllowance(
+      wxdcReserveData.cTokenAddress,
       address,
       contracts.wrappedTokenGateway
     );
@@ -153,15 +153,15 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
 
   // Get total supplied amounts
   const wxdcSupply = useReserveSupply(
-    wxdcReserveData.aTokenAddress,
+    wxdcReserveData.cTokenAddress,
     tokens.wrappedNative.decimals
   );
   const usdcSupply = useReserveSupply(
-    usdcReserveData.aTokenAddress,
+    usdcReserveData.cTokenAddress,
     tokens.usdc.decimals
   );
   const cgoSupply = useReserveSupply(
-    cgoReserveData.aTokenAddress,
+    cgoReserveData.cTokenAddress,
     tokens.cgo.decimals
   );
 
@@ -184,17 +184,17 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
 
   const wxdcUserData = useUserReserveData(
     tokens.wrappedNative.address,
-    wxdcReserveData.aTokenAddress
+    wxdcReserveData.cTokenAddress
   );
 
   const usdcUserData = useUserReserveData(
     tokens.usdc.address,
-    usdcReserveData.aTokenAddress
+    usdcReserveData.cTokenAddress
   );
 
   const cgoUserData = useUserReserveData(
     tokens.cgo.address,
-    cgoReserveData.aTokenAddress
+    cgoReserveData.cTokenAddress
   );
 
   const wxdcSupplied = formatUnits(
@@ -310,7 +310,7 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
     if (!address) return;
     try {
       const hash = await withdrawHook.approveGateway(
-        wxdcReserveData.aTokenAddress
+        wxdcReserveData.cTokenAddress
       );
       setGatewayApprovalHash(hash);
     } catch (err) {

@@ -16,25 +16,25 @@ export interface ReserveToken {
  */
 export interface UseAllReservesReturn {
   reserves: ReserveToken[];
-  aTokens: ReserveToken[];
+  cTokens: ReserveToken[];
   isLoading: boolean;
   error: Error | null;
 }
 
 /**
- * Fetches all reserve tokens and aTokens from Protocol Data Provider
+ * Fetches all reserve tokens and cTokens from Protocol Data Provider
  *
- * This hook makes two calls to get all reserves and aTokens instead of
+ * This hook makes two calls to get all reserves and cTokens instead of
  * multiple individual calls, reducing RPC usage.
  *
  * Protocol Data Provider methods:
  * - getAllReservesTokens(): Returns array of {symbol, tokenAddress} for all reserves
- * - getAllATokens(): Returns array of {symbol, tokenAddress} for all aTokens
+ * - getAllCTokens(): Returns array of {symbol, tokenAddress} for all cTokens
  *
- * @returns {UseAllReservesReturn} Object containing reserves and aTokens arrays with loading/error states
+ * @returns {UseAllReservesReturn} Object containing reserves and cTokens arrays with loading/error states
  *
  * @example
- * const { reserves, aTokens, isLoading, error } = useAllReserves();
+ * const { reserves, cTokens, isLoading, error } = useAllReserves();
  * if (!isLoading && !error) {
  *   reserves.forEach(reserve => {
  *     console.log(reserve.symbol, reserve.tokenAddress);
@@ -64,23 +64,23 @@ export function useAllReserves(): UseAllReservesReturn {
     },
   });
 
-  // Fetch all aTokens
+  // Fetch all cTokens
   const {
-    data: aTokensData,
-    isLoading: aTokensLoading,
-    error: aTokensError,
+    data: cTokensData,
+    isLoading: cTokensLoading,
+    error: cTokensError,
   } = useReadContract({
     address: contracts.protocolDataProvider,
     abi: CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI,
-    functionName: "getAllATokens",
+    functionName: "getAllCTokens",
     chainId: network.chainId,
     query: {
       enabled: hasValidContract,
     },
   });
 
-  const isLoading = reservesLoading || aTokensLoading;
-  const error = (reservesError || aTokensError) as Error | null;
+  const isLoading = reservesLoading || cTokensLoading;
+  const error = (reservesError || cTokensError) as Error | null;
 
   // Only log errors if we expected the contract to work
   if (error && hasValidContract) {
@@ -88,10 +88,10 @@ export function useAllReserves(): UseAllReservesReturn {
   }
 
   // Return empty arrays if data is not available or contract is invalid
-  if (!reservesData || !aTokensData || !hasValidContract) {
+  if (!reservesData || !cTokensData || !hasValidContract) {
     return {
       reserves: [],
-      aTokens: [],
+      cTokens: [],
       isLoading,
       error,
     };
@@ -104,14 +104,14 @@ export function useAllReserves(): UseAllReservesReturn {
     tokenAddress: item.tokenAddress || item[1],
   }));
 
-  const aTokens = (aTokensData as any[]).map((item: any) => ({
+  const cTokens = (cTokensData as any[]).map((item: any) => ({
     symbol: item.symbol || item[0],
     tokenAddress: item.tokenAddress || item[1],
   }));
 
   return {
     reserves,
-    aTokens,
+    cTokens,
     isLoading,
     error,
   };

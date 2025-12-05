@@ -30,7 +30,7 @@ const featureCards = [
     key: "swap",
     title: "SWAP",
     description:
-      "SWAP major tokens like BTC, ETH, XRP, USDT, USDC to XDC or USDC on XDC chain.",
+      "SWAP major tokens like BTC, XDC, XRP, USDT, USDC to XDC or USDC on XDC chain.",
     icon: arrowSwap,
     alt: "arrow swap",
     action: null,

@@ -634,12 +634,12 @@
   },
   {
     "type": "function",
-    "name": "getReserveAToken",
+    "name": "getReserveAddressById",
     "inputs": [
       {
-        "name": "asset",
-        "type": "address",
-        "internalType": "address"
+        "name": "id",
+        "type": "uint16",
+        "internalType": "uint16"
       }
     ],
     "outputs": [
@@ -653,12 +653,12 @@
   },
   {
     "type": "function",
-    "name": "getReserveAddressById",
+    "name": "getReserveCToken",
     "inputs": [
       {
-        "name": "id",
-        "type": "uint16",
-        "internalType": "uint16"
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
       }
     ],
     "outputs": [
@@ -734,7 +734,7 @@
             "internalType": "uint16"
           },
           {
-            "name": "aTokenAddress",
+            "name": "cTokenAddress",
             "type": "address",
             "internalType": "address"
           },
@@ -1006,7 +1006,7 @@
         "internalType": "address"
       },
       {
-        "name": "aTokenAddress",
+        "name": "cTokenAddress",
         "type": "address",
         "internalType": "address"
       },
@@ -1081,7 +1081,7 @@
         "internalType": "uint256"
       },
       {
-        "name": "receiveAToken",
+        "name": "receiveCToken",
         "type": "bool",
         "internalType": "bool"
       }
@@ -1170,7 +1170,7 @@
   },
   {
     "type": "function",
-    "name": "repayWithATokens",
+    "name": "repayWithCTokens",
     "inputs": [
       {
         "name": "asset",
@@ -1754,7 +1754,7 @@
         "internalType": "address"
       },
       {
-        "name": "receiveAToken",
+        "name": "receiveCToken",
         "type": "bool",
         "indexed": false,
         "internalType": "bool"
@@ -1848,7 +1848,7 @@
         "internalType": "uint256"
       },
       {
-        "name": "useATokens",
+        "name": "useCTokens",
         "type": "bool",
         "indexed": false,
         "internalType": "bool"
@@ -2042,7 +2042,7 @@
   },
   {
     "type": "error",
-    "name": "CallerNotAToken",
+    "name": "CallerNotCToken",
     "inputs": []
   },
   {

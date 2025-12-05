@@ -1,0 +1,32 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "augustus",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isValidAugustus",
+    "inputs": [
+      {
+        "name": "augustus",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  }
+]

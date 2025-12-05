@@ -72,6 +72,11 @@
         "internalType": "struct DataTypes.CalculateInterestRatesParams",
         "components": [
           {
+            "name": "unbacked",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
             "name": "liquidityAdded",
             "type": "uint256",
             "internalType": "uint256"

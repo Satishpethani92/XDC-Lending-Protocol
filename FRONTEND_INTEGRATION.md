@@ -78,15 +78,15 @@ CONTRACT_PROTOCOLDATAPROVIDER=0x4135bA78F54aB5fF80eb9DE7d535293a319C99b7
 - Get reserve configuration
 - Get reserve caps
 - Get user reserve data
-- Get aToken/debt token addresses
+- Get cToken/debt token addresses
 
 **Key Methods**:
 
 ```solidity
 function getReserveConfigurationData(address asset) returns (decimals, ltv, liquidationThreshold, liquidationBonus, reserveFactor, usageAsCollateralEnabled, borrowingEnabled, stableBorrowRateEnabled, isActive, isFrozen)
 function getReserveCaps(address asset) returns (borrowCap, supplyCap)
-function getUserReserveData(address asset, address user) returns (currentATokenBalance, currentStableDebt, currentVariableDebt, principalStableDebt, scaledVariableDebt, stableBorrowRate, liquidityRate, stableRateLastUpdated, usageAsCollateralEnabled)
-function getReserveTokensAddresses(address asset) returns (aTokenAddress, stableDebtTokenAddress, variableDebtTokenAddress)
+function getUserReserveData(address asset, address user) returns (currentCTokenBalance, currentStableDebt, currentVariableDebt, principalStableDebt, scaledVariableDebt, stableBorrowRate, liquidityRate, stableRateLastUpdated, usageAsCollateralEnabled)
+function getReserveTokensAddresses(address asset) returns (cTokenAddress, stableDebtTokenAddress, variableDebtTokenAddress)
 ```
 
 ---
@@ -141,7 +141,7 @@ function getAssetsPrices(address[] calldata assets) returns (uint256[] memory)
 #### 6. **Asset Tokens**
 
 ```
-TWETH=0x36c3461aa4Ad40153bbb666fCb4A94FBB81246f2
+TWXDC=0x36c3461aa4Ad40153bbb666fCb4A94FBB81246f2
 TUSDC=0xE899E6C96dD269E1ea613F0B95dCB6411A510eca
 ```
 
@@ -162,11 +162,11 @@ function allowance(address owner, address spender) returns (uint256)
 
 ---
 
-#### 7. **aTokens (Interest-Bearing Tokens)**
+#### 7. **cTokens (Interest-Bearing Tokens)**
 
 ```
-WETH aToken: 0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc
-USDC aToken: 0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc
+WXDC cToken: 0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc
+USDC cToken: 0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc
 ```
 
 **Purpose**: Represent supplied assets + accrued interest
@@ -174,7 +174,7 @@ USDC aToken: 0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc
 
 - Display user's supplied balance
 - Show accrued interest
-- Transfer aTokens (transfers underlying position)
+- Transfer cTokens (transfers underlying position)
 
 **Key Methods**:
 
@@ -188,7 +188,7 @@ function scaledBalanceOf(address user) returns (uint256) // Normalized balance
 #### 8. **Variable Debt Tokens**
 
 ```
-WETH Variable Debt: 0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788
+WXDC Variable Debt: 0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788
 USDC Variable Debt: 0xb05F802a093033bc13b3D85A00111E11315c1Ea5
 ```
 
@@ -284,7 +284,7 @@ const userReserves = await uiPoolDataProvider.getUserReservesData(
 );
 
 // Get asset prices
-const prices = await oracle.getAssetsPrices([TWETH, TUSDC]);
+const prices = await oracle.getAssetsPrices([TWXDC, TUSDC]);
 
 // Calculate totals
 const totalSupplied = calculateTotalSupplied(userReserves, prices);
@@ -344,7 +344,7 @@ You'll need ABIs for:
 3. **IPoolDataProvider** - Detailed data provider
 4. **ICreditifyOracle** - Price oracle
 5. **IERC20** - Token standard (for assets)
-6. **IAToken** - Interest-bearing token interface (includes balanceOf, scaledBalanceOf)
+6. **ICToken** - Interest-bearing token interface (includes balanceOf, scaledBalanceOf)
 7. **IVariableDebtToken** - Debt token interface
 8. **WalletBalanceProvider** - Batch balance queries
 
@@ -357,7 +357,7 @@ You'll need ABIs for:
 - `out/IPoolDataProvider.sol/IPoolDataProvider.json`
 - `out/ICreditifyOracle.sol/ICreditifyOracle.json`
 - `out/IERC20.sol/IERC20.json`
-- `out/IAToken.sol/IAToken.json`
+- `out/ICToken.sol/ICToken.json`
 - `out/IVariableDebtToken.sol/IVariableDebtToken.json`
 - `out/WalletBalanceProvider.sol/WalletBalanceProvider.json`
 - `out/IUiIncentiveDataProviderV3.sol/IUiIncentiveDataProviderV3.json`
@@ -390,19 +390,19 @@ export const CREDITIFY_CONTRACTS = {
 
   // Assets
   assets: {
-    WETH: "0x36c3461aa4Ad40153bbb666fCb4A94FBB81246f2",
+    WXDC: "0x36c3461aa4Ad40153bbb666fCb4A94FBB81246f2",
     USDC: "0xE899E6C96dD269E1ea613F0B95dCB6411A510eca",
   },
 
-  // aTokens
-  aTokens: {
-    aWETH: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
+  // cTokens
+  cTokens: {
+    aWXDC: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
     aUSDC: "0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc",
   },
 
   // Debt Tokens
   debtTokens: {
-    variableDebtWETH: "0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788",
+    variableDebtWXDC: "0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788",
     variableDebtUSDC: "0xb05F802a093033bc13b3D85A00111E11315c1Ea5",
   },
 };
@@ -429,7 +429,7 @@ export const NETWORK = {
 - `getUserAccountData(address user) returns (uint256 totalCollateralBase, uint256 totalDebtBase, uint256 availableBorrowsBase, uint256 currentLiquidationThreshold, uint256 ltv, uint256 healthFactor)`
 - `getReserveData(address asset) returns (DataTypes.ReserveDataLegacy)`
 - `setUserUseReserveAsCollateral(address asset, bool useAsCollateral)`
-- `liquidationCall(address collateralAsset, address debtAsset, address borrower, uint256 debtToCover, bool receiveAToken)`
+- `liquidationCall(address collateralAsset, address debtAsset, address borrower, uint256 debtToCover, bool receiveCToken)`
 
 ### IUiPoolDataProviderV3
 
@@ -445,8 +445,8 @@ export const NETWORK = {
 
 - `getReserveConfigurationData(address asset) returns (uint256 decimals, uint256 ltv, uint256 liquidationThreshold, uint256 liquidationBonus, uint256 reserveFactor, bool usageAsCollateralEnabled, bool borrowingEnabled, bool stableBorrowRateEnabled, bool isActive, bool isFrozen)`
 - `getReserveCaps(address asset) returns (uint256 borrowCap, uint256 supplyCap)`
-- `getUserReserveData(address asset, address user) returns (uint256 currentATokenBalance, uint256 currentStableDebt, uint256 currentVariableDebt, uint256 principalStableDebt, uint256 scaledVariableDebt, uint256 stableBorrowRate, uint256 liquidityRate, uint40 stableRateLastUpdated, bool usageAsCollateralEnabled)`
-- `getReserveTokensAddresses(address asset) returns (address aTokenAddress, address stableDebtTokenAddress, address variableDebtTokenAddress)`
+- `getUserReserveData(address asset, address user) returns (uint256 currentCTokenBalance, uint256 currentStableDebt, uint256 currentVariableDebt, uint256 principalStableDebt, uint256 scaledVariableDebt, uint256 stableBorrowRate, uint256 liquidityRate, uint40 stableRateLastUpdated, bool usageAsCollateralEnabled)`
+- `getReserveTokensAddresses(address asset) returns (address cTokenAddress, address stableDebtTokenAddress, address variableDebtTokenAddress)`
 - `getReserveDeficit(address asset) returns (uint256)`
 - `getVirtualUnderlyingBalance(address asset) returns (uint256)`
 
@@ -469,7 +469,7 @@ export const NETWORK = {
 - `transfer(address to, uint256 amount) returns (bool)`
 - `transferFrom(address from, address to, uint256 amount) returns (bool)`
 
-### IAToken (Interest-Bearing Tokens)
+### ICToken (Interest-Bearing Tokens)
 
 ✅ Verified methods available:
 
@@ -494,8 +494,8 @@ export const NETWORK = {
 
 Use these test accounts/amounts:
 
-- **Supply**: 1 WETH or 1000 USDC
-- **Borrow**: Up to 80% of collateral value for WETH, 75% for USDC
+- **Supply**: 1 WXDC or 1000 USDC
+- **Borrow**: Up to 80% of collateral value for WXDC, 75% for USDC
 - **Health Factor**: Should stay above 1.0 to avoid liquidation
 
 Monitor:

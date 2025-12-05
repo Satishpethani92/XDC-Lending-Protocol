@@ -1,0 +1,136 @@
+[
+  {
+    "type": "function",
+    "name": "buy",
+    "inputs": [
+      {
+        "name": "fromToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "toToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "fromAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "toAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "expectBuy",
+    "inputs": [
+      {
+        "name": "fromToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "toToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "fromAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "toAmountMin",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "toAmountMax",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "expectSwap",
+    "inputs": [
+      {
+        "name": "fromToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "toToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "fromAmountMin",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "fromAmountMax",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "receivedAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "swap",
+    "inputs": [
+      {
+        "name": "fromToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "toToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "fromAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "toAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  }
+]

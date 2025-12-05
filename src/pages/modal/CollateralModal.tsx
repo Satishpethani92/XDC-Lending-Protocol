@@ -44,7 +44,7 @@ const CollateralModal: React.FC<Props> = ({
   const reserveData = useReserveData(token.address);
   const userReserveData = useUserReserveData(
     token.address,
-    reserveData.aTokenAddress
+    reserveData.cTokenAddress
   );
   const { price: tokenPrice } = useAssetPrice(token.address);
 

@@ -67,14 +67,14 @@ export interface ChainConfig {
       address: \`0x\${string}\`;
       symbol: string;
       decimals: number;
-      aToken: \`0x\${string}\`;
+      cToken: \`0x\${string}\`;
       variableDebtToken: \`0x\${string}\`;
     };
     usdc: {
       address: \`0x\${string}\`;
       symbol: string;
       decimals: number;
-      aToken: \`0x\${string}\`;
+      cToken: \`0x\${string}\`;
       variableDebtToken: \`0x\${string}\`;
     };
   };
@@ -108,14 +108,14 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
         address: "0x951857744785E80e2De051c32EE7b25f9c458C42", // WXDC on mainnet
         symbol: "WXDC",
         decimals: 18,
-        aToken: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
+        cToken: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
         variableDebtToken: "0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788",
       },
       usdc: {
         address: "0xE899E6C96dD269E1ea613F0B95dCB6411A510eca",
         symbol: "USDC",
         decimals: 6,
-        aToken: "0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc",
+        cToken: "0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc",
         variableDebtToken: "0xb05F802a093033bc13b3D85A00111E11315c1Ea5",
       },
     },
@@ -147,14 +147,14 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
         address: "${wxdcAddress}", // WXDC on testnet
         symbol: "WXDC",
         decimals: 18,
-        aToken: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
+        cToken: "0x09Fa3c5452Ad7da2B0041B2E92b1caDCA8aA15Fc",
         variableDebtToken: "0xC47EEfAd9c7Fe28FB1829cA5ec731a88050AD788",
       },
       usdc: {
         address: "${usdcAddress}",
         symbol: "USDC",
         decimals: 6,
-        aToken: "0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc",
+        cToken: "0xc87b0EF1327CBae802Eb8a65212B20628Ed84Ffc",
         variableDebtToken: "0xb05F802a093033bc13b3D85A00111E11315c1Ea5",
       },
     },

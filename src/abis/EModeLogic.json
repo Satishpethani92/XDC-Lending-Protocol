@@ -1,0 +1,41 @@
+[
+  {
+    "type": "event",
+    "name": "UserEModeSet",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "categoryId",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "HealthFactorLowerThanLiquidationThreshold",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InconsistentEModeCategory",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidReserveIndex",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotBorrowableInEMode",
+    "inputs": []
+  }
+]

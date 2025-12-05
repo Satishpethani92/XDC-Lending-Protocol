@@ -1,9 +1,9 @@
 // src/hooks/useAssetDetails.ts
 import {
-  CREDITIFY_ORACLE_ABI,
-  ERC20_ABI,
-  POOL_ABI,
-  POOL_ADDRESSES_PROVIDER_ABI,
+    CREDITIFY_ORACLE_ABI,
+    ERC20_ABI,
+    POOL_ABI,
+    POOL_ADDRESSES_PROVIDER_ABI,
 } from "@/config/abis";
 import { getTokenLogo } from "@/config/tokenLogos";
 import { isValidContractAddress } from "@/helpers/contractValidation";
@@ -88,14 +88,14 @@ export function useAssetDetails(tokenSymbol: string) {
 
   const reserveDataAny = reserveData as any;
 
-  // Get aToken total supply (total supplied)
-  const { data: aTokenTotalSupply } = useReadContract({
-    address: reserveDataAny?.aTokenAddress as `0x${string}`,
+  // Get cToken total supply (total supplied)
+  const { data: cTokenTotalSupply } = useReadContract({
+    address: reserveDataAny?.cTokenAddress as `0x${string}`,
     abi: ERC20_ABI,
     functionName: "totalSupply",
     chainId: network.chainId,
     query: {
-      enabled: !!reserveDataAny?.aTokenAddress,
+      enabled: !!reserveDataAny?.cTokenAddress,
     },
   });
 
@@ -121,15 +121,15 @@ export function useAssetDetails(tokenSymbol: string) {
     },
   });
 
-  // Get underlying token balance of aToken (actual available liquidity in the pool)
+  // Get underlying token balance of cToken (actual available liquidity in the pool)
   const { data: underlyingBalance } = useReadContract({
     address: token.address as `0x${string}`,
     abi: ERC20_ABI,
     functionName: "balanceOf",
-    args: [reserveDataAny?.aTokenAddress as `0x${string}`],
+    args: [reserveDataAny?.cTokenAddress as `0x${string}`],
     chainId: network.chainId,
     query: {
-      enabled: !!reserveDataAny?.aTokenAddress,
+      enabled: !!reserveDataAny?.cTokenAddress,
     },
   });
 
@@ -212,7 +212,7 @@ export function useAssetDetails(tokenSymbol: string) {
 
   const totalBorrowed = stableDebt + variableDebt;
 
-  // Available liquidity = actual balance of underlying token in aToken contract
+  // Available liquidity = actual balance of underlying token in cToken contract
   const availableLiquidityInTokens = underlyingBalance
     ? parseFloat(formatUnits(underlyingBalance, token.decimals))
     : 0;
@@ -293,7 +293,7 @@ export function useAssetDetails(tokenSymbol: string) {
 
     // Raw reserve data
     reserveData,
-    cTokenAddress: reserveDataAny?.aTokenAddress,
+    cTokenAddress: reserveDataAny?.cTokenAddress,
     stableDebtTokenAddress: reserveDataAny?.stableDebtTokenAddress,
     variableDebtTokenAddress: reserveDataAny?.variableDebtTokenAddress,
 

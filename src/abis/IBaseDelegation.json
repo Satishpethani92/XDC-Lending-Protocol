@@ -1,0 +1,235 @@
+[
+  {
+    "type": "function",
+    "name": "delegate",
+    "inputs": [
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "delegateByType",
+    "inputs": [
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegationType",
+        "type": "uint8",
+        "internalType": "enum IBaseDelegation.GovernancePowerType"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getDelegateeByType",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegationType",
+        "type": "uint8",
+        "internalType": "enum IBaseDelegation.GovernancePowerType"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getDelegates",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPowerCurrent",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegationType",
+        "type": "uint8",
+        "internalType": "enum IBaseDelegation.GovernancePowerType"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPowersCurrent",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "metaDelegate",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "deadline",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "v",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "r",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "s",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "metaDelegateByType",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegationType",
+        "type": "uint8",
+        "internalType": "enum IBaseDelegation.GovernancePowerType"
+      },
+      {
+        "name": "deadline",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "v",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "r",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "s",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "DelegateChanged",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "delegatee",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "delegationType",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum IBaseDelegation.GovernancePowerType"
+      }
+    ],
+    "anonymous": false
+  }
+]

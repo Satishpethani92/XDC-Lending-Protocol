@@ -59,7 +59,7 @@
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IAaveIncentivesController"
+        "internalType": "contract ICreditifyIncentivesController"
       }
     ],
     "stateMutability": "view"
@@ -308,7 +308,7 @@
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IAaveIncentivesController"
+        "internalType": "contract ICreditifyIncentivesController"
       }
     ],
     "stateMutability": "view"

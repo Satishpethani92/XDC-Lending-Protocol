@@ -38,26 +38,7 @@
   },
   {
     "type": "function",
-    "name": "getATokenTotalSupply",
-    "inputs": [
-      {
-        "name": "asset",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "getAllATokens",
+    "name": "getAllCTokens",
     "inputs": [],
     "outputs": [
       {
@@ -107,6 +88,25 @@
   },
   {
     "type": "function",
+    "name": "getCTokenTotalSupply",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getDebtCeiling",
     "inputs": [
       {
@@ -136,6 +136,25 @@
       }
     ],
     "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "getFlashLoanEnabled",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -323,7 +342,7 @@
         "internalType": "uint256"
       },
       {
-        "name": "totalAToken",
+        "name": "totalCToken",
         "type": "uint256",
         "internalType": "uint256"
       },
@@ -406,7 +425,7 @@
     ],
     "outputs": [
       {
-        "name": "aTokenAddress",
+        "name": "cTokenAddress",
         "type": "address",
         "internalType": "address"
       },
@@ -497,7 +516,7 @@
     ],
     "outputs": [
       {
-        "name": "currentATokenBalance",
+        "name": "currentCTokenBalance",
         "type": "uint256",
         "internalType": "uint256"
       },

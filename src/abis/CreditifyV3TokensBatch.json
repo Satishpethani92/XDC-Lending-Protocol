@@ -1,0 +1,48 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "poolProxy",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "rewardsControllerProxy",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "treasury",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getTokensReport",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct CreditifyV3TokensProcedure.TokensReport",
+        "components": [
+          {
+            "name": "cToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "variableDebtToken",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  }
+]

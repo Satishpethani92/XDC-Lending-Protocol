@@ -1,8 +1,8 @@
 import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { formatUsdValue, formatValue } from "@/helpers/formatValue";
 import {
-  NATIVE_TOKEN_ADDRESS,
-  useAllWalletBalances,
+    NATIVE_TOKEN_ADDRESS,
+    useAllWalletBalances,
 } from "@/hooks/useAllWalletBalances";
 import { useAssetPrice } from "@/hooks/useAssetPrice";
 import { useBorrow } from "@/hooks/useBorrow";
@@ -86,28 +86,28 @@ const AssetInfo: React.FC<Props> = ({ token = "xdc" }) => {
   const { price: usdcPrice } = useAssetPrice(tokens.usdc.address);
   const { price: cgoPrice } = useAssetPrice(tokens.cgo.address);
 
-  // Use Protocol Data Provider for reserve data (includes totalAToken and totalVariableDebt)
+  // Use Protocol Data Provider for reserve data (includes totalCToken and totalVariableDebt)
   const wxdcReserveData = useProtocolReserveData(tokens.wrappedNative.address);
   const usdcReserveData = useProtocolReserveData(tokens.usdc.address);
   const cgoReserveData = useProtocolReserveData(tokens.cgo.address);
 
   // Calculate available liquidity from Protocol Data Provider data
-  // Available liquidity = totalAToken - totalVariableDebt
+  // Available liquidity = totalCToken - totalVariableDebt
   const wxdcLiquidity = {
     availableLiquidity: formatUnits(
-      wxdcReserveData.totalAToken - wxdcReserveData.totalVariableDebt,
+      wxdcReserveData.totalCToken - wxdcReserveData.totalVariableDebt,
       tokens.wrappedNative.decimals
     ),
   };
   const usdcLiquidity = {
     availableLiquidity: formatUnits(
-      usdcReserveData.totalAToken - usdcReserveData.totalVariableDebt,
+      usdcReserveData.totalCToken - usdcReserveData.totalVariableDebt,
       tokens.usdc.decimals
     ),
   };
   const cgoLiquidity = {
     availableLiquidity: formatUnits(
-      cgoReserveData.totalAToken - cgoReserveData.totalVariableDebt,
+      cgoReserveData.totalCToken - cgoReserveData.totalVariableDebt,
       tokens.cgo.decimals
     ),
   };
@@ -132,15 +132,15 @@ const AssetInfo: React.FC<Props> = ({ token = "xdc" }) => {
   // (replaces useReserveSupply and useReserveBorrowed hooks)
   const wxdcSupply = {
     totalSupply: formatUnits(
-      wxdcReserveData.totalAToken,
+      wxdcReserveData.totalCToken,
       tokens.wrappedNative.decimals
     ),
   };
   const usdcSupply = {
-    totalSupply: formatUnits(usdcReserveData.totalAToken, tokens.usdc.decimals),
+    totalSupply: formatUnits(usdcReserveData.totalCToken, tokens.usdc.decimals),
   };
   const cgoSupply = {
-    totalSupply: formatUnits(cgoReserveData.totalAToken, tokens.cgo.decimals),
+    totalSupply: formatUnits(cgoReserveData.totalCToken, tokens.cgo.decimals),
   };
 
   const wxdcTotalBorrowed = {

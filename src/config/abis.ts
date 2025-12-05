@@ -1,5 +1,5 @@
 // Centralized ABI imports
-import ATokenAbi from "@/abis/AToken.json";
+import CTokenAbi from "@/abis/CToken.json";
 import CreditifyOracleAbi from "@/abis/CreditifyOracle.json";
 import CreditifyProtocolDataProviderAbi from "@/abis/CreditifyProtocolDataProvider.json";
 import PoolAbi from "@/abis/Pool.json";
@@ -14,7 +14,7 @@ import type { Abi } from "viem";
 
 // Export ABIs with proper typing
 export const POOL_ABI = PoolAbi as Abi;
-export const ATOKEN_ABI = ATokenAbi as Abi;
+export const CTOKEN_ABI = CTokenAbi as Abi;
 export const VARIABLE_DEBT_TOKEN_ABI = VariableDebtTokenAbi as Abi;
 export const CREDITIFY_ORACLE_ABI = CreditifyOracleAbi as Abi;
 export const CREDITIFY_PROTOCOL_DATA_PROVIDER_ABI =

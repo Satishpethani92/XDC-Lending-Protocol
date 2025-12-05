@@ -1,0 +1,12 @@
+[
+  {
+    "type": "error",
+    "name": "MarketOwnerMustBeSet",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "RewardsControllerImplementationMustBeSet",
+    "inputs": []
+  }
+]

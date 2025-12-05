@@ -8,7 +8,7 @@ interface RepayEvent {
   user: string;
   repayer: string;
   amount: bigint;
-  useATokens: boolean;
+  useCTokens: boolean;
   blockNumber: bigint;
   transactionHash: string;
   logIndex: number;

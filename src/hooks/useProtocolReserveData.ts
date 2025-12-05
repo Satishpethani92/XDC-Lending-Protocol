@@ -15,7 +15,7 @@ export interface ProtocolReserveData {
   stableBorrowRate: bigint;
 
   // Supply/borrow data
-  totalAToken: bigint;
+  totalCToken: bigint;
   totalVariableDebt: bigint;
   totalStableDebt: bigint;
   unbacked: bigint;
@@ -25,7 +25,7 @@ export interface ProtocolReserveData {
   variableBorrowIndex: bigint;
 
   // Token addresses (from separate call if needed)
-  aTokenAddress?: string;
+  cTokenAddress?: string;
   variableDebtTokenAddress?: string;
   stableDebtTokenAddress?: string;
 
@@ -50,7 +50,7 @@ export interface ProtocolReserveData {
  * Array structure (indices):
  * [0] unbacked (always 0)
  * [1] accruedToTreasuryScaled
- * [2] totalAToken (total supplied)
+ * [2] totalCToken (total supplied)
  * [3] totalStableDebt (always 0 - stable rate disabled)
  * [4] totalVariableDebt (total borrowed)
  * [5] liquidityRate (supply APY in ray units: 1e27)
@@ -72,7 +72,7 @@ export interface ProtocolReserveData {
  * const reserveData = useProtocolReserveData('0xC2EA...');
  * if (!reserveData.isLoading && !reserveData.error) {
  *   console.log('Supply APY:', reserveData.supplyApy);
- *   console.log('Total Supplied:', reserveData.totalAToken);
+ *   console.log('Total Supplied:', reserveData.totalCToken);
  *   console.log('Total Borrowed:', reserveData.totalVariableDebt);
  * }
  */
@@ -112,7 +112,7 @@ export function useProtocolReserveData(
       liquidityRate: BigInt(0),
       variableBorrowRate: BigInt(0),
       stableBorrowRate: BigInt(0),
-      totalAToken: BigInt(0),
+      totalCToken: BigInt(0),
       totalVariableDebt: BigInt(0),
       totalStableDebt: BigInt(0),
       unbacked: BigInt(0),
@@ -133,7 +133,7 @@ export function useProtocolReserveData(
   const [
     unbacked, // [0] unbacked (always 0)
     accruedToTreasuryScaled, // [1] accruedToTreasuryScaled
-    totalAToken, // [2] totalAToken (total supplied)
+    totalCToken, // [2] totalCToken (total supplied)
     totalStableDebt, // [3] totalStableDebt (always 0)
     totalVariableDebt, // [4] totalVariableDebt (total borrowed)
     liquidityRate, // [5] liquidityRate (supply APY in ray units)
@@ -166,7 +166,7 @@ export function useProtocolReserveData(
     liquidityRate,
     variableBorrowRate,
     stableBorrowRate,
-    totalAToken,
+    totalCToken,
     totalVariableDebt,
     totalStableDebt,
     unbacked,

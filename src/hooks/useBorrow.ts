@@ -73,7 +73,7 @@ export function useBorrow() {
     return borrowContract.writeContractAsync({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "borrowETH",
+      functionName: "borrowXDC",
       args: [
         contracts.pool,
         amountInWei,

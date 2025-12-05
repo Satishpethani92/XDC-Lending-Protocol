@@ -1,0 +1,39 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_logic",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_data",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "fallback",
+    "stateMutability": "payable"
+  },
+  {
+    "type": "receive",
+    "stateMutability": "payable"
+  },
+  {
+    "type": "event",
+    "name": "Upgraded",
+    "inputs": [
+      {
+        "name": "implementation",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  }
+]

@@ -13,7 +13,7 @@ import { useReadContract } from "wagmi";
  *
  * @param assetAddress - The address of the reserve asset
  * @param useProtocolProvider - Whether to use Protocol Data Provider (default: true)
- * @returns Reserve data including APYs, liquidity, and aToken address
+ * @returns Reserve data including APYs, liquidity, and cToken address
  */
 export const useReserveData = (
   assetAddress: string,
@@ -29,8 +29,8 @@ export const useReserveData = (
   // Use Protocol Data Provider by default
   const protocolData = useProtocolReserveData(assetAddress);
 
-  // We need to get aTokenAddress from Pool contract as Protocol Data Provider doesn't return it
-  // This call is made regardless of useProtocolProvider to get the aTokenAddress
+  // We need to get cTokenAddress from Pool contract as Protocol Data Provider doesn't return it
+  // This call is made regardless of useProtocolProvider to get the cTokenAddress
   const {
     data: poolData,
     isLoading: poolLoading,
@@ -46,15 +46,15 @@ export const useReserveData = (
     },
   });
 
-  // If using Protocol Data Provider, return transformed data with aTokenAddress from Pool
+  // If using Protocol Data Provider, return transformed data with cTokenAddress from Pool
   if (useProtocolProvider) {
-    const aTokenAddress = poolData ? (poolData as any).aTokenAddress : "";
+    const cTokenAddress = poolData ? (poolData as any).cTokenAddress : "";
 
     return {
       supplyApy: protocolData.supplyApy,
       borrowApy: protocolData.borrowApy,
       totalLiquidity: protocolData.liquidityIndex.toString(),
-      aTokenAddress,
+      cTokenAddress,
       isLoading: protocolData.isLoading || poolLoading,
       error: protocolData.error || (poolError as Error | null),
     };
@@ -69,7 +69,7 @@ export const useReserveData = (
       supplyApy: "0.00",
       borrowApy: "0.00",
       totalLiquidity: "0",
-      aTokenAddress: "",
+      cTokenAddress: "",
       isLoading: poolLoading,
       error: poolError as Error | null,
     };
@@ -94,7 +94,7 @@ export const useReserveData = (
     supplyApy,
     borrowApy,
     totalLiquidity: reserveData.liquidityIndex.toString(),
-    aTokenAddress: reserveData.aTokenAddress,
+    cTokenAddress: reserveData.cTokenAddress,
     isLoading: poolLoading,
     error: poolError as Error | null,
   };

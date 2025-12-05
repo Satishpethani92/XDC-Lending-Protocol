@@ -17,19 +17,6 @@
   },
   {
     "type": "function",
-    "name": "ETH_CURRENCY_UNIT",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
     "name": "MKR_ADDRESS",
     "inputs": [],
     "outputs": [
@@ -37,6 +24,19 @@
         "name": "",
         "type": "address",
         "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "XDC_CURRENCY_UNIT",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "view"
@@ -225,7 +225,7 @@
             "internalType": "uint40"
           },
           {
-            "name": "aTokenAddress",
+            "name": "cTokenAddress",
             "type": "address",
             "internalType": "address"
           },
@@ -417,7 +417,7 @@
             "internalType": "address"
           },
           {
-            "name": "scaledATokenBalance",
+            "name": "scaledCTokenBalance",
             "type": "uint256",
             "internalType": "uint256"
           },

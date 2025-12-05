@@ -11,18 +11,18 @@ import { useTokenAllowance } from "@/hooks/useTokenAllowance";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { useUserAccountData } from "@/hooks/useUserAccountData";
 import {
-  Box,
-  Button,
-  CloseButton,
-  Dialog,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Image,
-  Input,
-  InputGroup,
-  Portal,
+    Box,
+    Button,
+    CloseButton,
+    Dialog,
+    Flex,
+    Heading,
+    HStack,
+    Icon,
+    Image,
+    Input,
+    InputGroup,
+    Portal,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { IoMdClose } from "react-icons/io";
@@ -73,7 +73,7 @@ const SupplyModal: React.FC<Props> = ({
   const caps = useReserveCaps(token.address, token.decimals);
   const reserveData = useReserveData(token.address);
   const supplyData = useReserveSupply(
-    reserveData.aTokenAddress,
+    reserveData.cTokenAddress,
     token.decimals
   );
   const { allowance } = useTokenAllowance(

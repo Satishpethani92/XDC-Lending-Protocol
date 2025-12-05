@@ -1,0 +1,591 @@
+[
+  {
+    "type": "function",
+    "name": "IS_SCRIPT",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getCreate2Address",
+    "inputs": [
+      {
+        "name": "contractPath",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "args",
+        "type": "bytes",
+        "internalType": "bytes"
+      },
+      {
+        "name": "_salt",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getCurrentPhase",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8",
+        "internalType": "uint8"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getState",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct CreditifyV3PhasedOrchestration.PhasedDeploymentState",
+        "components": [
+          {
+            "name": "currentPhase",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "isComplete",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "setupBatch",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "initialReport",
+            "type": "tuple",
+            "internalType": "struct InitialReport",
+            "components": [
+              {
+                "name": "poolAddressesProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "interestRateStrategy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolAddressesProviderRegistry",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "gettersReport1",
+            "type": "tuple",
+            "internalType": "struct CreditifyV3GettersProcedureOne.GettersReportBatchOne",
+            "components": [
+              {
+                "name": "walletBalanceProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "uiIncentiveDataProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "uiPoolDataProvider",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "poolReport",
+            "type": "tuple",
+            "internalType": "struct PoolReport",
+            "components": [
+              {
+                "name": "poolImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolConfiguratorImplementation",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "peripheryReport",
+            "type": "tuple",
+            "internalType": "struct PeripheryReport",
+            "components": [
+              {
+                "name": "creditifyOracle",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "treasury",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "treasuryImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "emissionManager",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "rewardsControllerImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "revenueSplitter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "emptyImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "dustBin",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "miscReport",
+            "type": "tuple",
+            "internalType": "struct MiscReport",
+            "components": [
+              {
+                "name": "priceOracleSentinel",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "defaultInterestRateStrategy",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "setupReport",
+            "type": "tuple",
+            "internalType": "struct SetupReport",
+            "components": [
+              {
+                "name": "poolProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolConfiguratorProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "rewardsControllerProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "aclManager",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "paraswapReport",
+            "type": "tuple",
+            "internalType": "struct ParaswapReport",
+            "components": [
+              {
+                "name": "paraSwapLiquiditySwapAdapter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "paraSwapRepayAdapter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "paraSwapWithdrawSwapAdapter",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "gettersReport2",
+            "type": "tuple",
+            "internalType": "struct CreditifyV3GettersProcedureTwo.GettersReportBatchTwo",
+            "components": [
+              {
+                "name": "wrappedTokenGateway",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "l2Encoder",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolDataProvider",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "tokensReport",
+            "type": "tuple",
+            "internalType": "struct CreditifyV3TokensProcedure.TokensReport",
+            "components": [
+              {
+                "name": "cToken",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "variableDebtToken",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "configEngineReport",
+            "type": "tuple",
+            "internalType": "struct ConfigEngineReport",
+            "components": [
+              {
+                "name": "configEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "listingEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "eModeEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "borrowEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "collateralEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "priceFeedEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "rateEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "capsEngine",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "staticCTokenReport",
+            "type": "tuple",
+            "internalType": "struct StaticCTokenReport",
+            "components": [
+              {
+                "name": "transparentProxyFactory",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenFactoryImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenFactoryProxy",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "report",
+            "type": "tuple",
+            "internalType": "struct MarketReport",
+            "components": [
+              {
+                "name": "poolAddressesProviderRegistry",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolAddressesProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolConfiguratorProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "poolConfiguratorImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolDataProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "creditifyOracle",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "defaultInterestRateStrategy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "priceOracleSentinel",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "aclManager",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "treasury",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "treasuryImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "wrappedTokenGateway",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "walletBalanceProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "uiIncentiveDataProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "uiPoolDataProvider",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "paraSwapLiquiditySwapAdapter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "paraSwapRepayAdapter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "paraSwapWithdrawSwapAdapter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "l2Encoder",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "cToken",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "variableDebtToken",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "emissionManager",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "rewardsControllerImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "rewardsControllerProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "configEngine",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "transparentProxyFactory",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenFactoryImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenFactoryProxy",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "staticCTokenImplementation",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "revenueSplitter",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "dustBin",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "emptyImplementation",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isDeploymentComplete",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "resetState",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "run",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "runPhase",
+    "inputs": [
+      {
+        "name": "phase",
+        "type": "uint8",
+        "internalType": "uint8"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  }
+]

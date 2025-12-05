@@ -108,7 +108,7 @@
         "internalType": "struct ConfiguratorInputTypes.InitReserveInput[]",
         "components": [
           {
-            "name": "aTokenImpl",
+            "name": "cTokenImpl",
             "type": "address",
             "internalType": "address"
           },
@@ -123,12 +123,12 @@
             "internalType": "address"
           },
           {
-            "name": "aTokenName",
+            "name": "cTokenName",
             "type": "string",
             "internalType": "string"
           },
           {
-            "name": "aTokenSymbol",
+            "name": "cTokenSymbol",
             "type": "string",
             "internalType": "string"
           },
@@ -173,6 +173,52 @@
   },
   {
     "type": "function",
+    "name": "setAssetBorrowableInEMode",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "categoryId",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "borrowable",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setAssetCollateralInEMode",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "categoryId",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "allowed",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "setBorrowCap",
     "inputs": [
       {
@@ -184,6 +230,75 @@
         "name": "newBorrowCap",
         "type": "uint256",
         "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setBorrowableInIsolation",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "borrowable",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setDebtCeiling",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "newDebtCeiling",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setEModeCategory",
+    "inputs": [
+      {
+        "name": "categoryId",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "ltv",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "liquidationThreshold",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "liquidationBonus",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "internalType": "string"
       }
     ],
     "outputs": [],
@@ -294,6 +409,24 @@
   },
   {
     "type": "function",
+    "name": "setReserveFlashLoaning",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "enabled",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "setReserveFreeze",
     "inputs": [
       {
@@ -371,6 +504,24 @@
   },
   {
     "type": "function",
+    "name": "setSiloedBorrowing",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "newSiloed",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "setSupplyCap",
     "inputs": [
       {
@@ -389,12 +540,12 @@
   },
   {
     "type": "function",
-    "name": "updateAToken",
+    "name": "updateCToken",
     "inputs": [
       {
         "name": "input",
         "type": "tuple",
-        "internalType": "struct ConfiguratorInputTypes.UpdateATokenInput",
+        "internalType": "struct ConfiguratorInputTypes.UpdateCTokenInput",
         "components": [
           {
             "name": "asset",
@@ -422,6 +573,19 @@
             "internalType": "bytes"
           }
         ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateFlashloanPremium",
+    "inputs": [
+      {
+        "name": "newFlashloanPremium",
+        "type": "uint128",
+        "internalType": "uint128"
       }
     ],
     "outputs": [],
@@ -469,7 +633,7 @@
   },
   {
     "type": "event",
-    "name": "ATokenUpgraded",
+    "name": "AssetBorrowableInEModeChanged",
     "inputs": [
       {
         "name": "asset",
@@ -478,16 +642,41 @@
         "internalType": "address"
       },
       {
-        "name": "proxy",
+        "name": "categoryId",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      },
+      {
+        "name": "borrowable",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "AssetCollateralInEModeChanged",
+    "inputs": [
+      {
+        "name": "asset",
         "type": "address",
         "indexed": true,
         "internalType": "address"
       },
       {
-        "name": "implementation",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
+        "name": "categoryId",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      },
+      {
+        "name": "collateral",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
       }
     ],
     "anonymous": false
@@ -519,6 +708,25 @@
   },
   {
     "type": "event",
+    "name": "BorrowableInIsolationChanged",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "borrowable",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "BridgeProtocolFeeUpdated",
     "inputs": [
       {
@@ -532,6 +740,31 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "CTokenUpgraded",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "proxy",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "implementation",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       }
     ],
     "anonymous": false
@@ -563,6 +796,74 @@
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "DebtCeilingChanged",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "oldDebtCeiling",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "newDebtCeiling",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "EModeCategoryAdded",
+    "inputs": [
+      {
+        "name": "categoryId",
+        "type": "uint8",
+        "indexed": true,
+        "internalType": "uint8"
+      },
+      {
+        "name": "ltv",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "liquidationThreshold",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "liquidationBonus",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "oracle",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
       }
     ],
     "anonymous": false
@@ -759,6 +1060,25 @@
   },
   {
     "type": "event",
+    "name": "ReserveFlashLoaning",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "enabled",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "ReserveFrozen",
     "inputs": [
       {
@@ -787,7 +1107,7 @@
         "internalType": "address"
       },
       {
-        "name": "aToken",
+        "name": "cToken",
         "type": "address",
         "indexed": true,
         "internalType": "address"
@@ -959,6 +1279,11 @@
   },
   {
     "type": "error",
+    "name": "AssetNotListed",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "CallerNotAssetListingOrPoolAdmin",
     "inputs": []
   },
@@ -984,7 +1309,22 @@
   },
   {
     "type": "error",
+    "name": "FlashloanPremiumInvalid",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "InvalidBorrowCap",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidDebtCeiling",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidEmodeCategoryParams",
     "inputs": []
   },
   {
@@ -1024,12 +1364,22 @@
   },
   {
     "type": "error",
+    "name": "InvalidReserveIndex",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "InvalidReserveParams",
     "inputs": []
   },
   {
     "type": "error",
     "name": "InvalidSupplyCap",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ReserveDebtNotZero",
     "inputs": []
   },
   {

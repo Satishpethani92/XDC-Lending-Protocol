@@ -65,7 +65,7 @@ export function useSupply() {
     return supplyContract.writeContractAsync({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "depositETH",
+      functionName: "depositXDC",
       args: [
         contracts.pool,
         userAddress as `0x${string}`,

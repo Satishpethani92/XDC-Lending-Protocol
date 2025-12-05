@@ -7,7 +7,7 @@ import { useProtocolUserReserveData } from "@/hooks/useProtocolUserReserveData";
  * which reduces the number of RPC calls from 3-4 to just 1.
  *
  * Previously:
- * - Called aToken.balanceOf() for supplied amount
+ * - Called cToken.balanceOf() for supplied amount
  * - Called Pool.getReserveData() to get debt token address
  * - Called debtToken.balanceOf() for borrowed amount
  * - Called ProtocolDataProvider.getUserReserveData() for collateral status
@@ -16,18 +16,18 @@ import { useProtocolUserReserveData } from "@/hooks/useProtocolUserReserveData";
  * - Calls ProtocolDataProvider.getUserReserveData() once for all data
  *
  * @param assetAddress - The address of the reserve asset
- * @param aTokenAddress - The aToken address (kept for backward compatibility, not used)
+ * @param cTokenAddress - The cToken address (kept for backward compatibility, not used)
  * @returns Object with suppliedAmount, borrowedAmount, and isUsingAsCollateral
  *
  * @example
  * const { suppliedAmount, borrowedAmount, isUsingAsCollateral } = useUserReserveData(
  *   tokens.wrappedNative.address,
- *   tokens.wrappedNative.aTokenAddress
+ *   tokens.wrappedNative.cTokenAddress
  * );
  */
 export const useUserReserveData = (
   assetAddress: string,
-  aTokenAddress: string // Kept for backward compatibility but not used
+  cTokenAddress: string // Kept for backward compatibility but not used
 ) => {
   // Use Protocol Data Provider to get all user reserve data in a single call
   const protocolData = useProtocolUserReserveData(assetAddress);

@@ -48,87 +48,65 @@ const SupplyDoneModal: React.FC<Props> = ({
       return;
     }
 
-    // Map token symbol to aToken address and custom symbol
-    const aTokenConfig: Record<
-      string,
-      { address: string; symbol: string; decimals: number }
-    > = {
+    // Map token symbol to cToken address and metadata
+    const cTokenMap: Record<string, { address: string; symbol: string; decimals: number }> = {
       wxdc: {
-        address: tokens.wrappedNative.aToken,
-        symbol: "cWXDC",
+        address: tokens.wrappedNative.cToken,
+        symbol: `c${tokens.wrappedNative.symbol}`,
         decimals: tokens.wrappedNative.decimals,
       },
       xdc: {
-        address: tokens.wrappedNative.aToken,
-        symbol: "cWXDC",
+        address: tokens.wrappedNative.cToken,
+        symbol: `c${tokens.wrappedNative.symbol}`,
         decimals: tokens.wrappedNative.decimals,
       },
       usdc: {
-        address: tokens.usdc.aToken,
-        symbol: "cUSDC",
+        address: tokens.usdc.cToken,
+        symbol: `c${tokens.usdc.symbol}`,
         decimals: tokens.usdc.decimals,
       },
       cgo: {
-        address: tokens.cgo.aToken,
-        symbol: "cCGO",
+        address: tokens.cgo.cToken,
+        symbol: `c${tokens.cgo.symbol}`,
         decimals: tokens.cgo.decimals,
       },
     };
 
     const normalizedSymbol = tokenSymbol.toLowerCase();
-    const aToken = aTokenConfig[normalizedSymbol];
+    const cTokenData = cTokenMap[normalizedSymbol];
 
     console.log("Token symbol:", tokenSymbol);
-    console.log("Normalized symbol:", normalizedSymbol);
-    console.log("aToken config:", aToken);
+    console.log("cToken data:", cTokenData);
 
     if (
-      !aToken ||
-      aToken.address === "0x0000000000000000000000000000000000000000"
+      !cTokenData ||
+      !cTokenData.address ||
+      cTokenData.address === "0x0000000000000000000000000000000000000000"
     ) {
-      console.error("aToken address not configured for", tokenSymbol);
+      console.error("cToken address not configured for", tokenSymbol);
       return;
     }
 
     try {
-      // Try to add with shortened symbol first (MetaMask has 11 char limit)
+      // Explicitly provide symbol and decimals to avoid reading corrupted data from contract
       const result = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
           options: {
-            address: aToken.address,
-            symbol: aToken.symbol, // Use shortened symbol
-            decimals: aToken.decimals,
+            address: cTokenData.address,
+            symbol: cTokenData.symbol,
+            decimals: cTokenData.decimals,
           },
         },
       });
       console.log("Add token result:", result);
     } catch (error: any) {
       console.error("Failed to add token to wallet:", error);
-
-      // If symbol mismatch, try without symbol (let wallet read from contract)
-      if (error?.code === -32602) {
-        try {
-          const result = await window.ethereum.request({
-            method: "wallet_watchAsset",
-            params: {
-              type: "ERC20",
-              options: {
-                address: aToken.address,
-                decimals: aToken.decimals,
-              },
-            },
-          });
-          console.log("Add token result (retry):", result);
-        } catch (retryError) {
-          console.error("Retry also failed:", retryError);
-          alert(
-            "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
-              aToken.address
-          );
-        }
-      }
+      alert(
+        "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
+          cTokenData.address
+      );
     }
   };
 

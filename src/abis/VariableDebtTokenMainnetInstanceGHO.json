@@ -1,5 +1,47 @@
 [
   {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "pool",
+        "type": "address",
+        "internalType": "contract IPool"
+      },
+      {
+        "name": "rewardsController",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "DEBT_TOKEN_REVISION",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "DELEGATION_WITH_SIG_TYPEHASH",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
     "type": "function",
     "name": "DOMAIN_SEPARATOR",
     "inputs": [],
@@ -27,19 +69,6 @@
   },
   {
     "type": "function",
-    "name": "PERMIT_TYPEHASH",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
     "name": "POOL",
     "inputs": [],
     "outputs": [
@@ -53,39 +82,13 @@
   },
   {
     "type": "function",
-    "name": "RESERVE_TREASURY_ADDRESS",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
     "name": "REWARDS_CONTROLLER",
     "inputs": [],
     "outputs": [
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IAaveIncentivesController"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "TREASURY",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "address"
+        "internalType": "contract ICreditifyIncentivesController"
       }
     ],
     "stateMutability": "view"
@@ -108,12 +111,12 @@
     "name": "allowance",
     "inputs": [
       {
-        "name": "owner",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "spender",
+        "name": "",
         "type": "address",
         "internalType": "address"
       }
@@ -132,12 +135,12 @@
     "name": "approve",
     "inputs": [
       {
-        "name": "spender",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "amount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -149,6 +152,24 @@
         "internalType": "bool"
       }
     ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "approveDelegation",
+    "inputs": [
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
@@ -172,22 +193,36 @@
   },
   {
     "type": "function",
+    "name": "borrowAllowance",
+    "inputs": [
+      {
+        "name": "fromUser",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "toUser",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "burn",
     "inputs": [
       {
         "name": "from",
         "type": "address",
         "internalType": "address"
-      },
-      {
-        "name": "receiverOfUnderlying",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "internalType": "uint256"
       },
       {
         "name": "scaledAmount",
@@ -205,6 +240,11 @@
         "name": "",
         "type": "bool",
         "internalType": "bool"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
       }
     ],
     "stateMutability": "nonpayable"
@@ -227,12 +267,12 @@
     "name": "decreaseAllowance",
     "inputs": [
       {
-        "name": "spender",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "subtractedValue",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -248,13 +288,56 @@
   },
   {
     "type": "function",
+    "name": "delegationWithSig",
+    "inputs": [
+      {
+        "name": "delegator",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "delegatee",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "value",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "deadline",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "v",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "r",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "s",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "getIncentivesController",
     "inputs": [],
     "outputs": [
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IAaveIncentivesController"
+        "internalType": "contract ICreditifyIncentivesController"
       }
     ],
     "stateMutability": "view"
@@ -307,12 +390,12 @@
     "name": "increaseAllowance",
     "inputs": [
       {
-        "name": "spender",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "addedValue",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -341,17 +424,17 @@
         "internalType": "address"
       },
       {
-        "name": "aTokenDecimals",
+        "name": "debtTokenDecimals",
         "type": "uint8",
         "internalType": "uint8"
       },
       {
-        "name": "aTokenName",
+        "name": "debtTokenName",
         "type": "string",
         "internalType": "string"
       },
       {
-        "name": "aTokenSymbol",
+        "name": "debtTokenSymbol",
         "type": "string",
         "internalType": "string"
       },
@@ -369,7 +452,7 @@
     "name": "mint",
     "inputs": [
       {
-        "name": "caller",
+        "name": "user",
         "type": "address",
         "internalType": "address"
       },
@@ -377,6 +460,11 @@
         "name": "onBehalfOf",
         "type": "address",
         "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
       },
       {
         "name": "scaledAmount",
@@ -392,28 +480,10 @@
     "outputs": [
       {
         "name": "",
-        "type": "bool",
-        "internalType": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "mintToTreasury",
-    "inputs": [
-      {
-        "name": "scaledAmount",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "index",
         "type": "uint256",
         "internalType": "uint256"
       }
     ],
-    "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
@@ -447,72 +517,6 @@
       }
     ],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "permit",
-    "inputs": [
-      {
-        "name": "owner",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "spender",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "value",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "deadline",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "v",
-        "type": "uint8",
-        "internalType": "uint8"
-      },
-      {
-        "name": "r",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      },
-      {
-        "name": "s",
-        "type": "bytes32",
-        "internalType": "bytes32"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "rescueTokens",
-    "inputs": [
-      {
-        "name": "token",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "to",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -577,12 +581,12 @@
     "name": "transfer",
     "inputs": [
       {
-        "name": "recipient",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "amount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -601,17 +605,17 @@
     "name": "transferFrom",
     "inputs": [
       {
-        "name": "sender",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "recipient",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "amount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -627,48 +631,30 @@
   },
   {
     "type": "function",
-    "name": "transferOnLiquidation",
+    "name": "updateDiscountDistribution",
     "inputs": [
       {
-        "name": "from",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "to",
+        "name": "",
         "type": "address",
         "internalType": "address"
       },
       {
-        "name": "amount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       },
       {
-        "name": "scaledAmount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       },
       {
-        "name": "index",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "transferUnderlyingTo",
-    "inputs": [
-      {
-        "name": "target",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
+        "name": "",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -703,28 +689,28 @@
   },
   {
     "type": "event",
-    "name": "BalanceTransfer",
+    "name": "BorrowAllowanceDelegated",
     "inputs": [
       {
-        "name": "from",
+        "name": "fromUser",
         "type": "address",
         "indexed": true,
         "internalType": "address"
       },
       {
-        "name": "to",
+        "name": "toUser",
         "type": "address",
         "indexed": true,
         "internalType": "address"
       },
       {
-        "name": "value",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
+        "name": "asset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       },
       {
-        "name": "index",
+        "name": "amount",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -786,31 +772,25 @@
         "internalType": "address"
       },
       {
-        "name": "treasury",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
         "name": "incentivesController",
         "type": "address",
         "indexed": false,
         "internalType": "address"
       },
       {
-        "name": "aTokenDecimals",
+        "name": "debtTokenDecimals",
         "type": "uint8",
         "indexed": false,
         "internalType": "uint8"
       },
       {
-        "name": "aTokenName",
+        "name": "debtTokenName",
         "type": "string",
         "indexed": false,
         "internalType": "string"
       },
       {
-        "name": "aTokenSymbol",
+        "name": "debtTokenSymbol",
         "type": "string",
         "indexed": false,
         "internalType": "string"
@@ -893,11 +873,6 @@
   },
   {
     "type": "error",
-    "name": "CallerNotPoolAdmin",
-    "inputs": []
-  },
-  {
-    "type": "error",
     "name": "ECDSAInvalidSignature",
     "inputs": []
   },
@@ -946,6 +921,27 @@
   },
   {
     "type": "error",
+    "name": "InsufficientBorrowAllowance",
+    "inputs": [
+      {
+        "name": "spender",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "allowance",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "needed",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
     "name": "InvalidBurnAmount",
     "inputs": []
   },
@@ -966,6 +962,16 @@
   },
   {
     "type": "error",
+    "name": "OperationNotSupported",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "PoolAddressesDoNotMatch",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "SafeCastOverflowedUintDowncast",
     "inputs": [
       {
@@ -979,11 +985,6 @@
         "internalType": "uint256"
       }
     ]
-  },
-  {
-    "type": "error",
-    "name": "UnderlyingCannotBeRescued",
-    "inputs": []
   },
   {
     "type": "error",

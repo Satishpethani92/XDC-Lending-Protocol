@@ -9,20 +9,20 @@ import { useReserveLiquidity } from "@/hooks/useReserveLiquidity";
 import { useUserAccountData } from "@/hooks/useUserAccountData";
 import { useUserReserveData } from "@/hooks/useUserReserveData";
 import {
-  Box,
-  Button,
-  Checkbox,
-  CloseButton,
-  Dialog,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Image,
-  Input,
-  InputGroup,
-  Portal,
-  Switch,
+    Box,
+    Button,
+    Checkbox,
+    CloseButton,
+    Dialog,
+    Flex,
+    Heading,
+    HStack,
+    Icon,
+    Image,
+    Input,
+    InputGroup,
+    Portal,
+    Switch,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
@@ -92,7 +92,7 @@ const WithdrawModal: React.FC<Props> = ({
   // Get user reserve data
   const userReserveData = useUserReserveData(
     currentToken.address,
-    reserveData.aTokenAddress
+    reserveData.cTokenAddress
   );
 
   // Get available liquidity

@@ -3,7 +3,7 @@
     "type": "constructor",
     "inputs": [
       {
-        "name": "weth",
+        "name": "wxdc",
         "type": "address",
         "internalType": "address"
       },
@@ -43,20 +43,20 @@
   },
   {
     "type": "function",
-    "name": "WETH",
+    "name": "WXDC",
     "inputs": [],
     "outputs": [
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IWETH"
+        "internalType": "contract IWXDC"
       }
     ],
     "stateMutability": "view"
   },
   {
     "type": "function",
-    "name": "borrowETH",
+    "name": "borrowxdc",
     "inputs": [
       {
         "name": "",
@@ -79,7 +79,7 @@
   },
   {
     "type": "function",
-    "name": "depositETH",
+    "name": "depositXDC",
     "inputs": [
       {
         "name": "",
@@ -99,24 +99,6 @@
     ],
     "outputs": [],
     "stateMutability": "payable"
-  },
-  {
-    "type": "function",
-    "name": "emergencyEtherTransfer",
-    "inputs": [
-      {
-        "name": "to",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -143,7 +125,25 @@
   },
   {
     "type": "function",
-    "name": "getWETHAddress",
+    "name": "emergencyXdcerTransfer",
+    "inputs": [
+      {
+        "name": "to",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getWXDCAddress",
     "inputs": [],
     "outputs": [
       {
@@ -176,7 +176,7 @@
   },
   {
     "type": "function",
-    "name": "repayETH",
+    "name": "repayXDC",
     "inputs": [
       {
         "name": "",
@@ -212,7 +212,7 @@
   },
   {
     "type": "function",
-    "name": "withdrawETH",
+    "name": "withdrawxdc",
     "inputs": [
       {
         "name": "",
@@ -235,7 +235,7 @@
   },
   {
     "type": "function",
-    "name": "withdrawETHWithPermit",
+    "name": "withdrawxdcWithPermit",
     "inputs": [
       {
         "name": "",

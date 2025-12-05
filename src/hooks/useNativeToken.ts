@@ -24,7 +24,7 @@ export function useNativeToken() {
     return writeContract({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "depositETH",
+      functionName: "depositXDC",
       args: [
         contracts.pool, // First param (unused in contract but required)
         userAddress as `0x${string}`, // onBehalfOf
@@ -48,7 +48,7 @@ export function useNativeToken() {
     return writeContract({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "withdrawETH",
+      functionName: "withdrawXDC",
       args: [
         contracts.pool, // First param (unused in contract but required)
         amountInWei,
@@ -67,7 +67,7 @@ export function useNativeToken() {
     return writeContract({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "borrowETH",
+      functionName: "borrowXDC",
       args: [
         contracts.pool, // First param (unused in contract but required)
         amountInWei,
@@ -90,7 +90,7 @@ export function useNativeToken() {
     return writeContract({
       address: contracts.wrappedTokenGateway,
       abi: WRAPPED_TOKEN_GATEWAY_V3_ABI,
-      functionName: "repayETH",
+      functionName: "repayXDC",
       args: [
         contracts.pool, // First param (unused in contract but required)
         amountInWei,

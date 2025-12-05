@@ -8,7 +8,7 @@ import { useAccount, useReadContract } from "wagmi";
  */
 export interface ProtocolUserReserveData {
   // Raw values from Protocol Data Provider
-  currentATokenBalance: bigint;
+  currentCTokenBalance: bigint;
   currentVariableDebt: bigint;
   currentStableDebt: bigint;
   principalStableDebt: bigint;
@@ -38,7 +38,7 @@ export interface ProtocolUserReserveData {
  *
  * Response structure:
  * {
- *   currentATokenBalance: bigint,        // User's supplied amount (aToken balance)
+ *   currentCTokenBalance: bigint,        // User's supplied amount (cToken balance)
  *   currentStableDebt: bigint,           // Always 0 (stable rate disabled)
  *   currentVariableDebt: bigint,         // User's borrowed amount
  *   principalStableDebt: bigint,         // Always 0
@@ -112,7 +112,7 @@ export function useProtocolUserReserveData(
   // Return default values if user is not connected, contract is invalid, asset is invalid, or data is not available
   if (!effectiveAddress || !hasValidContract || !hasValidAsset || !data) {
     return {
-      currentATokenBalance: BigInt(0),
+      currentCTokenBalance: BigInt(0),
       currentVariableDebt: BigInt(0),
       currentStableDebt: BigInt(0),
       principalStableDebt: BigInt(0),
@@ -133,8 +133,8 @@ export function useProtocolUserReserveData(
   // Protocol Data Provider returns an object (or tuple that can be destructured)
   const userReserveData = data as any;
 
-  const currentATokenBalance =
-    userReserveData.currentATokenBalance || userReserveData[0] || BigInt(0);
+  const currentCTokenBalance =
+    userReserveData.currentCTokenBalance || userReserveData[0] || BigInt(0);
   const currentStableDebt =
     userReserveData.currentStableDebt || userReserveData[1] || BigInt(0);
   const currentVariableDebt =
@@ -154,7 +154,7 @@ export function useProtocolUserReserveData(
     userReserveData.usageAsCollateralEnabled ?? userReserveData[8] ?? false;
 
   return {
-    currentATokenBalance,
+    currentCTokenBalance,
     currentVariableDebt,
     currentStableDebt,
     principalStableDebt,
@@ -164,7 +164,7 @@ export function useProtocolUserReserveData(
     stableRateLastUpdated,
     usageAsCollateralEnabled,
     // Backward compatible fields
-    suppliedAmount: currentATokenBalance,
+    suppliedAmount: currentCTokenBalance,
     borrowedAmount: currentVariableDebt,
     isUsingAsCollateral: usageAsCollateralEnabled,
     isLoading,

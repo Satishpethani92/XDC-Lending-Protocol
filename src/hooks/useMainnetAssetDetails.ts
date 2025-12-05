@@ -1,10 +1,10 @@
 // src/hooks/useMainnetAssetDetails.ts
 // This hook fetches data from XDC mainnet or testnet for the landing page based on env
 import {
-  CREDITIFY_ORACLE_ABI,
-  ERC20_ABI,
-  POOL_ABI,
-  POOL_ADDRESSES_PROVIDER_ABI,
+    CREDITIFY_ORACLE_ABI,
+    ERC20_ABI,
+    POOL_ABI,
+    POOL_ADDRESSES_PROVIDER_ABI,
 } from "@/config/abis";
 import { CHAIN_CONFIGS } from "@/config/chains";
 import { getTokenLogo } from "@/config/tokenLogos";
@@ -96,15 +96,15 @@ export function useMainnetAssetDetails(tokenSymbol: string) {
     },
   });
 
-  // Get underlying token balance of aToken (actual available liquidity in the pool)
+  // Get underlying token balance of cToken (actual available liquidity in the pool)
   const { data: underlyingBalance } = useReadContract({
     address: token.address as `0x${string}`,
     abi: ERC20_ABI,
     functionName: "balanceOf",
-    args: [reserveDataAny?.aTokenAddress as `0x${string}`],
+    args: [reserveDataAny?.cTokenAddress as `0x${string}`],
     chainId: LANDING_CHAIN_ID,
     query: {
-      enabled: !!reserveDataAny?.aTokenAddress,
+      enabled: !!reserveDataAny?.cTokenAddress,
     },
   });
 
@@ -179,7 +179,7 @@ export function useMainnetAssetDetails(tokenSymbol: string) {
 
   const totalBorrowed = variableDebt;
 
-  // Available liquidity = actual balance of underlying token in aToken contract
+  // Available liquidity = actual balance of underlying token in cToken contract
   const availableLiquidityInTokens = underlyingBalance
     ? parseFloat(formatUnits(underlyingBalance, token.decimals))
     : 0;
@@ -259,7 +259,7 @@ export function useMainnetAssetDetails(tokenSymbol: string) {
 
     // Raw reserve data
     reserveData,
-    aTokenAddress: reserveDataAny?.aTokenAddress,
+    cTokenAddress: reserveDataAny?.cTokenAddress,
     variableDebtTokenAddress: reserveDataAny?.variableDebtTokenAddress,
 
     // Loading state
