@@ -1,10 +1,10 @@
 // src/hooks/useMainnetAssetDetails.ts
 // This hook fetches data from XDC mainnet or testnet for the landing page based on env
 import {
-    CREDITIFY_ORACLE_ABI,
-    ERC20_ABI,
-    POOL_ABI,
-    POOL_ADDRESSES_PROVIDER_ABI,
+  CREDITIFY_ORACLE_ABI,
+  ERC20_ABI,
+  POOL_ABI,
+  POOL_ADDRESSES_PROVIDER_ABI,
 } from "@/config/abis";
 import { CHAIN_CONFIGS } from "@/config/chains";
 import { getTokenLogo } from "@/config/tokenLogos";

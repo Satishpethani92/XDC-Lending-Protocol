@@ -49,7 +49,10 @@ const SupplyDoneModal: React.FC<Props> = ({
     }
 
     // Map token symbol to cToken address and metadata
-    const cTokenMap: Record<string, { address: string; symbol: string; decimals: number }> = {
+    const cTokenMap: Record<
+      string,
+      { address: string; symbol: string; decimals: number }
+    > = {
       wxdc: {
         address: tokens.wrappedNative.cToken,
         symbol: `c${tokens.wrappedNative.symbol}`,

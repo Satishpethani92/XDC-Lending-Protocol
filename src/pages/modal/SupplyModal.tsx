@@ -11,18 +11,18 @@ import { useTokenAllowance } from "@/hooks/useTokenAllowance";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
 import { useUserAccountData } from "@/hooks/useUserAccountData";
 import {
-    Box,
-    Button,
-    CloseButton,
-    Dialog,
-    Flex,
-    Heading,
-    HStack,
-    Icon,
-    Image,
-    Input,
-    InputGroup,
-    Portal,
+  Box,
+  Button,
+  CloseButton,
+  Dialog,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Input,
+  InputGroup,
+  Portal,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { IoMdClose } from "react-icons/io";

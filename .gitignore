@@ -129,7 +129,6 @@ temp/
 
 # Project specific
 _toDo
-contracts
 docs
 .kiro
 .vscode

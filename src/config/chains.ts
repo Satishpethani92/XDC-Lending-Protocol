@@ -57,13 +57,18 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   [xdc.id]: {
     contracts: {
       pool: mainnetContracts.poolProxy as `0x${string}`,
-      poolAddressesProvider: mainnetContracts.poolAddressesProvider as `0x${string}`,
+      poolAddressesProvider:
+        mainnetContracts.poolAddressesProvider as `0x${string}`,
       uiPoolDataProvider: mainnetContracts.uiPoolDataProvider as `0x${string}`,
-      protocolDataProvider: mainnetContracts.protocolDataProvider as `0x${string}`,
-      walletBalanceProvider: mainnetContracts.walletBalanceProvider as `0x${string}`,
+      protocolDataProvider:
+        mainnetContracts.protocolDataProvider as `0x${string}`,
+      walletBalanceProvider:
+        mainnetContracts.walletBalanceProvider as `0x${string}`,
       oracle: mainnetContracts.creditifyOracle as `0x${string}`,
-      wrappedTokenGateway: mainnetContracts.wrappedTokenGateway as `0x${string}`,
-      uiIncentiveDataProvider: mainnetContracts.uiIncentiveDataProvider as `0x${string}`,
+      wrappedTokenGateway:
+        mainnetContracts.wrappedTokenGateway as `0x${string}`,
+      uiIncentiveDataProvider:
+        mainnetContracts.uiIncentiveDataProvider as `0x${string}`,
     },
     poolDeploymentBlock: 0n, // TODO: Set when mainnet is deployed
     tokens: {
@@ -104,13 +109,18 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   [xdcTestnet.id]: {
     contracts: {
       pool: apothemContracts.poolProxy as `0x${string}`,
-      poolAddressesProvider: apothemContracts.poolAddressesProvider as `0x${string}`,
+      poolAddressesProvider:
+        apothemContracts.poolAddressesProvider as `0x${string}`,
       uiPoolDataProvider: apothemContracts.uiPoolDataProvider as `0x${string}`,
-      protocolDataProvider: apothemContracts.protocolDataProvider as `0x${string}`,
-      walletBalanceProvider: apothemContracts.walletBalanceProvider as `0x${string}`,
+      protocolDataProvider:
+        apothemContracts.protocolDataProvider as `0x${string}`,
+      walletBalanceProvider:
+        apothemContracts.walletBalanceProvider as `0x${string}`,
       oracle: apothemContracts.creditifyOracle as `0x${string}`,
-      wrappedTokenGateway: apothemContracts.wrappedTokenGateway as `0x${string}`,
-      uiIncentiveDataProvider: apothemContracts.uiIncentiveDataProvider as `0x${string}`,
+      wrappedTokenGateway:
+        apothemContracts.wrappedTokenGateway as `0x${string}`,
+      uiIncentiveDataProvider:
+        apothemContracts.uiIncentiveDataProvider as `0x${string}`,
     },
     // Pool contract deployment block on Apothem testnet (first event at 76425660)
     poolDeploymentBlock: 76420000n,
