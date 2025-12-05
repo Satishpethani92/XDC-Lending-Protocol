@@ -54,14 +54,14 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   // XDC Mainnet
   [xdc.id]: {
     contracts: {
-      pool: "0x0000000000000000000000000000000000000000",
-      poolAddressesProvider: "0x0000000000000000000000000000000000000000",
-      uiPoolDataProvider: "0x0000000000000000000000000000000000000000",
-      protocolDataProvider: "0x0000000000000000000000000000000000000000",
-      walletBalanceProvider: "0x0000000000000000000000000000000000000000",
-      oracle: "0x0000000000000000000000000000000000000000",
-      wrappedTokenGateway: "0x0000000000000000000000000000000000000000",
-      uiIncentiveDataProvider: "0x0000000000000000000000000000000000000000",
+      pool: "0x6e766a247f86C810AD1BC6721689D7f9EB3fb095",
+      poolAddressesProvider: "0x046b573474fF6f91758D9896bB5915851D406609",
+      uiPoolDataProvider: "0x7812c7F9bc852F906799C5688ea1379A6C68DDBB",
+      protocolDataProvider: "0xB8AE59795B351AC5A57778Eb8b059A29d0F020eb",
+      walletBalanceProvider: "0x6166e3dC0868Ba4E01eeE2f8c445de6559435918",
+      oracle: "0x6d31fDB3AaCc3e88f7de348025981a3A58111B0f",
+      wrappedTokenGateway: "0xdABB099a1FbbFfD074aB6FA6f4256675De9996C2",
+      uiIncentiveDataProvider: "0xFE0BfCBCEAFcC4b0Cc505EAFB690aAA428933085",
     },
     poolDeploymentBlock: 0n, // TODO: Set when mainnet is deployed
     tokens: {
@@ -101,14 +101,14 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   // XDC Apothem Testnet (Auto-generated from .env)
   [xdcTestnet.id]: {
     contracts: {
-      pool: "0x0d41D65B4b9410917E101fb9eb709E48B8D10523",
-      poolAddressesProvider: "0x299F4b500309fFEAe459af5Baf5e35784dDC8664",
-      uiPoolDataProvider: "0xbab1762770DcC776d0D13143DBdC90F228A4bd63",
-      protocolDataProvider: "0x91620DE48437d7EDDAe04E7ed8DC686586A7FB53",
-      walletBalanceProvider: "0x95A99E0fB0E55CD5290961c4d8070EA945157786",
-      oracle: "0xFc07A4AeabC6D09D59946d2845b9F3603acB41F0",
-      wrappedTokenGateway: "0xA6FDF78aa29A7A34812fa8B26cE692D6b54e2747",
-      uiIncentiveDataProvider: "0x41211e3fA59148EbFFc1bc6E08868CC6DD915320",
+      pool: "0x6e766a247f86C810AD1BC6721689D7f9EB3fb095",
+      poolAddressesProvider: "0x046b573474fF6f91758D9896bB5915851D406609",
+      uiPoolDataProvider: "0x7812c7F9bc852F906799C5688ea1379A6C68DDBB",
+      protocolDataProvider: "0xB8AE59795B351AC5A57778Eb8b059A29d0F020eb",
+      walletBalanceProvider: "0x6166e3dC0868Ba4E01eeE2f8c445de6559435918",
+      oracle: "0x6d31fDB3AaCc3e88f7de348025981a3A58111B0f",
+      wrappedTokenGateway: "0xdABB099a1FbbFfD074aB6FA6f4256675De9996C2",
+      uiIncentiveDataProvider: "0xFE0BfCBCEAFcC4b0Cc505EAFB690aAA428933085",
     },
     // Pool contract deployment block on Apothem testnet (first event at 76425660)
     poolDeploymentBlock: 76420000n,

@@ -1,13 +1,13 @@
 import { landingSystem } from "@/landingSystem";
 import { ROUTES } from "@/routes/paths";
 import {
-  Box,
-  Button,
-  ChakraProvider,
-  Container,
-  Flex,
-  Heading,
-  Icon,
+    Box,
+    Button,
+    ChakraProvider,
+    Container,
+    Flex,
+    Heading,
+    Icon,
 } from "@chakra-ui/react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -293,7 +293,7 @@ const privacySections = [
   },
   {
     id: 11,
-    title: "11. Children&apos;s Privacy",
+    title: "11. Children's Privacy",
     content: (
       <Box as="p">
         The Protocol is not intended for users under 18 years of age. We do not
