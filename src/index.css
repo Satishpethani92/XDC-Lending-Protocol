@@ -367,8 +367,9 @@ tr:last-child > td {
   font-family: "Space Grotesk", sans-serif;
 }
 
-.landing-page-new p {
-  font-family: "General Sans, sans-serif";
+.landing-page-new p,
+.font-general-sans {
+  font-family: "General Sans", sans-serif;
 }
 
 .gradient-overlay {
