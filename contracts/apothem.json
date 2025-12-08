@@ -43,5 +43,5 @@
   "uiPoolDataProvider": "0x7812c7F9bc852F906799C5688ea1379A6C68DDBB",
   "variableDebtToken": "0xd7ff9A36228bb7b25fda3b2B1033E9718cCF23d2",
   "walletBalanceProvider": "0x6166e3dC0868Ba4E01eeE2f8c445de6559435918",
-  "wrappedTokenGateway": "0xdABB099a1FbbFfD074aB6FA6f4256675De9996C2"
+  "wrappedTokenGateway": "0x0ad04f6B7e93179A6bd37C4b726A16F6f6e44473"
 }

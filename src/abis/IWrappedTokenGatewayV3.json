@@ -27,7 +27,7 @@
   },
   {
     "type": "function",
-    "name": "borrowxdc",
+    "name": "borrowXDC",
     "inputs": [
       {
         "name": "pool",
@@ -96,7 +96,7 @@
   },
   {
     "type": "function",
-    "name": "withdrawxdc",
+    "name": "withdrawXDC",
     "inputs": [
       {
         "name": "pool",
@@ -119,7 +119,7 @@
   },
   {
     "type": "function",
-    "name": "withdrawxdcWithPermit",
+    "name": "withdrawXDCWithPermit",
     "inputs": [
       {
         "name": "pool",

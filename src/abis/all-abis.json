@@ -39811,7 +39811,7 @@
     },
     {
       "type": "function",
-      "name": "borrowxdc",
+      "name": "borrowXDC",
       "inputs": [
         {
           "name": "pool",
@@ -39880,7 +39880,7 @@
     },
     {
       "type": "function",
-      "name": "withdrawxdc",
+      "name": "withdrawXDC",
       "inputs": [
         {
           "name": "pool",
@@ -39903,7 +39903,7 @@
     },
     {
       "type": "function",
-      "name": "withdrawxdcWithPermit",
+      "name": "withdrawXDCWithPermit",
       "inputs": [
         {
           "name": "pool",
@@ -87499,7 +87499,7 @@
     },
     {
       "type": "function",
-      "name": "borrowxdc",
+      "name": "borrowXDC",
       "inputs": [
         {
           "name": "",
@@ -87568,7 +87568,7 @@
     },
     {
       "type": "function",
-      "name": "emergencyXdcerTransfer",
+      "name": "emergencyXDCTransfer",
       "inputs": [
         {
           "name": "to",
@@ -87655,7 +87655,7 @@
     },
     {
       "type": "function",
-      "name": "withdrawxdc",
+      "name": "withdrawXDC",
       "inputs": [
         {
           "name": "",
@@ -87678,7 +87678,7 @@
     },
     {
       "type": "function",
-      "name": "withdrawxdcWithPermit",
+      "name": "withdrawXDCWithPermit",
       "inputs": [
         {
           "name": "",
