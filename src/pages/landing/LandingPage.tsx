@@ -176,18 +176,6 @@ const LandingPage = () => {
                 <Box position={"relative"} zIndex={1}>
                   <LandingHeader />
                   <Box position="relative" zIndex={1}>
-                    {/* small Creditify label */}
-                    <Box
-                      as="h3"
-                      fontSize={{ base: "11px", md: "22px" }}
-                      mb={{ base: "20px", md: "50px", lg: "100px" }}
-                      fontWeight={500}
-                      letterSpacing="0.16em"
-                      color="white"
-                    >
-                      Creditify
-                    </Box>
-
                     {/* main heading */}
                     <Box
                       as="h1"
