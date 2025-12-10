@@ -97,7 +97,10 @@ const Login = () => {
       tokenImg: getTokenLogo(tokens.usdc.symbol),
       shortName: tokens.usdc.symbol,
       fullName: "Stablecoin Reserve",
-      liquidity: formatLiquidityUsd(usdcLiquidity.availableLiquidity, usdcPrice),
+      liquidity: formatLiquidityUsd(
+        usdcLiquidity.availableLiquidity,
+        usdcPrice
+      ),
       supplyApy: `${usdcReserveData.supplyApy}%`,
       borrowApr: `${usdcReserveData.borrowApy}%`,
       utilisation: `${calculateUtilization(usdcReserveData.totalVariableDebt, usdcLiquidity.availableLiquidityRaw)}%`,
@@ -145,12 +148,7 @@ const Login = () => {
             />
           </NavLink>
         </Box>
-        <Flex
-          align="center"
-          justify="center"
-          gap="16px"
-          mb="15px"
-        >
+        <Flex align="center" justify="center" gap="16px" mb="15px">
           {/* LEFT LINE */}
           <Box
             flex="1"

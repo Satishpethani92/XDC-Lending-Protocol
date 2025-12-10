@@ -1,1 +1,0 @@
-# XDC-Lending-Protocol
