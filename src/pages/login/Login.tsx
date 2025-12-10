@@ -1,56 +1,129 @@
+import { getTokenLogo } from "@/config/tokenLogos";
+import { useAssetPrice } from "@/hooks/useAssetPrice";
+import { useChainConfig } from "@/hooks/useChainConfig";
+import { useProtocolReserveData } from "@/hooks/useProtocolReserveData";
+import { useReserveLiquidity } from "@/hooks/useReserveLiquidity";
 import {
   Box,
   Button,
   Container,
   Flex,
   Heading,
+  HStack,
+  Image,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
   VStack,
-  HStack,
-  Image,
 } from "@chakra-ui/react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAccount } from "wagmi";
 import logoImg from "../../assets/images/login-logo-img.png";
-import usdcIcon from "../../assets/images/login/usdc-icon.png";
-import xdcIcon from "../../assets/images/login/xdc-icon.png";
-import cgoIcon from "../../assets/images/login/cgo-icon.png";
-import upIcon from "../../assets/images/login/up-arrow.png";
 import downIcon from "../../assets/images/login/down-arrow.png";
 import percentageIcon from "../../assets/images/login/percentage.png";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-
-const tokens = [
-  {
-    tokenImg: usdcIcon,
-    shortName: "USDC",
-    fullName: "Stablecoin Reserve",
-    liquidity: "$42.6M",
-    supplyApy: "2.43%",
-    borrowApr: "3.19%",
-    utilisation: "38%",
-  },
-  {
-    tokenImg: xdcIcon,
-    shortName: "XDC",
-    fullName: "XDC Reserve",
-    liquidity: "$42.6M",
-    supplyApy: "2.43%",
-    borrowApr: "3.19%",
-    utilisation: "38%",
-  },
-  {
-    tokenImg: cgoIcon,
-    shortName: "CGO",
-    fullName: "CGO Reserve",
-    liquidity: "$42.6M",
-    supplyApy: "2.43%",
-    borrowApr: "3.19%",
-    utilisation: "38%",
-  },
-];
+import upIcon from "../../assets/images/login/up-arrow.png";
 
 const Login = () => {
+  const { tokens } = useChainConfig();
+  const { isConnected } = useAccount();
+  const navigate = useNavigate();
+
+  // Redirect to dashboard when wallet is connected
+  useEffect(() => {
+    if (isConnected) {
+      navigate("/dashboard");
+    }
+  }, [isConnected, navigate]);
+
+  // Fetch reserve data for each token
+  const usdcReserveData = useProtocolReserveData(tokens.usdc.address);
+  const wxdcReserveData = useProtocolReserveData(tokens.wrappedNative.address);
+  const cgoReserveData = useProtocolReserveData(tokens.cgo.address);
+
+  // Fetch liquidity for each token
+  const usdcLiquidity = useReserveLiquidity(
+    tokens.usdc.address,
+    tokens.usdc.decimals
+  );
+  const wxdcLiquidity = useReserveLiquidity(
+    tokens.wrappedNative.address,
+    tokens.wrappedNative.decimals
+  );
+  const cgoLiquidity = useReserveLiquidity(
+    tokens.cgo.address,
+    tokens.cgo.decimals
+  );
+
+  // Fetch prices for each token
+  const { price: usdcPrice } = useAssetPrice(tokens.usdc.address);
+  const { price: xdcPrice } = useAssetPrice(tokens.wrappedNative.address);
+  const { price: cgoPrice } = useAssetPrice(tokens.cgo.address);
+
+  // Calculate utilization rate: totalBorrowed / (totalBorrowed + availableLiquidity) * 100
+  const calculateUtilization = (
+    totalVariableDebt: bigint,
+    availableLiquidityRaw: bigint
+  ): string => {
+    const total = totalVariableDebt + availableLiquidityRaw;
+    if (total === 0n) return "0";
+    return ((Number(totalVariableDebt) / Number(total)) * 100).toFixed(0);
+  };
+
+  // Format liquidity in USD
+  const formatLiquidityUsd = (liquidity: string, price: number): string => {
+    const value = parseFloat(liquidity) * price;
+    if (value >= 1_000_000) {
+      return `$${(value / 1_000_000).toFixed(1)}M`;
+    } else if (value >= 1_000) {
+      return `$${(value / 1_000).toFixed(1)}K`;
+    }
+    return `$${value.toFixed(2)}`;
+  };
+
+  const isLoading =
+    usdcReserveData.isLoading ||
+    wxdcReserveData.isLoading ||
+    cgoReserveData.isLoading ||
+    usdcLiquidity.isLoading ||
+    wxdcLiquidity.isLoading ||
+    cgoLiquidity.isLoading;
+
+  const tokensData = [
+    {
+      tokenImg: getTokenLogo(tokens.usdc.symbol),
+      shortName: tokens.usdc.symbol,
+      fullName: "Stablecoin Reserve",
+      liquidity: formatLiquidityUsd(usdcLiquidity.availableLiquidity, usdcPrice),
+      supplyApy: `${usdcReserveData.supplyApy}%`,
+      borrowApr: `${usdcReserveData.borrowApy}%`,
+      utilisation: `${calculateUtilization(usdcReserveData.totalVariableDebt, usdcLiquidity.availableLiquidityRaw)}%`,
+      isLoading,
+    },
+    {
+      tokenImg: getTokenLogo(tokens.wrappedNative.symbol),
+      shortName: tokens.wrappedNative.symbol,
+      fullName: "XDC Reserve",
+      liquidity: formatLiquidityUsd(wxdcLiquidity.availableLiquidity, xdcPrice),
+      supplyApy: `${wxdcReserveData.supplyApy}%`,
+      borrowApr: `${wxdcReserveData.borrowApy}%`,
+      utilisation: `${calculateUtilization(wxdcReserveData.totalVariableDebt, wxdcLiquidity.availableLiquidityRaw)}%`,
+      isLoading,
+    },
+    {
+      tokenImg: getTokenLogo(tokens.cgo.symbol),
+      shortName: tokens.cgo.symbol,
+      fullName: "CGO Reserve",
+      liquidity: formatLiquidityUsd(cgoLiquidity.availableLiquidity, cgoPrice),
+      supplyApy: `${cgoReserveData.supplyApy}%`,
+      borrowApr: `${cgoReserveData.borrowApy}%`,
+      utilisation: `${calculateUtilization(cgoReserveData.totalVariableDebt, cgoLiquidity.availableLiquidityRaw)}%`,
+      isLoading,
+    },
+  ];
+
   return (
     <Box py={{ base: "20px", md: "30px" }} minH="100vh" bg={"#fff"}>
       <Container maxW="1280px" px={{ base: "15px", md: "25px" }}>
@@ -71,7 +144,7 @@ const Login = () => {
         <Flex
           align="center"
           justify="center"
-          gap="16px" // space around the title
+          gap="16px"
           mb="15px"
         >
           {/* LEFT LINE */}
@@ -119,8 +192,8 @@ const Login = () => {
             columns={{ base: 1, lg: 3 }}
             gap={{ base: "15px", xl: "25px" }}
           >
-            {tokens.map((token) => (
-              <TokenCard key={token.tokenImg} {...token} />
+            {tokensData.map((token) => (
+              <TokenCard key={token.shortName} {...token} />
             ))}
           </SimpleGrid>
         </Box>
@@ -189,6 +262,7 @@ type TokenCardProps = {
   supplyApy: string;
   borrowApr: string;
   utilisation: string;
+  isLoading?: boolean;
 };
 
 const TokenCard = ({
@@ -199,6 +273,7 @@ const TokenCard = ({
   supplyApy,
   borrowApr,
   utilisation,
+  isLoading,
 }: TokenCardProps) => {
   return (
     <Box
@@ -227,8 +302,7 @@ const TokenCard = ({
           pb={"15px"}
         >
           <HStack gap={4}>
-            {/* Placeholder circle for token icon */}
-            <Image src={tokenImg} w={"49px"} h={"49px"} />
+            <Image src={tokenImg} w={"49px"} h={"49px"} borderRadius="full" />
             <Box>
               <Text
                 fontSize="20px"
@@ -248,27 +322,40 @@ const TokenCard = ({
             <Text fontSize="14px" className="font-general-sans" color="#fff">
               Liquidity
             </Text>
-            <Text
-              fontSize={{ base: "18px", md: "20px", xl: "24px" }}
-              fontWeight="semibold"
-              className="landing-page-new"
-              color="#fff"
-            >
-              {liquidity}
-            </Text>
+            {isLoading ? (
+              <Skeleton height="28px" width="80px" />
+            ) : (
+              <Text
+                fontSize={{ base: "18px", md: "20px", xl: "24px" }}
+                fontWeight="semibold"
+                className="landing-page-new"
+                color="#fff"
+              >
+                {liquidity}
+              </Text>
+            )}
           </Box>
         </Flex>
 
-        {/*  <Divider borderColor="whiteAlpha.200" /> */}
-
         {/* BOTTOM METRICS */}
         <SimpleGrid columns={3} gap={3}>
-          <Metric img={upIcon} label="Supply APY" value={supplyApy} />
-          <Metric img={downIcon} label="Borrow APR" value={borrowApr} />
+          <Metric
+            img={upIcon}
+            label="Supply APY"
+            value={supplyApy}
+            isLoading={isLoading}
+          />
+          <Metric
+            img={downIcon}
+            label="Borrow APR"
+            value={borrowApr}
+            isLoading={isLoading}
+          />
           <Metric
             img={percentageIcon}
             label="Utilisation"
             value={utilisation}
+            isLoading={isLoading}
           />
         </SimpleGrid>
       </Stack>
@@ -280,10 +367,12 @@ const Metric = ({
   img,
   label,
   value,
+  isLoading,
 }: {
   img: string;
   label: string;
   value: string;
+  isLoading?: boolean;
 }) => (
   <VStack align="flex-start" gap={"15px"}>
     <Image src={img} h={"24px"} w={"24px"} />
@@ -296,15 +385,19 @@ const Metric = ({
     >
       {label}
     </Text>
-    <Text
-      fontSize={{ base: "18px", md: "20px", xl: "22px" }}
-      lineHeight={{ base: "18px", md: "20px", xl: "22px" }}
-      fontWeight="semibold"
-      className="landing-page-new"
-      color="#fff"
-    >
-      {value}
-    </Text>
+    {isLoading ? (
+      <Skeleton height="22px" width="60px" />
+    ) : (
+      <Text
+        fontSize={{ base: "18px", md: "20px", xl: "22px" }}
+        lineHeight={{ base: "18px", md: "20px", xl: "22px" }}
+        fontWeight="semibold"
+        className="landing-page-new"
+        color="#fff"
+      >
+        {value}
+      </Text>
+    )}
   </VStack>
 );
 
