@@ -384,3 +384,8 @@ tr:last-child > td {
   opacity: 1; /* you can lower this for subtle effect */
   pointer-events: none; /* so it doesn’t block clicks */
 }
+
+.login-page-connect-btn > div > button {
+  background: transparent !important;
+  color: #fff !important;
+}
