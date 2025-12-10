@@ -3,6 +3,7 @@ import { useAssetPrice } from "@/hooks/useAssetPrice";
 import { useChainConfig } from "@/hooks/useChainConfig";
 import { useProtocolReserveData } from "@/hooks/useProtocolReserveData";
 import { useReserveLiquidity } from "@/hooks/useReserveLiquidity";
+import { ROUTES } from "@/routes/paths";
 import {
   Box,
   Button,
@@ -19,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 import logoImg from "../../assets/images/login-logo-img.png";
 import downIcon from "../../assets/images/login/down-arrow.png";
@@ -133,13 +134,16 @@ const Login = () => {
           borderBottom={"1px solid #D7EBF4"}
           mb={{ base: "15px", md: "25px" }}
         >
-          <Image
-            src={logoImg}
-            alt="logo-img"
-            maxW={"146px"}
-            w={"100%"}
-            mx={"auto"}
-          />
+          <NavLink to={ROUTES.HOME}>
+            <Image
+              src={logoImg}
+              alt="logo-img"
+              maxW={"146px"}
+              w={"100%"}
+              mx={"auto"}
+              cursor="pointer"
+            />
+          </NavLink>
         </Box>
         <Flex
           align="center"

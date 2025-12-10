@@ -4,7 +4,7 @@ import { Box, Flex, IconButton, Switch, Text } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { LuSettings } from "react-icons/lu";
 import { NavLink } from "react-router";
-import creditify from "src/assets/images/creditify.svg";
+import creditify from "src/assets/images/creditify logo light.svg";
 import { useAccount, useSwitchChain } from "wagmi";
 import { xdc, xdcTestnet } from "wagmi/chains";
 
@@ -36,7 +36,7 @@ const Header = () => {
           px={"20px"}
         >
           <NavLink to={ROUTES.HOME}>
-            <Box width={{ base: "100px", md: "120px" }} cursor="pointer">
+            <Box width={{ base: "160px", md: "170px" }} cursor="pointer">
               <img src={creditify} alt="Creditify Logo" />
             </Box>
           </NavLink>

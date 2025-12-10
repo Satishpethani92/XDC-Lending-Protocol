@@ -1,4 +1,5 @@
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { PublicRoute } from "@/components/PublicRoute";
 import AssetDetails from "@/pages/asset/AssetDetails";
 import Dashboard from "@/pages/Dashboard";
 import Documentation from "@/pages/Documentation";
@@ -20,7 +21,14 @@ export const routes = (
         </ProtectedRoute>
       }
     />
-    <Route path="login" element={<Login />} />
+    <Route
+      path="login"
+      element={
+        <PublicRoute>
+          <Login />
+        </PublicRoute>
+      }
+    />
     <Route
       path="history"
       element={
