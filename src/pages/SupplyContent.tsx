@@ -18,15 +18,15 @@ import { useUserReserveData } from "@/hooks/useUserReserveData";
 import { useWithdraw } from "@/hooks/useWithdraw";
 import { buildAssetDetailsRoute } from "@/routes/paths";
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Skeleton,
-  Switch,
-  Table,
+    Box,
+    Button,
+    Flex,
+    Heading,
+    Icon,
+    Image,
+    Skeleton,
+    Switch,
+    Table,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -64,7 +64,7 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
   const [isWithdrawModal, setIsWithdrawModal] = useState<boolean>(false);
   const [isWithdrawDoneModal, setIsWithdrawDoneModal] =
     useState<boolean>(false);
-  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(true);
+  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(false);
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [isGatewayApproved, setIsGatewayApproved] = useState<boolean>(false);
   const [gatewayApprovalHash, setGatewayApprovalHash] = useState<
@@ -653,7 +653,7 @@ const SupplyContent: React.FC<SupplyContentProps> = ({ initialOpenToken }) => {
           onClose={() => {
             setIsWithdrawModal(false);
             setAmount("");
-            setUnwrapToNative(true);
+            setUnwrapToNative(false);
             setIsGatewayApproved(false);
           }}
           tokenSymbol={selectedToken}

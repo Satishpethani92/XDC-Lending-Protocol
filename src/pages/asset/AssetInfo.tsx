@@ -1,8 +1,8 @@
 import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { formatUsdValue, formatValue } from "@/helpers/formatValue";
 import {
-  NATIVE_TOKEN_ADDRESS,
-  useAllWalletBalances,
+    NATIVE_TOKEN_ADDRESS,
+    useAllWalletBalances,
 } from "@/hooks/useAllWalletBalances";
 import { useAssetPrice } from "@/hooks/useAssetPrice";
 import { useBorrow } from "@/hooks/useBorrow";
@@ -43,7 +43,7 @@ const AssetInfo: React.FC<Props> = ({ token = "xdc" }) => {
   const [isBorrowModal, setIsBorrowModal] = useState<boolean>(false);
   const [isBorrowDoneModal, setIsBorrowDoneModal] = useState<boolean>(false);
   const [isApproved, setIsApproved] = useState<boolean>(false);
-  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(true);
+  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(false);
   const [isDelegationApproved, setIsDelegationApproved] =
     useState<boolean>(false);
   const { address } = useAccount();

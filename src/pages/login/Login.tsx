@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { getTokenLogo } from "@/config/tokenLogos";
 import { useAssetPrice } from "@/hooks/useAssetPrice";
 import { useChainConfig } from "@/hooks/useChainConfig";
@@ -6,7 +7,6 @@ import { useReserveLiquidity } from "@/hooks/useReserveLiquidity";
 import { ROUTES } from "@/routes/paths";
 import {
   Box,
-  Button,
   Container,
   Flex,
   Heading,
@@ -16,7 +16,7 @@ import {
   Skeleton,
   Stack,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect } from "react";
@@ -129,8 +129,8 @@ const Login = () => {
   ];
 
   return (
-    <Box py={{ base: "20px", md: "30px" }} minH="100vh" bg={"#fff"}>
-      <Container maxW="1280px" px={{ base: "15px", md: "25px" }}>
+    <Box display="flex" flexDirection="column" minH="100vh" bg={"#fff"}>
+      <Container maxW="1280px" px={{ base: "15px", md: "25px" }} py={{ base: "20px", md: "30px" }}>
         {/* MARKET OVERVIEW TITLE */}
         <Box
           pb={{ base: "15px", md: "20px" }}
@@ -224,23 +224,12 @@ const Login = () => {
             borrowing, &amp; managing your positions on the xdc network
           </Text>
 
-          <Button
-            fontSize={"14px"}
-            fontWeight={"normal"}
-            px={"10px"}
-            className="font-general-sans login-page-connect-btn"
-            borderRadius="4px"
-            bg="#262836"
-            color="white"
-            _hover={{ bg: "#020617" }}
-          >
-            <ConnectButton
-              label="Connect Wallet"
-              chainStatus="none"
-              showBalance={false}
-              accountStatus="address"
-            />
-          </Button>
+          <ConnectButton
+            label="Connect Wallet"
+            chainStatus="none"
+            showBalance={false}
+            accountStatus="address"
+          />
 
           <Text
             fontSize="16px"
@@ -252,6 +241,9 @@ const Login = () => {
           </Text>
         </VStack>
       </Container>
+      <Box mt="auto">
+        <Footer />
+      </Box>
     </Box>
   );
 };

@@ -16,14 +16,14 @@ import { useUserAccountData } from "@/hooks/useUserAccountData";
 import { useUserReserveData } from "@/hooks/useUserReserveData";
 import { buildAssetDetailsRoute } from "@/routes/paths";
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Skeleton,
-  Table,
+    Box,
+    Button,
+    Flex,
+    Heading,
+    Icon,
+    Image,
+    Skeleton,
+    Table,
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -58,7 +58,7 @@ function BorrowContent({ initialOpenToken }: BorrowContentProps) {
   const [isBorrowDoneModal, setIsBorrowDoneModal] = useState<boolean>(false);
   const [isRepayModal, setIsRepayModal] = useState<boolean>(false);
   const [isRepayDoneModal, setIsRepayDoneModal] = useState<boolean>(false);
-  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(true);
+  const [unwrapToNative, setUnwrapToNative] = useState<boolean>(false);
   const [useNativeForRepay, setUseNativeForRepay] = useState<boolean>(false);
   const [isRepayApproved, setIsRepayApproved] = useState<boolean>(false);
   const [isDelegationApproved, setIsDelegationApproved] =
