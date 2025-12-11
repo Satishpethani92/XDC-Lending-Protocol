@@ -6,18 +6,18 @@ import { useChainConfig } from "@/hooks/useChainConfig";
 import Header from "@/pages/Header";
 import { ROUTES } from "@/routes/paths";
 import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Menu,
-  Portal,
-  Spinner,
-  Tabs,
-  useBreakpointValue,
+    Box,
+    Button,
+    Container,
+    Flex,
+    Heading,
+    Icon,
+    Image,
+    Menu,
+    Portal,
+    Spinner,
+    Tabs,
+    useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
@@ -72,14 +72,14 @@ const AssetDetails = () => {
     }
 
     try {
-      // Try to add with symbol and image first
+      // Don't provide symbol - let MetaMask read it from the contract
+      // This avoids symbol mismatch errors with debt tokens
       const result = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
           options: {
             address: address as `0x${string}`,
-            symbol: symbol,
             decimals: decimals,
             image: tokenInfo.icon,
           },
@@ -88,29 +88,10 @@ const AssetDetails = () => {
       console.log("Add token result:", result);
     } catch (error: any) {
       console.error("Failed to add token to wallet:", error);
-
-      // If symbol mismatch, try without symbol (let wallet read from contract)
-      if (error?.code === -32602) {
-        try {
-          const result = await window.ethereum.request({
-            method: "wallet_watchAsset",
-            params: {
-              type: "ERC20",
-              options: {
-                address: address as `0x${string}`,
-                decimals: decimals,
-              },
-            },
-          });
-          console.log("Add token result (retry):", result);
-        } catch (retryError) {
-          console.error("Retry also failed:", retryError);
-          alert(
-            "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
-              address
-          );
-        }
-      }
+      alert(
+        "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
+          address
+      );
     }
   };
 

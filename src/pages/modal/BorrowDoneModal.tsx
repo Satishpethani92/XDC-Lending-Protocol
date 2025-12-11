@@ -1,13 +1,13 @@
 import {
-  Box,
-  Button,
-  Dialog,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Portal,
-  Text,
+    Box,
+    Button,
+    Dialog,
+    Flex,
+    Heading,
+    HStack,
+    Icon,
+    Portal,
+    Text,
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa6";
 import { FiExternalLink } from "react-icons/fi";
@@ -91,14 +91,14 @@ const BorrowDoneModal: React.FC<Props> = ({
     }
 
     try {
-      // Try to add with shortened symbol first (MetaMask has 11 char limit)
+      // Don't provide symbol - let MetaMask read it from the contract
+      // This avoids symbol mismatch errors
       const result = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
           options: {
             address: debtToken.address,
-            symbol: debtToken.symbol, // Use shortened symbol
             decimals: debtToken.decimals,
           },
         },
@@ -106,29 +106,10 @@ const BorrowDoneModal: React.FC<Props> = ({
       console.log("Add debt token result:", result);
     } catch (error: any) {
       console.error("Failed to add token to wallet:", error);
-
-      // If symbol mismatch, try without symbol (let wallet read from contract)
-      if (error?.code === -32602) {
-        try {
-          const result = await window.ethereum.request({
-            method: "wallet_watchAsset",
-            params: {
-              type: "ERC20",
-              options: {
-                address: debtToken.address,
-                decimals: debtToken.decimals,
-              },
-            },
-          });
-          console.log("Add debt token result (retry):", result);
-        } catch (retryError) {
-          console.error("Retry also failed:", retryError);
-          alert(
-            "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
-              debtToken.address
-          );
-        }
-      }
+      alert(
+        "Unable to add token to wallet automatically. Please add it manually using the contract address: " +
+          debtToken.address
+      );
     }
   };
   return (

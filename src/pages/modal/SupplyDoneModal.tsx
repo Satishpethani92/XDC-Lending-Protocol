@@ -1,13 +1,13 @@
 import {
-  Box,
-  Button,
-  Dialog,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  Portal,
-  Text,
+    Box,
+    Button,
+    Dialog,
+    Flex,
+    Heading,
+    HStack,
+    Icon,
+    Portal,
+    Text,
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa6";
 import { FiExternalLink } from "react-icons/fi";
@@ -91,14 +91,14 @@ const SupplyDoneModal: React.FC<Props> = ({
     }
 
     try {
-      // Explicitly provide symbol and decimals to avoid reading corrupted data from contract
+      // Don't provide symbol - let MetaMask read it from the contract
+      // This avoids symbol mismatch errors
       const result = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
           options: {
             address: cTokenData.address,
-            symbol: cTokenData.symbol,
             decimals: cTokenData.decimals,
           },
         },

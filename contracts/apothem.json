@@ -43,5 +43,11 @@
   "uiPoolDataProvider": "0x7812c7F9bc852F906799C5688ea1379A6C68DDBB",
   "variableDebtToken": "0xd7ff9A36228bb7b25fda3b2B1033E9718cCF23d2",
   "walletBalanceProvider": "0x6166e3dC0868Ba4E01eeE2f8c445de6559435918",
-  "wrappedTokenGateway": "0x0ad04f6B7e93179A6bd37C4b726A16F6f6e44473"
+  "wrappedTokenGateway": "0x0ad04f6B7e93179A6bd37C4b726A16F6f6e44473",
+  "wxdcCToken": "0xbd07f8C047bf90b1291806Af1E19a84e831f4133",
+  "wxdcVariableDebtToken": "0x969cC8D4994231509f63E94F24f9da6f361ea3F6",
+  "usdcCToken": "0xe175454c650314251f2d02694bC0F66dA3F32698",
+  "usdcVariableDebtToken": "0xf015b5E101BD0751f1a6e22a5c6E4e521927a300",
+  "cgoCToken": "0xE4Ef0f153Fc63B5065013FaD1b204F9E67c5520B",
+  "cgoVariableDebtToken": "0x83aA950f4e997d240A8ae1B4158F5a379B294CE7"
 }

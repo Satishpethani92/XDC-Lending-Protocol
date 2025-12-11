@@ -14,10 +14,12 @@ const RPC_XDC_MAINNET =
   import.meta.env.VITE_RPC_XDC_MAINNET || "https://rpc.xinfin.network";
 const RPC_XDC_APOTHEM =
   import.meta.env.VITE_RPC_XDC_APOTHEM || "https://rpc.apothem.network";
+const WALLET_CONNECT_PROJECT_ID =
+  import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || "YOUR_PROJECT_ID";
 
 export const config = getDefaultConfig({
   appName: "Creditify",
-  projectId: "YOUR_PROJECT_ID",
+  projectId: WALLET_CONNECT_PROJECT_ID,
   chains: [xdc, xdcTestnet],
 
   transports: {
