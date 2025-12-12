@@ -1,8 +1,8 @@
 import FormattedCounter from "@/components/ui/Counter/FormattedCounter";
 import { formatUsdValue, formatValue } from "@/helpers/formatValue";
 import {
-    NATIVE_TOKEN_ADDRESS,
-    useAllWalletBalances,
+  NATIVE_TOKEN_ADDRESS,
+  useAllWalletBalances,
 } from "@/hooks/useAllWalletBalances";
 import { useAssetPrice } from "@/hooks/useAssetPrice";
 import { useBorrow } from "@/hooks/useBorrow";

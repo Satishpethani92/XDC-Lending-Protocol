@@ -1,13 +1,13 @@
 import {
-    Box,
-    Button,
-    Dialog,
-    Flex,
-    Heading,
-    HStack,
-    Icon,
-    Portal,
-    Text,
+  Box,
+  Button,
+  Dialog,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Portal,
+  Text,
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa6";
 import { FiExternalLink } from "react-icons/fi";

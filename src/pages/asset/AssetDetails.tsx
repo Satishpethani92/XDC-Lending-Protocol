@@ -6,18 +6,18 @@ import { useChainConfig } from "@/hooks/useChainConfig";
 import Header from "@/pages/Header";
 import { ROUTES } from "@/routes/paths";
 import {
-    Box,
-    Button,
-    Container,
-    Flex,
-    Heading,
-    Icon,
-    Image,
-    Menu,
-    Portal,
-    Spinner,
-    Tabs,
-    useBreakpointValue,
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Icon,
+  Image,
+  Menu,
+  Portal,
+  Spinner,
+  Tabs,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FiExternalLink } from "react-icons/fi";

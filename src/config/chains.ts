@@ -130,21 +130,24 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
         symbol: "WXDC",
         decimals: 18,
         cToken: apothemContracts.wxdcCToken as `0x${string}`,
-        variableDebtToken: apothemContracts.wxdcVariableDebtToken as `0x${string}`,
+        variableDebtToken:
+          apothemContracts.wxdcVariableDebtToken as `0x${string}`,
       },
       usdc: {
         address: "0xE899E6C96dD269E1ea613F0B95dCB6411A510eca",
         symbol: "USDC",
         decimals: 6,
         cToken: apothemContracts.usdcCToken as `0x${string}`,
-        variableDebtToken: apothemContracts.usdcVariableDebtToken as `0x${string}`,
+        variableDebtToken:
+          apothemContracts.usdcVariableDebtToken as `0x${string}`,
       },
       cgo: {
         address: "0x394Dbd36Bf533cD4769FDc121EAb73A6f8Ad5040",
         symbol: "CGO",
         decimals: 18,
         cToken: apothemContracts.cgoCToken as `0x${string}`,
-        variableDebtToken: apothemContracts.cgoVariableDebtToken as `0x${string}`,
+        variableDebtToken:
+          apothemContracts.cgoVariableDebtToken as `0x${string}`,
       },
     },
     network: {

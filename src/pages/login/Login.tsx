@@ -16,7 +16,7 @@ import {
   Skeleton,
   Stack,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect } from "react";
@@ -130,7 +130,11 @@ const Login = () => {
 
   return (
     <Box display="flex" flexDirection="column" minH="100vh" bg={"#fff"}>
-      <Container maxW="1280px" px={{ base: "15px", md: "25px" }} py={{ base: "20px", md: "30px" }}>
+      <Container
+        maxW="1280px"
+        px={{ base: "15px", md: "25px" }}
+        py={{ base: "20px", md: "30px" }}
+      >
         {/* MARKET OVERVIEW TITLE */}
         <Box
           pb={{ base: "15px", md: "20px" }}

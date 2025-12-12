@@ -37,6 +37,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: true,
       retry: 1,
       staleTime: 5000,
+      refetchInterval: 10000,
     },
   },
 });
